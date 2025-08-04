@@ -354,14 +354,11 @@ const TokenDistribution = () => {
         {/* Token Distribution Network Image */}
         <div className="flex flex-col items-center mt-16">
           <img
-            src="/assets/Images/Token-Distribution.png"
+            src="/assets/Images/Token-Distribution-removebg.png"
             alt="The Digital Securities Distribution Network"
-            className="max-w-full h-auto rounded-xl shadow-lg border border-gray-100"
-            style={{ background: 'white' }}
+            className="max-w-full h-auto rounded-xl bg-green-50 shadow-lg border border-gray-100"
+            // style={{ background: 'white' }}
           />
-          <span className="mt-6 text-lg font-semibold text-gray-400 text-center">
-            The Digital Securities Distribution Network
-          </span>
         </div>
       </div>
     </section>
@@ -375,29 +372,29 @@ const IssuerDashboard = () => {
       title: 'Real-Time Analytics',
       description: 'Monitor token performance, holder activity, and market metrics in real-time.',
       icon: BarChart3,
-      bgClass: 'bg-blue-100',
-      iconClass: 'text-blue-600'
+      bgClass: 'bg-white',
+      iconClass: 'text-blue-500'
     },
     {
       title: 'Investor Management',
       description: 'Comprehensive investor database with KYC status and communication tools.',
       icon: Users,
-      bgClass: 'bg-green-100',
-      iconClass: 'text-green-600'
+      bgClass: 'bg-white',
+      iconClass: 'text-blue-500'
     },
     {
       title: 'Compliance Monitoring',
       description: 'Automated compliance tracking and regulatory reporting capabilities.',
       icon: Shield,
-      bgClass: 'bg-purple-100',
-      iconClass: 'text-purple-600'
+      bgClass: 'bg-white',
+      iconClass: 'text-blue-500'
     },
     {
       title: 'Distribution Controls',
       description: 'Manage token distributions, dividends, and revenue sharing automatically.',
       icon: Settings,
-      bgClass: 'bg-orange-100',
-      iconClass: 'text-orange-600'
+      bgClass: 'bg-white',
+      iconClass: 'text-blue-500'
     }
   ];
 
@@ -427,9 +424,9 @@ const IssuerDashboard = () => {
           {/* Features List */}
           <div className="space-y-6">
             {dashboardFeatures.map((feature, index) => (
-              <div key={index} className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+              <div key={index} className="bg-green-50 rounded-2xl p-6 shadow-sm border border-gray-200">
                 <div className="flex items-start">
-                  <div className={`p-3 rounded-lg mr-4 ${feature.bgClass}`}>
+                  <div className={`p-3 border border-blue-100 rounded-2xl mr-4 ${feature.bgClass}`}>
                     <feature.icon className={`h-6 w-6 ${feature.iconClass}`} />
                   </div>
                   <div>
@@ -565,7 +562,7 @@ const InvestorManagement = () => {
   );
 };
 
-// Security Protocols Section Component
+// Security Protocols Section Component - Restructured
 const SecurityProtocols = () => {
   const securityFeatures = [
     {
@@ -606,36 +603,35 @@ const SecurityProtocols = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          {securityFeatures.map((feature, index) => (
-            <div key={index} className="bg-white rounded-2xl p-8 shadow-lg">
-              <div className="flex items-center mb-6">
-                <div className="p-3 bg-green-100 rounded-lg mr-4">
-                  <feature.icon className="h-8 w-8 text-green-600" />
-                </div>
-                <div>
-                  <h3 className="brand-card-title text-green-800">{feature.title}</h3>
-                  <span className="inline-flex items-center px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium mt-1">
-                    {feature.level}
-                  </span>
+        <div className="grid lg:grid-cols-2 gap-8">
+          {/* Features List - Left Side */}
+          <div className="space-y-6">
+            {securityFeatures.map((feature, index) => (
+              <div key={index} className="bg-green-50 rounded-2xl p-6 shadow-sm border border-gray-200">
+                <div className="flex items-start">
+                  <div className="p-3 bg-white border border-blue-100 rounded-2xl mr-4">
+                    <feature.icon className="h-6 w-6 text-blue-500" />
+                  </div>
+                  <div>
+                    <h4 className="brand-card-title text-black mb-2">{feature.title}</h4>
+                    <span className="inline-flex items-center px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium mb-2">
+                      {feature.level}
+                    </span>
+                    <p className="text-gray-600">{feature.description}</p>
+                  </div>
                 </div>
               </div>
-              <p className="text-green-700">{feature.description}</p>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
 
-        {/* Token Issuance Compliance Image */}
-        <div className="flex flex-col items-center mt-16">
-          <img
-            src="/assets/Images/token-issuence.png"
-            alt="Token Issuance Compliance Rules"
-            className="max-w-xs h-auto rounded-xl shadow-lg border border-gray-100"
-            style={{ background: 'white' }}
-          />
-          <span className="mt-6 text-lg font-semibold text-green-400 text-center">
-            Compliance & Transfer Rules for Security Tokens
-          </span>
+          {/* Token Issuance Compliance Image - Right Side */}
+          <div className="flex items-center justify-center bg-green-50 rounded-2xl border border-gray-200 shadow-lg p-6 min-h-[400px]">
+            <img
+              src="/assets/Images/token-issuence-removebg.png"
+              alt="Token Issuance Compliance Rules"
+              className="max-w-full h-auto rounded-xl"
+            />
+          </div>
         </div>
       </div>
     </section>
