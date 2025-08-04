@@ -99,13 +99,13 @@ const Hero = () => {
           </div>
 
           {/* Right Content - Lottie Animation */}
-          <div className="flex items-start justify-center overflow-hidden">
+          <div className="flex items-start justify-center -mt-32 md:-mt-0 overflow-hidden">
             <Player
               ref={playerRef}
               autoplay
               loop={false}
               keepLastFrame={true}
-              src="/assets/lottie/crypto animation/crypto animation.json"
+              src="/assets/lottie/crypto animation-2/crypto animation-2.json"
               style={{ height: '500px', width: '500px' }}
               onEvent={(event) => {
                 if (event === 'complete') {

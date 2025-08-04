@@ -84,7 +84,7 @@ export default function Hero() {
 
           {/* Right Content */}
           {/* Dashboard Lottie Animation */}
-          <div className="flex items-center justify-center p-6 min-h-[400px]">
+          <div className="flex items-center -mt-28 md:mt-0 justify-center p-6 min-h-[400px]">
             <Player
               ref={playerRef}
               autoplay
