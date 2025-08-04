@@ -1,8 +1,17 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { ArrowRight, Play } from 'lucide-react';
 import { Player } from '@lottiefiles/react-lottie-player';
 
 export default function Hero() {
+  const playerRef = useRef(null);
+
+  // Handle animation completion - stop at final frame
+  const handleComplete = () => {
+    if (playerRef.current) {
+      playerRef.current.pause();
+    }
+  };
+
   return (
     <section className="relative pt-12 pb-16 overflow-hidden w-full">
       {/* Background Pattern */}
@@ -37,7 +46,6 @@ export default function Hero() {
               <span className="text-[#15a36e]">Assets</span>
             </h1>
 
-
             <p className="text-lg brand-description text-gray-600 leading-relaxed mb-6 max-w-xl mx-auto lg:mx-0">
               Secure, AI-enhanced marketplace powered by Crossmint and Fireblocks.
             </p>
@@ -57,8 +65,6 @@ export default function Hero() {
               </button>
             </div>
 
-
-
             {/* Stats */}
             <div className="flex items-center justify-center lg:justify-start space-x-8 mt-10 text-sm text-gray-500">
               <div>
@@ -77,17 +83,22 @@ export default function Hero() {
           </div>
 
           {/* Right Content */}
-
           {/* Dashboard Lottie Animation */}
           <div className="flex items-center justify-center p-6 min-h-[400px]">
             <Player
+              ref={playerRef}
               autoplay
-              loop
+              loop={false}
+              keepLastFrame={true}
               src="/assets/lottie/Online Business/Online Business.json"
               style={{ height: '400px', width: '100%' }}
+              onEvent={(event) => {
+                if (event === 'complete') {
+                  handleComplete();
+                }
+              }}
             />
           </div>
-
         </div>
       </div>
     </section>

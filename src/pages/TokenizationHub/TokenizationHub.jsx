@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import CreateAssetModal from "./tokenizationDemo.jsx";
 import { createTheme, ThemeProvider as BWThemeProvider } from '@mui/material/styles';
 import { Box } from '@mui/material';
@@ -34,8 +34,16 @@ import {
   ChevronUp
 } from 'lucide-react';
 
-// Hero Section Component
 const Hero = () => {
+  const playerRef = useRef(null);
+
+  // Handle animation completion - stop at final frame
+  const handleComplete = () => {
+    if (playerRef.current) {
+      playerRef.current.pause();
+    }
+  };
+
   return (
     <section className="relative  py-12 lg:py-20 overflow-hidden">
       {/* Background Pattern */}
@@ -93,10 +101,17 @@ const Hero = () => {
           {/* Right Content - Lottie Animation */}
           <div className="flex items-start justify-center overflow-hidden">
             <Player
+              ref={playerRef}
               autoplay
-              loop
+              loop={false}
+              keepLastFrame={true}
               src="/assets/lottie/crypto animation/crypto animation.json"
               style={{ height: '500px', width: '500px' }}
+              onEvent={(event) => {
+                if (event === 'complete') {
+                  handleComplete();
+                }
+              }}
             />
           </div>
         </div>
