@@ -1,0 +1,35 @@
+html {
+  scroll-behavior: smooth;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .brand-title {
+    @apply text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight;
+  }
+
+
+  .brand-section-title {
+    @apply text-4xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight;
+  }
+
+  .brand-card-title {
+    @apply text-xl font-semibold;
+  }
+
+  .brand-description {
+    @apply text-xl text-gray-600 leading-relaxed;
+  }
+
+  .btn-gradient {
+    @apply inline-flex items-center justify-center h-12 px-8 text-white font-semibold text-base rounded-full bg-[#255f99] hover:bg-[#1e4c80] transition-all duration-200;
+  }
+
+
+  .btn-gradient-secondary {
+    @apply inline-flex items-center justify-center h-12 px-8 text-white font-semibold text-base rounded-full bg-gray-500 hover:bg-gray-600 transition-all duration-200;
+  }
+}
