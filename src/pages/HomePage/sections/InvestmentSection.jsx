@@ -242,9 +242,9 @@ const RealEstateInvestmentSection = () => {
             </radialGradient>
             
             {/* 3D shadow filter */}
-            <filter id="coinShadow" x="-50%" y="-50%" width="200%" height="200%">
+            {/* <filter id="coinShadow" x="-50%" y="-50%" width="200%" height="200%">
               <feDropShadow dx="12" dy="16" stdDeviation="12" floodColor="#000000" floodOpacity="0.4"/>
-            </filter>
+            </filter> */}
             
             {/* Enhanced 3D emboss filter */}
             <filter id="embossFilter" x="-50%" y="-50%" width="200%" height="200%">
