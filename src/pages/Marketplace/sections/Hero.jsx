@@ -66,7 +66,7 @@ export default function Hero() {
             </div>
 
             {/* Stats */}
-            <div className="flex items-center justify-center lg:justify-start space-x-8 mt-10 text-sm text-gray-500">
+            {/* <div className="flex items-center justify-center lg:justify-start space-x-8 mt-10 text-sm text-gray-500">
               <div>
                 <div className="font-semibold text-black text-lg">500K+</div>
                 <div>Active Users</div>
@@ -79,12 +79,12 @@ export default function Hero() {
                 <div className="font-semibold text-black text-lg">15.2%</div>
                 <div>Avg. Returns</div>
               </div>
-            </div>
+            </div> */}
           </div>
 
           {/* Right Content */}
           {/* Dashboard Lottie Animation */}
-          <div className="flex items-start justify-center -mt-32 md:-mt-0 overflow-hidden">
+          <div className="flex items-start justify-center -mt-28 md:-mt-0 overflow-hidden">
             <Player
               ref={playerRef}
               autoplay
