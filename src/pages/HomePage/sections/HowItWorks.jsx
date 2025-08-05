@@ -63,7 +63,7 @@ export default function HowItWorks() {
             </div>
 
             {/* Tab Navigation */}
-            <div className="flex space-x-1 bg-gray-100 p-1 rounded-xl w-fit">
+            <div className="flex space-x-1 bg-gray-100 p-1 rounded-xl w-fit mx-auto lg:mx-0">
               {[
                 { id: 'business', label: 'Asset Owners' },
                 { id: 'individual', label: 'Investors' }
