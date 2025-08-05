@@ -13,7 +13,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative pt-12 pb-16 overflow-hidden w-full">
+    <section className="relative pt-6 md:pt-4 pb-16 overflow-hidden w-full">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5 pointer-events-none">
         <svg className="w-full h-full" viewBox="0 0 1000 1000" fill="none">
@@ -84,14 +84,14 @@ export default function Hero() {
 
           {/* Right Content */}
           {/* Dashboard Lottie Animation */}
-          <div className="flex items-center -mt-28 md:mt-0 justify-center p-6 min-h-[400px]">
+          <div className="flex items-start justify-center -mt-32 md:-mt-0 overflow-hidden">
             <Player
               ref={playerRef}
               autoplay
               loop={false}
               keepLastFrame={true}
               src="/assets/lottie/Online Business/Online Business.json"
-              style={{ height: '400px', width: '100%' }}
+              style={{ height: '500px', width: '500px' }}
               onEvent={(event) => {
                 if (event === 'complete') {
                   handleComplete();

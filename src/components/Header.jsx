@@ -8,6 +8,9 @@ export default function Header() {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [mobileDropdowns, setMobileDropdowns] = useState({});
   const location = useLocation();
+  
+  // Check if we're on the agent page
+  const isAgentPage = location.pathname === "/agent";
 
   // Helper function to toggle mobile dropdowns
   const toggleMobileDropdown = (navItem) => {
@@ -341,7 +344,7 @@ export default function Header() {
   return (
     <>
       {/* Modern Clean Header */}
-      <header className="absolute top-2 inset-x-0 z-50 flex justify-center pointer-events-none">
+      <header className={`absolute top-2 inset-x-0 z-50 flex justify-center pointer-events-none ${isAgentPage ? 'bg-black/95 backdrop-blur-md rounded-2xl mx-4' : ''}`}>
         {/* Main header container */}
         <div className="w-[98%] max-w-7xl pointer-events-auto px-4 sm:px-6 md:px-8 py-3 md:py-4">
           
@@ -350,7 +353,7 @@ export default function Header() {
             {/* Logo Only */}
             <Link to="/" className="flex items-center">
               <img
-                src="/assets/copym/png/Copym-01-1.png"
+                src={isAgentPage ? "/assets/copym/png/Copym-02-1.png" : "/assets/copym/png/Copym-01-1.png"}
                 alt="COPYM"
                 className="h-12 w-auto object-contain sm:h-14 md:h-16"
               />
@@ -366,8 +369,10 @@ export default function Header() {
                   onMouseLeave={() => setActiveDropdown(null)}
                 >
                   <motion.button 
-                    className={`flex items-center space-x-2 px-4 py-2 font-medium text-gray-700 hover:text-teal-600 transition-colors duration-200 rounded-lg ${
-                      activeDropdown === navItem ? 'text-teal-600 bg-teal-50' : ''
+                    className={`flex items-center space-x-2 px-4 py-2 font-medium transition-colors duration-200 rounded-lg ${
+                      isAgentPage 
+                        ? `text-white hover:text-green-400 ${activeDropdown === navItem ? 'text-green-400 bg-green-400/20' : ''}`
+                        : `text-gray-700 hover:text-teal-600 ${activeDropdown === navItem ? 'text-teal-600 bg-teal-50' : ''}`
                     }`}
                     whileHover={{ y: -1 }}
                     transition={{ duration: 0.2 }}
@@ -379,7 +384,7 @@ export default function Header() {
                       }}
                       transition={{ duration: 0.3, ease: "easeInOut" }}
                     >
-                      <ChevronDown className="w-4 h-4 text-teal-600" />
+                      <ChevronDown className={`w-4 h-4 ${isAgentPage ? 'text-green-400' : 'text-teal-600'}`} />
                     </motion.div>
                   </motion.button>
                 </div>
@@ -388,7 +393,11 @@ export default function Header() {
 
             {/* Mobile Toggle */}
             <button
-              className="md:hidden text-gray-700 hover:text-teal-600 transition-colors duration-200 p-2 -m-2 rounded-lg hover:bg-gray-100"
+              className={`md:hidden transition-colors duration-200 p-2 -m-2 rounded-lg ${
+                isAgentPage 
+                  ? 'text-white hover:text-green-400 hover:bg-green-400/20' 
+                  : 'text-gray-700 hover:text-teal-600 hover:bg-gray-100'
+              }`}
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}

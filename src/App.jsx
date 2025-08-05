@@ -19,7 +19,7 @@ function App() {
   return (
     <Box className="min-h-screen relative bg-blue-100 text-text-primary overflow-x-hidden">
       <ScrollToTop />
-      {location.pathname !== "/agent" && <Header />}
+      <Header />
       <main className="relative z-20 overflow-x-hidden">
         <Routes>
           <Route path="/" element={<HomePage />} />

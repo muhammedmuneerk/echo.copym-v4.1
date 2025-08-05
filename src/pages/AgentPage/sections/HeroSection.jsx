@@ -370,7 +370,7 @@ const HeroSection = () => {
       {/* Hero Section */}
       <section 
         id="hero" 
-        className="min-h-screen flex items-center justify-center text-center px-8 py-16 relative overflow-hidden"
+        className="min-h-screen flex items-center justify-center text-center px-8 mx-4 my-4 mt-8 md:mt-2  py-16 rounded-2xl relative overflow-hidden"
         style={{
           background: 'black'
         }}
