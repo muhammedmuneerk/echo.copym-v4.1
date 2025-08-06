@@ -22,7 +22,7 @@ export default function Roadmap() {
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <h1 className="brand-section-title text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight mb-6 bg-gradient-to-r from-[#15a36e] to-[#255f99] text-transparent bg-clip-text">
-              RWA Tokenization Roadmap
+              Discover the RWA Ecosystem
             </h1>
             <p className="brand-description text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
               Discover the complete journey for both issuers and investors in the RWA tokenization ecosystem. 
@@ -40,9 +40,14 @@ export default function Roadmap() {
               className="lg:pr-8 xl:pr-12"
             >
               <div className="text-center mb-20">
-                <h2 className="brand-section-title text-3xl lg:text-4xl font-extrabold tracking-tight leading-tight mb-4 bg-gradient-to-r from-[#15a36e] to-[#255f99] text-transparent bg-clip-text">
-                  🏢 Issuer Journey
-                </h2>
+                <div className="flex items-center justify-center mb-4">
+                  <svg className="w-8 h-8 mr-3 text-[#15a36e]" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10z"/>
+                  </svg>
+                  <h2 className="brand-section-title text-3xl lg:text-4xl font-extrabold tracking-tight leading-tight bg-gradient-to-r from-[#15a36e] to-[#255f99] text-transparent bg-clip-text">
+                    Issuer Journey
+                  </h2>
+                </div>
                 <p className="brand-description text-lg text-gray-600 max-w-2xl mx-auto">
                   Asset tokenization process for issuers looking to tokenize real-world assets
                 </p>
@@ -58,9 +63,14 @@ export default function Roadmap() {
               className="lg:pl-8 xl:pl-12"
             >
               <div className="text-center mb-20">
-                <h2 className="brand-section-title text-3xl lg:text-4xl font-extrabold tracking-tight leading-tight mb-4 bg-gradient-to-r from-[#15a36e] to-[#255f99] text-transparent bg-clip-text">
-                  💰 Investor Journey
-                </h2>
+                <div className="flex items-center justify-center mb-4">
+                  <svg className="w-8 h-8 mr-3 text-[#255f99]" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"/>
+                  </svg>
+                  <h2 className="brand-section-title text-3xl lg:text-4xl font-extrabold tracking-tight leading-tight bg-gradient-to-r from-[#15a36e] to-[#255f99] text-transparent bg-clip-text">
+                    Investor Journey
+                  </h2>
+                </div>
                 <p className="brand-description text-lg text-gray-600 max-w-2xl mx-auto">
                   Investment and trading process for investors looking to access RWA tokens
                 </p>
