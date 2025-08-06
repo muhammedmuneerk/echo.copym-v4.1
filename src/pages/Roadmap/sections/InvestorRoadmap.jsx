@@ -146,7 +146,8 @@ export default function InvestorRoadmap() {
         if (gsap && ScrollTrigger && roadmapRef.current && ballRef.current) {
           gsap.registerPlugin(ScrollTrigger);
 
-          const timelineHeight = roadmapRef.current.offsetHeight - 100;
+          // Calculate the actual timeline height based on content
+          const timelineHeight = (roadmapData.length - 1) * 320; // 320px per step (h-80 = 320px)
           
           ScrollTrigger.getAll().forEach(trigger => trigger.kill());
 
@@ -233,7 +234,9 @@ export default function InvestorRoadmap() {
         const rawProgress = (scrollStart - roadmapTop) / scrollEnd;
         const scrollProgress = Math.max(0, Math.min(1, rawProgress));
         
-        const ballY = scrollProgress * (roadmapHeight - 100);
+        // Calculate ball position based on actual timeline height
+        const timelineHeight = (roadmapData.length - 1) * 320;
+        const ballY = scrollProgress * timelineHeight;
         ballRef.current.style.transform = `translateX(-50%) translateY(${ballY}px)`;
         
         let currentSectionIndex;
@@ -337,31 +340,11 @@ export default function InvestorRoadmap() {
   return (
     <section className="py-20 lg:py-32 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        
-
-        {/* Header */}
-
-         <motion.div 
-          className="text-center mb-20"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          viewport={{ once: true }}
-        >
-          <h2 className="brand-section-title text-3xl lg:text-5xl font-light leading-tight  mb-6">
-            Investor Roadmap
-          </h2>
-          <p className="text-md text-gray-600 max-w-2xl mx-auto leading-relaxed">
-            Our journey to revolutionize real-world asset tokenization, bringing traditional finance 
-            into the decentralized future through innovative blockchain technology.
-          </p>
-        </motion.div>
-
         {/* Timeline Container */}
-        <div ref={roadmapRef} className="relative max-w-6xl mx-auto" style={{ minHeight: '200vh' }}>
+        <div ref={roadmapRef} className="relative max-w-6xl mx-auto">
           
           {/* Central Timeline Line */}
-          <div className="absolute left-1/2 top-0 w-1 h-full bg-gray-700 transform -translate-x-1/2 z-5">
+          <div className="absolute left-1/2 top-0 w-1 bg-gray-700 transform -translate-x-1/2 z-5" style={{ height: 'calc(100% - 40px)' }}>
             <div 
               ref={lineRef}
               className="w-full bg-gradient-to-b from-green-500 to-blue-500 origin-top"
@@ -443,7 +426,7 @@ export default function InvestorRoadmap() {
 
                     {/* Content Card with Glow Effect */}
                     <motion.div 
-                      className="bg-green-100 rounded-2xl p-6 border-2 transition-all duration-300 relative overflow-hidden"
+                      className="bg-blue-100 rounded-2xl p-6 border-2 transition-all duration-300 relative overflow-hidden"
                       style={{ 
                         color: activeSection === index ? item.ballColor : 'inherit',
                         borderColor: activeSection === index ? item.ballColor : 'rgba(75, 85, 99, 0.3)'
@@ -506,13 +489,12 @@ export default function InvestorRoadmap() {
 
                 {/* Timeline Dot */}
                 <motion.div 
-                  className={`absolute left-1/2 w-6 h-6 ${item.color} rounded-full transform -translate-x-1/2 z-20 border-4 border-gray-900`}
+                  className={`absolute left-1/2 w-6 h-6 ${item.color} rounded-full transform -translate-x-1/2 z-20`}
                   animate={{
                     scale: activeSection === index ? [1, 1.4, 1.2] : 1,
                     boxShadow: activeSection === index ? 
                       `0 0 25px ${item.ballColor}, 0 0 50px ${item.ballColor}60` : 
-                      `0 0 10px ${item.ballColor}40`,
-                    borderWidth: activeSection === index ? '2px' : '4px'
+                      `0 0 10px ${item.ballColor}40`
                   }}
                   transition={{ 
                     duration: 0.4,
@@ -523,25 +505,6 @@ export default function InvestorRoadmap() {
             ))}
           </motion.div>
         </div>
-
-        {/* Bottom CTA */}
-        <motion.div 
-          className="text-center mt-20"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          viewport={{ once: true }}
-        >
-          <motion.button 
-            className="inline-flex items-center justify-center px-6 py-2.5 font-semibold text-white btn-gradient"
-            whileHover={{ 
-              scale: 1.05,
-            }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Join the RWA Revolution
-          </motion.button>
-        </motion.div>
       </div>
     </section>
   );
