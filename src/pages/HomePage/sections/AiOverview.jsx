@@ -10,6 +10,7 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
 import { Box, Typography, IconButton, Tooltip } from '@mui/material';
 import { motion, AnimatePresence, useMotionValue, useTransform } from 'framer-motion';
+import { Player } from '@lottiefiles/react-lottie-player';
 
 const features = [
     {
@@ -162,10 +163,12 @@ const AiOverview = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-y-8 sm:gap-y-12 gap-x-16 items-center">
           {/* Left Column: Advanced Interactive Circle Dial */}
           <div className="relative flex items-center mb-20 md:mb-0 -mt-8 md:-mt-16 justify-center h-[320px] sm:h-[380px] lg:h-[500px]">
-            
             {/* Outer Progress Ring */}
             <div className="absolute w-[260px] h-[260px] sm:w-[340px] sm:h-[340px] lg:w-[380px] lg:h-[380px] rounded-full z-1">
-              <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+              <svg
+                className="w-full h-full transform -rotate-90"
+                viewBox="0 0 100 100"
+              >
                 {/* Background circle */}
                 <circle
                   cx="50"
@@ -187,7 +190,9 @@ const AiOverview = () => {
                   strokeDasharray="301.59"
                   strokeDashoffset={301.59 - (301.59 * progress) / 100}
                   initial={{ strokeDashoffset: 301.59 }}
-                  animate={{ strokeDashoffset: 301.59 - (301.59 * progress) / 100 }}
+                  animate={{
+                    strokeDashoffset: 301.59 - (301.59 * progress) / 100,
+                  }}
                   transition={{ duration: 0.1 }}
                   opacity={isPlaying ? 1 : 0.5}
                 />
@@ -195,7 +200,7 @@ const AiOverview = () => {
             </div>
 
             {/* Central Enhanced Glassmorphism Card */}
-            <motion.div 
+            <motion.div
               className="absolute w-28 h-28 sm:w-44 sm:h-44 lg:w-44 lg:h-44 flex flex-col items-center justify-center text-center z-20 rounded-full shadow-2xl p-3 sm:p-4 backdrop-blur-lg border border-white/20"
               style={{
                 background: `linear-gradient(135deg, ${currentFeature.color}15, ${currentFeature.color}25, rgba(255,255,255,0.1))`,
@@ -215,34 +220,37 @@ const AiOverview = () => {
                   initial={{ opacity: 0, scale: 0.8, rotateY: -90 }}
                   animate={{ opacity: 1, scale: 1, rotateY: 0 }}
                   exit={{ opacity: 0, scale: 0.8, rotateY: 90 }}
-                  transition={{ duration: 0.5, ease: 'easeInOut' }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
                   className="flex flex-col items-center"
                 >
                   {/* Feature icon with pulsing effect */}
                   <motion.div
-                    animate={{ 
+                    animate={{
                       scale: [1, 1.1, 1],
-                      rotate: [0, 5, -5, 0]
+                      rotate: [0, 5, -5, 0],
                     }}
-                    transition={{ 
-                      duration: 3, 
-                      repeat: Infinity, 
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
                       ease: "easeInOut",
-                      delay: Math.random() * 2
+                      delay: Math.random() * 2,
                     }}
                     className="mb-2 sm:mb-3"
                   >
                     {currentFeature.icon}
                   </motion.div>
-                  
+
                   <Typography
                     component="h3"
                     className="font-bold text-gray-800 mb-2"
-                    sx={{ fontSize: { xs: '0.875rem', sm: '1rem', md: '1.125rem' }, lineHeight: 1.2 }}
+                    sx={{
+                      fontSize: { xs: "0.875rem", sm: "1rem", md: "1.125rem" },
+                      lineHeight: 1.2,
+                    }}
                   >
                     {currentFeature.title}
                   </Typography>
-                  
+
                   {/* <Typography
                     className="text-gray-600 text-center"
                     sx={{ fontSize: { xs: '0.65rem', sm: '0.7rem', md: '0.8rem' }, lineHeight: 1.3 }}
@@ -257,19 +265,22 @@ const AiOverview = () => {
             <motion.div
               className="absolute w-full h-full"
               animate={{ rotate: rotationAngle }}
-              transition={{ 
-                type: 'spring', 
-                stiffness: 120, 
+              transition={{
+                type: "spring",
+                stiffness: 120,
                 damping: 25,
-                mass: 1
+                mass: 1,
               }}
               style={{
-                filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.1))'
+                filter: "drop-shadow(0 4px 8px rgba(0,0,0,0.1))",
               }}
             >
               {features.map((feature, index) => {
-                const isMobile = typeof window !== 'undefined' && window.innerWidth < 1024;
-                const radius = isMobile ? CIRCLE_RADIUS_MOBILE : CIRCLE_RADIUS_DESKTOP;
+                const isMobile =
+                  typeof window !== "undefined" && window.innerWidth < 1024;
+                const radius = isMobile
+                  ? CIRCLE_RADIUS_MOBILE
+                  : CIRCLE_RADIUS_DESKTOP;
                 const angleRad = (index / features.length) * 2 * Math.PI;
                 const x = radius * Math.cos(angleRad);
                 const y = radius * Math.sin(angleRad);
@@ -279,24 +290,24 @@ const AiOverview = () => {
                   <motion.div
                     key={feature.title}
                     className="absolute top-1/2 left-1/2 cursor-pointer group"
-                    style={{ x: '-50%', y: '-50%' }}
+                    style={{ x: "-50%", y: "-50%" }}
                     onClick={() => handleFeatureClick(index)}
-                    animate={{ 
-                      x: `calc(-50% + ${x}px)`, 
-                      y: `calc(-50% + ${y}px)` 
+                    animate={{
+                      x: `calc(-50% + ${x}px)`,
+                      y: `calc(-50% + ${y}px)`,
                     }}
                     whileHover={{ scale: 1.05, z: 10 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    <Tooltip 
-                      title={feature.title} 
+                    <Tooltip
+                      title={feature.title}
                       placement="top"
                       arrow
                       componentsProps={{
                         tooltip: {
                           sx: {
                             bgcolor: feature.color,
-                            '& .MuiTooltip-arrow': {
+                            "& .MuiTooltip-arrow": {
                               color: feature.color,
                             },
                           },
@@ -309,11 +320,11 @@ const AiOverview = () => {
                           rotate: -rotationAngle,
                           scale: isActive ? 1.5 : 1,
                         }}
-                        transition={{ 
-                          type: 'spring', 
-                          stiffness: 300, 
+                        transition={{
+                          type: "spring",
+                          stiffness: 300,
                           damping: 20,
-                          scale: { duration: 0.3 }
+                          scale: { duration: 0.3 },
                         }}
                       >
                         {/* Ripple effect for active item */}
@@ -322,30 +333,32 @@ const AiOverview = () => {
                             className="absolute inset-0 rounded-full"
                             style={{ background: feature.color }}
                             initial={{ scale: 1, opacity: 0.6 }}
-                            animate={{ 
-                              scale: [1, 1.8, 1], 
-                              opacity: [0.6, 0, 0.6] 
+                            animate={{
+                              scale: [1, 1.8, 1],
+                              opacity: [0.6, 0, 0.6],
                             }}
-                            transition={{ 
-                              duration: 2, 
-                              repeat: Infinity, 
-                              ease: "easeInOut" 
+                            transition={{
+                              duration: 2,
+                              repeat: Infinity,
+                              ease: "easeInOut",
                             }}
                           />
                         )}
-                        
+
                         {/* Enhanced icon container with gradient background */}
                         <Box
                           className={`w-12 h-12 sm:w-16 sm:h-16 lg:w-18 lg:h-18 rounded-full flex items-center justify-center transition-all duration-300 relative overflow-hidden`}
                           sx={{
-                            background: isActive 
-                              ? `linear-gradient(135deg, ${feature.color}, ${feature.color}dd)` 
-                              : 'linear-gradient(135deg, #ffffff, #f8f9fa)',
+                            background: isActive
+                              ? `linear-gradient(135deg, ${feature.color}, ${feature.color}dd)`
+                              : "linear-gradient(135deg, #ffffff, #f8f9fa)",
                             boxShadow: isActive
                               ? `0 8px 32px ${feature.color}40, 0 4px 16px ${feature.color}30`
-                              : '0px 4px 16px rgba(0, 0, 0, 0.1)',
+                              : "0px 4px 16px rgba(0, 0, 0, 0.1)",
                             zIndex: isActive ? 15 : 5,
-                            border: isActive ? `2px solid ${feature.color}` : '2px solid transparent',
+                            border: isActive
+                              ? `2px solid ${feature.color}`
+                              : "2px solid transparent",
                           }}
                         >
                           {/* Animated background for active state */}
@@ -353,34 +366,52 @@ const AiOverview = () => {
                             <motion.div
                               className="absolute inset-0 rounded-full opacity-20"
                               style={{ background: feature.color }}
-                              animate={{ 
+                              animate={{
                                 scale: [1, 1.2, 1],
-                                opacity: [0.2, 0.4, 0.2]
+                                opacity: [0.2, 0.4, 0.2],
                               }}
-                              transition={{ 
-                                duration: 1.5, 
-                                repeat: Infinity, 
-                                ease: "easeInOut" 
+                              transition={{
+                                duration: 1.5,
+                                repeat: Infinity,
+                                ease: "easeInOut",
                               }}
                             />
                           )}
-                          
+
                           <motion.div
-                            animate={isActive ? { 
-                              scale: [1, 1.1, 1],
-                              // rotate: [0, 360]
-                            } : {}}
-                            transition={isActive ? { 
-                              scale: { duration: 2, repeat: Infinity, ease: "easeInOut" },
-                              rotate: { duration: 8, repeat: Infinity, ease: "linear" }
-                            } : {}}
+                            animate={
+                              isActive
+                                ? {
+                                    scale: [1, 1.1, 1],
+                                    // rotate: [0, 360]
+                                  }
+                                : {}
+                            }
+                            transition={
+                              isActive
+                                ? {
+                                    scale: {
+                                      duration: 2,
+                                      repeat: Infinity,
+                                      ease: "easeInOut",
+                                    },
+                                    rotate: {
+                                      duration: 8,
+                                      repeat: Infinity,
+                                      ease: "linear",
+                                    },
+                                  }
+                                : {}
+                            }
                           >
                             {React.cloneElement(feature.icon, {
-                              sx: { 
-                                fontSize: { xs: 24, md: 28 }, 
-                                color: isActive ? 'white' : feature.color,
-                                filter: isActive ? 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))' : 'none'
-                              }
+                              sx: {
+                                fontSize: { xs: 24, md: 28 },
+                                color: isActive ? "white" : feature.color,
+                                filter: isActive
+                                  ? "drop-shadow(0 2px 4px rgba(0,0,0,0.2))"
+                                  : "none",
+                              },
                             })}
                           </motion.div>
                         </Box>
@@ -390,40 +421,28 @@ const AiOverview = () => {
                 );
               })}
             </motion.div>
-
-
           </div>
 
           {/* Right Column: Enhanced Image with Parallax */}
-          <motion.div 
-            className="lg:flex items-center -mt-20 md:-mt-16 justify-center"
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <motion.img
-              src="/assets/svg/iq.svg"
-              alt="AI Ecosystem Diagram"
-              style={{ height: 'auto', width: '100%',  }}
-              className="mx-auto lg:mx-0 lg:h-[550px] lg:w-auto filter drop-shadow-2xl"
-              whileHover={{ 
-                scale: 1.05,
-                rotate: [0, 1, -1, 0],
-                transition: { duration: 0.5 }
-              }}
+          <div className="flex items-center -mt-24 md:-mt-16 justify-center w-full">
+            <Player
+              autoplay
+              loop
+              src="/assets/lottie/ai-random/ai-random.json"
+              className='h-[320px] sm:h-[380px] lg:h-[400px] w-[400px]'
             />
-          </motion.div>
+          </div>
         </div>
 
         {/* Enhanced CTA Button */}
-        <motion.div 
+        <motion.div
           className="text-center mt-12 sm:mt-16 md:-mt-20"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          <Link 
-            to="/agent" 
+          <Link
+            to="/agent"
             className="text-white  px-auto py-auto font-semibold btn-gradient text-sm sm:text-base rounded-full transition-all duration-300 hover:scale-105 hover:shadow-2xl transform"
           >
             Explore Our AI Agent
