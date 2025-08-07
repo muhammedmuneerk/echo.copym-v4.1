@@ -447,9 +447,9 @@ export default function RWARoadmap() {
                     </AnimatePresence>
                   </div>
 
-                  {/* Timeline Dot */}
+                  {/* Timeline Dot - Hidden on mobile to prevent overlap with scrolling ball */}
                   <motion.div 
-                    className={`absolute left-4 sm:left-6 w-4 h-4 sm:w-6 sm:h-6 ${item.color} rounded-full transform -translate-x-1/2 z-20`}
+                    className={`absolute left-4 sm:left-6 w-4 h-4 sm:w-6 sm:h-6 ${item.color} rounded-full transform -translate-x-1/2 z-20 hidden lg:block`}
                     style={{ top: '2rem' }}
                     animate={{
                       scale: activeSection === index ? [1, 1.4, 1.2] : 1,
@@ -613,20 +613,7 @@ export default function RWARoadmap() {
                   </motion.div>
                 </div>
 
-                {/* Timeline Dot */}
-                <motion.div 
-                  className={`absolute left-1/2 w-6 h-6 ${item.color} rounded-full transform -translate-x-1/2 z-20`}
-                  animate={{
-                    scale: activeSection === index ? [1, 1.4, 1.2] : 1,
-                    boxShadow: activeSection === index ? 
-                      `0 0 25px ${item.ballColor}, 0 0 50px ${item.ballColor}60` : 
-                      `0 0 10px ${item.ballColor}40`
-                  }}
-                  transition={{ 
-                    duration: 0.4,
-                    ease: "easeOut"
-                  }}
-                />
+                {/* Timeline Dot - Removed to prevent overlap with scrolling ball */}
               </div>
             ))}
           </motion.div>
