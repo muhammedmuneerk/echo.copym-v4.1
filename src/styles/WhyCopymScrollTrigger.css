@@ -1,3 +1,4 @@
+/* Desktop ScrollTrigger styles */
 .why-copym-wrapper {
   width: 100%;
   height: 100vh;
@@ -125,12 +126,43 @@
   display: none; /* Chrome, Safari, Opera */
 }
 
+/* Mobile-specific styles */
 @media (max-width: 768px) {
+  /* Reset all the desktop scrolltrigger styles for mobile */
+  .why-copym-wrapper {
+    height: auto;
+    position: static;
+  }
+
+  .why-copym-container {
+    height: auto;
+    overflow: visible;
+    position: static;
+  }
+
+  .why-copym-content {
+    display: block;
+    position: static;
+  }
+
+  .why-copym-content .why-copym-section {
+    flex: none;
+    min-height: auto;
+    height: auto;
+    display: block;
+    overflow: visible;
+    padding: 2rem 0;
+    margin-bottom: 2rem;
+  }
+
+  .why-copym-section > div {
+    min-height: auto;
+    height: auto;
+    padding: 0;
+  }
+
   .why-copym-buttons {
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
-    margin-top: 10px;
+    display: none; /* Hide navigation buttons on mobile */
   }
 
   .section-btn {
@@ -138,8 +170,39 @@
     font-size: 14px;
   }
 
-  .why-copym-content .why-copym-section {
-    min-height: 100vh;
-    padding: 20px 0;
+  /* Ensure proper spacing between sections on mobile */
+  .why-copym-section:not(:last-child) {
+    margin-bottom: 4rem;
   }
-} 
+
+  /* Add visual separation between sections */
+  .why-copym-section:not(:last-child)::after {
+    content: '';
+    display: block;
+    width: 100px;
+    height: 2px;
+    background: linear-gradient(90deg, #255f99, #15a36e);
+    margin: 3rem auto;
+    border-radius: 1px;
+  }
+}
+
+/* Additional responsive improvements */
+@media (max-width: 480px) {
+  .why-copym-section {
+    padding: 1rem 0;
+  }
+
+  .why-copym-section .max-w-7xl {
+    padding: 0 1rem;
+  }
+
+  .why-copym-section:not(:last-child) {
+    margin-bottom: 3rem;
+  }
+
+  .why-copym-section:not(:last-child)::after {
+    width: 80px;
+    margin: 2rem auto;
+  }
+}

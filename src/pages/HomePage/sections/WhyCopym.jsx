@@ -15,8 +15,30 @@ const WhyCopymSection = () => {
   const section2Ref = useRef(null);
   const section3Ref = useRef(null);
   const [isInitialized, setIsInitialized] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if device is mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      const mobile = window.innerWidth <= 768;
+      setIsMobile(mobile);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
 
   useEffect(() => {
+    // Only initialize ScrollTrigger on desktop
+    if (isMobile) {
+      setIsInitialized(true);
+      return;
+    }
+
     // Register GSAP plugins
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -59,7 +81,7 @@ const WhyCopymSection = () => {
             end: `+=${totalScrollDistance}`,
             pin: true,
             scrub: 1,
-            markers: false, // Disabled debug markers
+            markers: false,
             onEnter: () => console.log("ScrollTrigger entered"),
             onLeave: () => console.log("ScrollTrigger left"),
             onEnterBack: () => console.log("ScrollTrigger entered back"),
@@ -129,8 +151,41 @@ const WhyCopymSection = () => {
       clearTimeout(timeoutId);
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
-  }, []);
+  }, [isMobile]);
 
+  // Mobile layout - normal stacked sections
+  if (isMobile) {
+    return (
+      <section className="w-full px-6 py-12">
+        <div className="max-w-7xl mx-auto text-center mb-20">
+          <h2 className="text-4xl md:text-5xl brand-title text-[#255f99] relative inline-block">
+            Why Copym?
+            <span className="block w-24 h-1 bg-green-600 mt-4 mx-auto rounded-full"></span>
+          </h2>
+        </div>
+
+        {/* Mobile: Normal stacked sections */}
+        <div className="space-y-16">
+          {/* Section 1: AI Overview */}
+          <div className="w-full">
+            <AiOverview />
+          </div>
+
+          {/* Section 2: Security Features */}
+          <div className="w-full">
+            <SecurityFeaturesSection />
+          </div>
+
+          {/* Section 3: Technology Stack */}
+          <div className="w-full">
+            <TechnologyStackSection />
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // Desktop layout - GSAP ScrollTrigger horizontal scroll
   return (
     <section className="w-full px-6 py-12">
       <div className="max-w-7xl mx-auto text-center mb-20">
@@ -140,7 +195,7 @@ const WhyCopymSection = () => {
         </h2>
       </div>
 
-      {/* GSAP ScrollTrigger Container */}
+      {/* Desktop: GSAP ScrollTrigger Container */}
       <div ref={wrapperRef} className="why-copym-wrapper">
         <div ref={containerRef} className="why-copym-container">
           <div ref={contentRef} className="why-copym-content">
@@ -161,8 +216,6 @@ const WhyCopymSection = () => {
           </div>
         </div>
       </div>
-
-
     </section>
   );
 };
