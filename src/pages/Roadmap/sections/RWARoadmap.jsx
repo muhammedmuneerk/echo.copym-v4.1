@@ -146,7 +146,8 @@ export default function RWARoadmap() {
         if (gsap && ScrollTrigger && roadmapRef.current && ballRef.current) {
           gsap.registerPlugin(ScrollTrigger);
 
-          const timelineHeight = roadmapRef.current.offsetHeight - 100;
+          // Calculate the actual timeline height based on content
+          const timelineHeight = (roadmapData.length - 1) * 320; // 320px per step (h-80 = 320px)
           
           ScrollTrigger.getAll().forEach(trigger => trigger.kill());
 
@@ -216,7 +217,7 @@ export default function RWARoadmap() {
     };
   }, []);
 
-  // Fallback scroll animation
+  // Fallback scroll animation for all devices
   useEffect(() => {
     const handleScroll = () => {
       if (!roadmapRef.current || !ballRef.current) return;
@@ -233,8 +234,17 @@ export default function RWARoadmap() {
         const rawProgress = (scrollStart - roadmapTop) / scrollEnd;
         const scrollProgress = Math.max(0, Math.min(1, rawProgress));
         
-        const ballY = scrollProgress * (roadmapHeight - 100);
+        // Calculate ball position based on actual timeline height
+        const timelineHeight = (roadmapData.length - 1) * 320;
+        const ballY = scrollProgress * timelineHeight;
+        
+        // Apply transform for both mobile and desktop
+        const isMobile = window.innerWidth < 1024; // lg breakpoint
+        if (isMobile) {
+          ballRef.current.style.transform = `translateX(-50%) translateY(${ballY}px)`;
+        } else {
         ballRef.current.style.transform = `translateX(-50%) translateY(${ballY}px)`;
+        }
         
         let currentSectionIndex;
         if (scrollProgress <= 0.1) {
@@ -335,49 +345,136 @@ export default function RWARoadmap() {
   };
 
   return (
-    <section className="py-20 lg:py-32 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        
+    <section className="py-8 sm:py-12 md:py-16 lg:py-20 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Mobile: Vertical Timeline with Timeline Elements */}
+        <div className="block lg:hidden">
+          <div className="relative">
+            {/* Mobile Timeline Line */}
+            <div className="absolute left-4 sm:left-6 top-0 w-1 bg-gray-700 z-5" style={{ height: '100%' }}>
+              <div 
+                ref={lineRef}
+                className="w-full bg-gradient-to-b from-blue-500 to-green-500 origin-top"
+                style={{ height: '100%' }}
+              />
+            </div>
 
-        {/* Header */}
-        <motion.div 
-          className="text-center mb-20"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          viewport={{ once: true }}
-        >
-          <h2 className="brand-section-title text-4xl lg:text-6xl font-light leading-tight mb-6 ">
-            RWA Roadmap
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Our journey to revolutionize real-world asset tokenization, bringing traditional finance 
-            into the decentralized future through innovative blockchain technology.
-          </p>
-        </motion.div>
+            {/* Mobile Scrolling Ball */}
+            <motion.div 
+              ref={ballRef}
+              className="absolute left-4 sm:left-6 top-0 w-6 h-6 sm:w-8 sm:h-8 bg-blue-500 rounded-full z-30 transform -translate-x-1/2"
+              style={{
+                boxShadow: '0 0 30px #3B82F6, 0 0 60px #3B82F640'
+              }}
+              animate={{
+                scale: [1, 1.2, 1],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            >
+              <div className="absolute inset-1 bg-white rounded-full opacity-40"></div>
+              <div className="absolute inset-2 bg-white rounded-full opacity-60"></div>
+            </motion.div>
 
+            <div className="space-y-6 sm:space-y-8 ml-12 sm:ml-16">
+              {roadmapData.map((item, index) => (
+                <motion.div
+                  key={item.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  className="relative"
+                >
+                  {/* Mobile Card with Timeline Elements */}
+                  <div className="bg-blue-100 rounded-2xl p-4 sm:p-6 border-2 border-gray-300 relative overflow-hidden">
+                    {/* Horizontal Connector Line */}
+                    <motion.div 
+                      className="absolute left-0 top-6 sm:top-8 w-8 sm:w-12 h-0.5 bg-gray-600 transform -translate-x-full"
+                      animate={{
+                        backgroundColor: activeSection === index ? item.ballColor : '#4B5563',
+                        boxShadow: activeSection === index ? `0 0 10px ${item.ballColor}` : '0 0 0 transparent'
+                      }}
+                      transition={{ duration: 0.3 }}
+                    />
 
-         <motion.div 
-          className="text-center mb-20"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          viewport={{ once: true }}
-        >
-          <h2 className="brand-section-title text-3xl lg:text-5xl font-light leading-tight mb-6">
-            Issuer Roadmap
-          </h2>
-          <p className="text-md text-gray-600 max-w-2xl mx-auto leading-relaxed">
-            Our journey to revolutionize real-world asset tokenization, bringing traditional finance 
-            into the decentralized future through innovative blockchain technology.
-          </p>
-        </motion.div>
+                    {/* Step Badge */}
+                    <div className={`inline-block px-3 sm:px-4 py-1 sm:py-2 rounded-full text-xs sm:text-sm font-bold text-white mb-3 sm:mb-4 ${item.color}`}>
+                      {item.quarter}
+                    </div>
 
+                    {/* Title */}
+                    <h3 className="text-lg sm:text-xl font-bold text-black mb-3 sm:mb-4">{item.title}</h3>
+                    
+                    {/* Items List */}
+                    <ul className="space-y-2 sm:space-y-3">
+                      {item.items.map((feature, idx) => (
+                        <motion.li 
+                          key={idx}
+                          className="text-gray-600 text-sm sm:text-base flex items-start"
+                          initial={{ opacity: 0, x: -10 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          transition={{ delay: idx * 0.1, duration: 0.3 }}
+                        >
+                          <span className="text-blue-400 mr-2 sm:mr-3 mt-1 flex-shrink-0">—</span>
+                          <span>{feature}</span>
+                        </motion.li>
+                      ))}
+                    </ul>
+
+                    {/* Glow Effect */}
+                    <AnimatePresence>
+                      {activeSection === index && (
+                        <motion.div
+                          className="absolute inset-0 rounded-2xl pointer-events-none"
+                          style={{
+                            background: `linear-gradient(45deg, ${item.ballColor}10, transparent, ${item.ballColor}10)`,
+                          }}
+                          initial={{ opacity: 0 }}
+                          animate={{ 
+                            opacity: [0.3, 0.6, 0.3],
+                          }}
+                          exit={{ opacity: 0 }}
+                          transition={{ 
+                            duration: 2, 
+                            repeat: Infinity, 
+                            ease: "easeInOut" 
+                          }}
+                        />
+                      )}
+                    </AnimatePresence>
+                  </div>
+
+                  {/* Timeline Dot */}
+                  <motion.div 
+                    className={`absolute left-4 sm:left-6 w-4 h-4 sm:w-6 sm:h-6 ${item.color} rounded-full transform -translate-x-1/2 z-20`}
+                    style={{ top: '2rem' }}
+                    animate={{
+                      scale: activeSection === index ? [1, 1.4, 1.2] : 1,
+                      boxShadow: activeSection === index ? 
+                        `0 0 25px ${item.ballColor}, 0 0 50px ${item.ballColor}60` : 
+                        `0 0 10px ${item.ballColor}40`
+                    }}
+                    transition={{ 
+                      duration: 0.4,
+                      ease: "easeOut"
+                    }}
+                  />
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Desktop: Horizontal Timeline */}
+        <div className="hidden lg:block">
         {/* Timeline Container */}
-        <div ref={roadmapRef} className="relative max-w-6xl mx-auto" style={{ minHeight: '200vh' }}>
+        <div ref={roadmapRef} className="relative max-w-6xl mx-auto">
           
           {/* Central Timeline Line */}
-          <div className="absolute left-1/2 top-0 w-1 h-full bg-gray-700 transform -translate-x-1/2 z-5">
+          <div className="absolute left-1/2 top-0 w-1 bg-gray-700 transform -translate-x-1/2 z-5" style={{ height: 'calc(100% - 40px)' }}>
             <div 
               ref={lineRef}
               className="w-full bg-gradient-to-b from-blue-500 to-green-500 origin-top"
@@ -448,9 +545,6 @@ export default function RWARoadmap() {
                       className={`inline-block px-4 py-2 rounded-full text-sm font-bold text-white mb-4 ${item.color}`}
                       animate={{
                         scale: activeSection === index ? 1.1 : 1,
-                        // boxShadow: activeSection === index ? 
-                        //   `0 0 20px ${item.ballColor}, 0 0 40px ${item.ballColor}40` : 
-                        //   '0 4px 6px rgba(0,0,0,0.1)'
                       }}
                       transition={{ duration: 0.3 }}
                     >
@@ -464,7 +558,6 @@ export default function RWARoadmap() {
                         color: activeSection === index ? item.ballColor : 'inherit',
                         borderColor: activeSection === index ? item.ballColor : 'rgba(75, 85, 99, 0.3)'
                       }}
-                      // variants={glowVariants}
                       animate={activeSection === index ? "active" : "inactive"}
                     >
                       {/* Glow overlay */}
@@ -496,7 +589,7 @@ export default function RWARoadmap() {
                           {item.items.map((feature, idx) => (
                             <motion.li 
                               key={idx}
-                              className="text-gray-300 flex items-start"
+                                className="text-gray-600 flex items-start"
                               animate={{
                                 color: activeSection === index ? '#000' : '#000000ff',
                                 x: activeSection === index ? 5 : 0
@@ -522,13 +615,12 @@ export default function RWARoadmap() {
 
                 {/* Timeline Dot */}
                 <motion.div 
-                  className={`absolute left-1/2 w-6 h-6 ${item.color} rounded-full transform -translate-x-1/2 z-20 border-4 border-gray-900`}
+                  className={`absolute left-1/2 w-6 h-6 ${item.color} rounded-full transform -translate-x-1/2 z-20`}
                   animate={{
                     scale: activeSection === index ? [1, 1.4, 1.2] : 1,
                     boxShadow: activeSection === index ? 
                       `0 0 25px ${item.ballColor}, 0 0 50px ${item.ballColor}60` : 
-                      `0 0 10px ${item.ballColor}40`,
-                    borderWidth: activeSection === index ? '2px' : '4px'
+                      `0 0 10px ${item.ballColor}40`
                   }}
                   transition={{ 
                     duration: 0.4,
@@ -538,27 +630,8 @@ export default function RWARoadmap() {
               </div>
             ))}
           </motion.div>
+          </div>
         </div>
-
-        {/* Bottom CTA */}
-        <motion.div 
-          className="text-center mt-20"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          viewport={{ once: true }}
-        >
-          <motion.button 
-            className="inline-flex items-center justify-center px-6 py-2.5 font-semibold text-white btn-gradient"
-            whileHover={{ 
-              scale: 1.05,
-              boxShadow: "0 10px 30px rgba(59, 130, 246, 0.3)"
-            }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Join the RWA Revolution
-          </motion.button>
-        </motion.div>
       </div>
     </section>
   );
