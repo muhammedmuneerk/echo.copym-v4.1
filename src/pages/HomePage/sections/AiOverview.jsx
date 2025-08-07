@@ -145,8 +145,8 @@ const AiOverview = () => {
   const currentFeature = features[activeIndex];
 
   return (
-    <section className="w-full px-4 sm:px-6 py-12 sm:py-20  overflow-hidden">
-      <div className="max-w-7xl mx-auto">
+    <div className="w-full px-4 sm:px-6 py-12 sm:py-20 overflow-hidden h-full flex items-center">
+      <div className="max-w-7xl mx-auto w-full">
         {/* Header */}
         <div className="text-center mb-8 sm:mb-16">
           <h2 className="brand-section-title text-center mb-3 sm:mb-4 bg-clip-text text-2xl sm:text-3xl lg:text-5xl">
@@ -161,7 +161,7 @@ const AiOverview = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-y-8 sm:gap-y-12 gap-x-16 items-center">
           {/* Left Column: Advanced Interactive Circle Dial */}
-          <div className="relative flex items-center mb-20 md:mb-0 justify-center h-[320px] sm:h-[380px] lg:h-[500px]">
+          <div className="relative flex items-center mb-20 md:mb-0 -mt-8 md:-mt-16 justify-center h-[320px] sm:h-[380px] lg:h-[500px]">
             
             {/* Outer Progress Ring */}
             <div className="absolute w-[260px] h-[260px] sm:w-[340px] sm:h-[340px] lg:w-[380px] lg:h-[380px] rounded-full z-1">
@@ -396,7 +396,7 @@ const AiOverview = () => {
 
           {/* Right Column: Enhanced Image with Parallax */}
           <motion.div 
-            className="lg:flex items-center justify-center"
+            className="lg:flex items-center -mt-20 md:-mt-16 justify-center"
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
@@ -417,7 +417,7 @@ const AiOverview = () => {
 
         {/* Enhanced CTA Button */}
         <motion.div 
-          className="text-center mt-12 sm:mt-16"
+          className="text-center mt-12 sm:mt-16 md:-mt-20"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
@@ -430,7 +430,7 @@ const AiOverview = () => {
           </Link>
         </motion.div>
       </div>
-    </section>
+    </div>
   );
 };
 

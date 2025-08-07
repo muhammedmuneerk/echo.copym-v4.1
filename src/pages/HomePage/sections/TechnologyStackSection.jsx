@@ -156,15 +156,15 @@ const TechnologyStackSection = () => {
   const currentFeature = features[activeIndex];
 
   return (
-    <section className="w-full px-4 sm:px-6 py-12 sm:py-16">
-      <div className="max-w-7xl mx-auto">
+    <div className="w-full px-4 sm:px-6 py-12 sm:py-16 h-full flex items-center">
+      <div className="max-w-7xl mx-auto w-full">
         {/* Section Header */}
         <div className="text-center mb-12 sm:mb-16">
-          <h2 className="brand-section-title text-center mb-4 bg-clip-text text-2xl sm:text-3xl lg:text-5xl">
+          <h2 className="brand-section-title text-center mb-3 sm:mb-4 bg-clip-text text-2xl sm:text-3xl lg:text-5xl">
             <span className="text-[#255f99]">Unified Access To All </span>
             <span className="text-[#15a36e]">Major Blockchains</span>
           </h2>
-          <p className="brand-description text-center text-gray-700 max-w-3xl mx-auto text-sm sm:text-base px-4">
+          <p className="brand-description text-center text-gray-700 max-w-3xl mx-auto px-4 sm:px-0 text-sm sm:text-base">
             Built for developers, institutions, and innovators. Our infrastructure
             is designed to be flexible, secure, and future-proof.
           </p>
@@ -173,7 +173,7 @@ const TechnologyStackSection = () => {
         {/* Two-Column Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-y-8 sm:gap-y-12 gap-x-16 items-center">
           {/* Left Column: Advanced Interactive Circle Dial */}
-          <div className="relative flex items-center mb-20 md:mb-0 justify-center h-[320px] sm:h-[380px] lg:h-[500px]">
+          <div className="relative flex items-center mb-20 md:mb-0 -mt-12 md:-mt-28 justify-center h-[320px] sm:h-[380px] lg:h-[500px]">
             
             {/* Outer Progress Ring */}
             <div className="absolute w-[260px] h-[260px] sm:w-[340px] sm:h-[340px] lg:w-[380px] lg:h-[380px] rounded-full z-1">
@@ -399,7 +399,7 @@ const TechnologyStackSection = () => {
           </div>
 
           {/* Right Column: Lottie animation */}
-          <div className="flex items-center justify-center w-full">
+          <div className="flex items-center -mt-24 md:-mt-28 justify-center w-full">
             <Player
               autoplay
               loop
@@ -412,7 +412,7 @@ const TechnologyStackSection = () => {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
