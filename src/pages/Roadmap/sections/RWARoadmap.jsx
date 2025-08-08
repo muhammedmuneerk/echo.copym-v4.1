@@ -148,8 +148,11 @@ export default function RWARoadmap() {
 
           // Calculate the actual timeline height based on content
           const timelineHeight = (roadmapData.length - 1) * 320; // 320px per step (h-80 = 320px)
-          
-          ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+
+          // Only kill ScrollTriggers associated with this component
+          ScrollTrigger.getAll()
+            .filter(trigger => trigger.vars && trigger.vars.trigger === roadmapRef.current)
+            .forEach(trigger => trigger.kill());
 
           gsap.fromTo(ballRef.current, 
             { y: 0 },
@@ -211,8 +214,11 @@ export default function RWARoadmap() {
     setTimeout(loadGSAP, 100);
 
     return () => {
-      if (window.ScrollTrigger) {
-        window.ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      if (window.ScrollTrigger && roadmapRef.current) {
+        window.ScrollTrigger
+          .getAll()
+          .filter(trigger => trigger.vars && trigger.vars.trigger === roadmapRef.current)
+          .forEach(trigger => trigger.kill());
       }
     };
   }, []);
@@ -349,9 +355,9 @@ export default function RWARoadmap() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Mobile: Vertical Timeline with Timeline Elements */}
         <div className="block lg:hidden">
-          <div className="relative">
+          <div ref={roadmapRef} className="relative">
             {/* Mobile Timeline Line */}
-            <div className="absolute left-4 sm:left-6 top-0 w-1 bg-gray-700 z-5" style={{ height: '100%' }}>
+            <div className="absolute left-4 sm:left-6 top-0 w-1 bg-gray-700 z-10" style={{ height: '100%' }}>
               <div 
                 ref={lineRef}
                 className="w-full bg-gradient-to-b from-blue-500 to-green-500 origin-top"
@@ -474,7 +480,7 @@ export default function RWARoadmap() {
         <div ref={roadmapRef} className="relative max-w-6xl mx-auto">
           
           {/* Central Timeline Line */}
-          <div className="absolute left-1/2 top-0 w-1 bg-gray-700 transform -translate-x-1/2 z-5" style={{ height: 'calc(100% - 40px)' }}>
+           <div className="absolute left-1/2 top-0 w-1 bg-gray-700 transform -translate-x-1/2 z-10" style={{ height: 'calc(100% - 40px)' }}>
             <div 
               ref={lineRef}
               className="w-full bg-gradient-to-b from-blue-500 to-green-500 origin-top"
