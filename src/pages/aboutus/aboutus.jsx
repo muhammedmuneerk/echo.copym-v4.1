@@ -83,7 +83,7 @@ const AboutUs = () => {
 
                     {/* Company History / Journey */}
                     <div className="mt-16">
-                        <h3 className="brand-card-title text-gray-900 mb-8">Our Journey</h3>
+                        <h3 className="brand-card-title text-gray-900 mb-8">From Vision to Reality</h3>
                         <div className="relative">
                             {/* Timeline line */}
                             <div className="absolute left-4 top-0 h-full w-0.5 bg-gradient-to-b from-[#255f99] to-[#15a36e]"></div>
@@ -95,7 +95,7 @@ const AboutUs = () => {
                                     </div>
                                     <div className="ml-12">
                                         <h4 className="text-lg font-semibold text-gray-900">2021</h4>
-                                        <p className="brand-description">COPYm founded with a vision to democratize asset ownership through blockchain technology.</p>
+                                        <p className="brand-description">Founded COPYm to revolutionize asset ownership through blockchain innovation.</p>
                                     </div>
                                 </div>
 
@@ -105,7 +105,7 @@ const AboutUs = () => {
                                     </div>
                                     <div className="ml-12">
                                         <h4 className="text-lg font-semibold text-gray-900">2022</h4>
-                                        <p className="brand-description">Launched our first real estate tokenization project in partnership with major property developers.</p>
+                                        <p className="brand-description">Pioneered real estate tokenization with flagship projects alongside industry-leading developers.</p>
                                     </div>
                                 </div>
 
@@ -115,7 +115,7 @@ const AboutUs = () => {
                                     </div>
                                     <div className="ml-12">
                                         <h4 className="text-lg font-semibold text-gray-900">2023</h4>
-                                        <p className="brand-description">Expanded to commodities and intellectual property tokenization, securing strategic partnerships.</p>
+                                        <p className="brand-description">Expanded into commodities and IP tokenization, securing strategic enterprise partnerships.</p>
                                     </div>
                                 </div>
 
@@ -125,7 +125,7 @@ const AboutUs = () => {
                                     </div>
                                     <div className="ml-12">
                                         <h4 className="text-lg font-semibold text-gray-900">2024</h4>
-                                        <p className="brand-description">Reached $500M in tokenized assets across 15 countries with over 10,000 platform users.</p>
+                                        <p className="brand-description">Scaled to $500M in tokenized assets across 15 countries, empowering 10,000+ users.</p>
                                     </div>
                                 </div>
 
@@ -135,7 +135,7 @@ const AboutUs = () => {
                                     </div>
                                     <div className="ml-12">
                                         <h4 className="text-lg font-semibold text-gray-900">2025</h4>
-                                        <p className="brand-description">Scaling globally with enhanced compliance tooling and multi-chain support.</p>
+                                        <p className="brand-description">Accelerating global expansion with enterprise-grade compliance and multi-chain infrastructure.</p>
                                     </div>
                                 </div>
                             </div>
@@ -146,8 +146,8 @@ const AboutUs = () => {
                     <div className="mt-16">
                         <h3 className="brand-card-title text-gray-900 mb-8">Meet Our Leadership</h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                            <div className="bg-gray-50 rounded-xl p-6">
-                                <div className="h-24 w-24 rounded-full bg-indigo-100 mb-4 flex items-center justify-center">
+                            <div className="bg-gray-50 rounded-xl p-6 text-center">
+                                <div className="h-24 w-24 rounded-full bg-indigo-100 mb-4 flex items-center justify-center mx-auto">
                                     <span className="text-2xl font-bold text-indigo-600">JD</span>
                                 </div>
                                 <h4 className="text-lg font-semibold text-gray-900">Jane Doe</h4>
@@ -157,8 +157,8 @@ const AboutUs = () => {
                                 </p>
                             </div>
 
-                            <div className="bg-gray-50 rounded-xl p-6">
-                                <div className="h-24 w-24 rounded-full bg-indigo-100 mb-4 flex items-center justify-center">
+                            <div className="bg-gray-50 rounded-xl p-6 text-center">
+                                <div className="h-24 w-24 rounded-full bg-indigo-100 mb-4 flex items-center justify-center mx-auto">
                                     <span className="text-2xl font-bold text-indigo-600">AS</span>
                                 </div>
                                 <h4 className="text-lg font-semibold text-gray-900">Alex Smith</h4>
@@ -168,8 +168,8 @@ const AboutUs = () => {
                                 </p>
                             </div>
 
-                            <div className="bg-gray-50 rounded-xl p-6">
-                                <div className="h-24 w-24 rounded-full bg-indigo-100 mb-4 flex items-center justify-center">
+                            <div className="bg-gray-50 rounded-xl p-6 text-center">
+                                <div className="h-24 w-24 rounded-full bg-indigo-100 mb-4 flex items-center justify-center mx-auto">
                                     <span className="text-2xl font-bold text-indigo-600">MJ</span>
                                 </div>
                                 <h4 className="text-lg font-semibold text-gray-900">Maria Johnson</h4>
