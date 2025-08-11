@@ -13,6 +13,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import { Box } from "@mui/material";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Roadmap from './pages/Roadmap/Roadmap';
+import Launchkit from './pages/Launchkit/Launchkit';
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
           <Route path="/roadmap" element={<Roadmap />} />
           <Route path="/marketplace" element={<Marketplace />} />
           <Route path="/tokenization" element={<TokenizationHub />} />
+          <Route path="/launchkit" element={<Launchkit />} />
           <Route path="/agent" element={<AgentPage />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>

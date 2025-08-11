@@ -185,6 +185,7 @@ export default function Header() {
       {
         title: "LaunchKit",
         description: "Comprehensive tools for tokenizing and managing assets with smart contract deployment",
+        path: "/launchkit",
         visual: (
           <div className="w-full h-52 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg p-4 relative overflow-hidden">
             <div className="absolute top-3 left-3 text-sm text-blue-600 font-semibold">Asset Management</div>
