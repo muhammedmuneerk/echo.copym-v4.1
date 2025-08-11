@@ -94,22 +94,8 @@ const AboutUs = () => {
                                         <div className="h-3 w-3 rounded-full bg-[#15a36e]"></div>
                                     </div>
                                     <div className="ml-12">
-                                        <h4 className="text-lg font-semibold text-gray-900">2020</h4>
-                                        <p className="brand-description">
-                                            COPYm founded with a vision to democratize asset ownership through blockchain technology.
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div className="relative flex items-start">
-                                    <div className="absolute left-0 h-8 w-8 rounded-full bg-[#255f99] flex items-center justify-center">
-                                        <div className="h-3 w-3 rounded-full bg-[#15a36e]"></div>
-                                    </div>
-                                    <div className="ml-12">
                                         <h4 className="text-lg font-semibold text-gray-900">2021</h4>
-                                        <p className="brand-description">
-                                            Launched our first real estate tokenization project in partnership with major property developers.
-                                        </p>
+                                        <p className="brand-description">COPYm founded with a vision to democratize asset ownership through blockchain technology.</p>
                                     </div>
                                 </div>
 
@@ -119,9 +105,7 @@ const AboutUs = () => {
                                     </div>
                                     <div className="ml-12">
                                         <h4 className="text-lg font-semibold text-gray-900">2022</h4>
-                                        <p className="brand-description">
-                                            Expanded to commodities and intellectual property tokenization, securing strategic partnerships.
-                                        </p>
+                                        <p className="brand-description">Launched our first real estate tokenization project in partnership with major property developers.</p>
                                     </div>
                                 </div>
 
@@ -131,9 +115,27 @@ const AboutUs = () => {
                                     </div>
                                     <div className="ml-12">
                                         <h4 className="text-lg font-semibold text-gray-900">2023</h4>
-                                        <p className="brand-description">
-                                            Reached $500M in tokenized assets across 15 countries with over 10,000 platform users.
-                                        </p>
+                                        <p className="brand-description">Expanded to commodities and intellectual property tokenization, securing strategic partnerships.</p>
+                                    </div>
+                                </div>
+
+                                <div className="relative flex items-start">
+                                    <div className="absolute left-0 h-8 w-8 rounded-full bg-[#255f99] flex items-center justify-center">
+                                        <div className="h-3 w-3 rounded-full bg-[#15a36e]"></div>
+                                    </div>
+                                    <div className="ml-12">
+                                        <h4 className="text-lg font-semibold text-gray-900">2024</h4>
+                                        <p className="brand-description">Reached $500M in tokenized assets across 15 countries with over 10,000 platform users.</p>
+                                    </div>
+                                </div>
+
+                                <div className="relative flex items-start">
+                                    <div className="absolute left-0 h-8 w-8 rounded-full bg-[#255f99] flex items-center justify-center">
+                                        <div className="h-3 w-3 rounded-full bg-[#15a36e]"></div>
+                                    </div>
+                                    <div className="ml-12">
+                                        <h4 className="text-lg font-semibold text-gray-900">2025</h4>
+                                        <p className="brand-description">Scaling globally with enhanced compliance tooling and multi-chain support.</p>
                                     </div>
                                 </div>
                             </div>
@@ -144,35 +146,35 @@ const AboutUs = () => {
                     <div className="mt-16">
                         <h3 className="brand-card-title text-gray-900 mb-8">Meet Our Leadership</h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                            <div className="bg-gray-50 rounded-xl p-6 text-center">
-                                <div className="h-24 w-24 rounded-full bg-indigo-100 mx-auto mb-4 flex items-center justify-center">
+                            <div className="bg-gray-50 rounded-xl p-6">
+                                <div className="h-24 w-24 rounded-full bg-indigo-100 mb-4 flex items-center justify-center">
                                     <span className="text-2xl font-bold text-indigo-600">JD</span>
                                 </div>
                                 <h4 className="text-lg font-semibold text-gray-900">Jane Doe</h4>
                                 <p className="text-indigo-600 font-medium">CEO & Co-Founder</p>
-                                <p className="brand-description mt-2">
+                                <p className="text-gray-600 text-base leading-relaxed mt-2">
                                     Former blockchain architect at a leading fintech with 15+ years in asset management.
                                 </p>
                             </div>
 
-                            <div className="bg-gray-50 rounded-xl p-6 text-center">
-                                <div className="h-24 w-24 rounded-full bg-indigo-100 mx-auto mb-4 flex items-center justify-center">
+                            <div className="bg-gray-50 rounded-xl p-6">
+                                <div className="h-24 w-24 rounded-full bg-indigo-100 mb-4 flex items-center justify-center">
                                     <span className="text-2xl font-bold text-indigo-600">AS</span>
                                 </div>
                                 <h4 className="text-lg font-semibold text-gray-900">Alex Smith</h4>
                                 <p className="text-indigo-600 font-medium">CTO & Co-Founder</p>
-                                <p className="brand-description mt-2">
+                                <p className="text-gray-600 text-base leading-relaxed mt-2">
                                     Expert in distributed systems and cryptography with multiple patents in blockchain security.
                                 </p>
                             </div>
 
-                            <div className="bg-gray-50 rounded-xl p-6 text-center">
-                                <div className="h-24 w-24 rounded-full bg-indigo-100 mx-auto mb-4 flex items-center justify-center">
+                            <div className="bg-gray-50 rounded-xl p-6">
+                                <div className="h-24 w-24 rounded-full bg-indigo-100 mb-4 flex items-center justify-center">
                                     <span className="text-2xl font-bold text-indigo-600">MJ</span>
                                 </div>
                                 <h4 className="text-lg font-semibold text-gray-900">Maria Johnson</h4>
                                 <p className="text-indigo-600 font-medium">Head of Compliance</p>
-                                <p className="brand-description mt-2">
+                                <p className="text-gray-600 text-base leading-relaxed mt-2">
                                     Former regulator with deep expertise in global financial compliance frameworks.
                                 </p>
                             </div>
