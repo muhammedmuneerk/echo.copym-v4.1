@@ -8,6 +8,7 @@ import Marketplace from './pages/Marketplace/Marketplace';
 import HomePage from './pages/HomePage/HomePage';
 import AgentPage from './pages/AgentPage/AgentPage';
 import Contact from './pages/Contact/Contact';
+import AboutUs from './pages/aboutus/aboutus';
 import ScrollToTop from "./components/ScrollToTop";
 import { Box } from "@mui/material";
 import { Routes, Route, useLocation } from "react-router-dom";
@@ -24,6 +25,7 @@ function App() {
       <main className="relative z-20 overflow-x-hidden">
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutUs />} />
           <Route path="/roadmap" element={<Roadmap />} />
           <Route path="/marketplace" element={<Marketplace />} />
           <Route path="/tokenization" element={<TokenizationHub />} />
