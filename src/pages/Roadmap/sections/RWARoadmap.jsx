@@ -424,30 +424,59 @@ export default function RWARoadmap() {
                 const totalHeight = (roadmapData.length - 1) * stepHeight;
                 
                 // Generate smooth curve path based on actual content positions
-                const pathPoints = roadmapData.map((_, index) => {
+                const pathPoints = roadmapData.map((item, index) => {
                   const y = index * stepHeight + 160; // Center of each step
-                  // Create a gentle zigzag pattern for visual interest
-                  const x = 150 + (index % 2 === 0 ? 30 : -30); // Alternate left/right
-                  return { x, y };
+                  // Create natural flow based on content side
+                  const sideOffset = item.side === 'left' ? -40 : 40;
+                  const x = 150 + sideOffset;
+                  return { x, y, side: item.side };
                 });
                 
-                // Create smooth curve path
-                let pathD = `M ${pathPoints[0].x} ${pathPoints[0].y}`;
-                for (let i = 1; i < pathPoints.length; i++) {
-                  const prev = pathPoints[i - 1];
-                  const curr = pathPoints[i];
-                  const midY = (prev.y + curr.y) / 2;
-                  pathD += ` Q ${prev.x} ${midY}, ${curr.x} ${curr.y}`;
-                }
+                // Create smooth cubic Bézier curve path with proper tension
+                const createSmoothPath = (points) => {
+                  if (points.length < 2) return '';
+                  
+                  let pathD = `M ${points[0].x} ${points[0].y}`;
+                  
+                  for (let i = 1; i < points.length; i++) {
+                    const prev = points[i - 1];
+                    const curr = points[i];
+                    const next = points[i + 1];
+                    
+                    // Calculate control points for smooth curves
+                    const tension = 0.3; // Curve tension (0.1 = tight, 0.5 = loose)
+                    const distance = Math.abs(curr.y - prev.y) * tension;
+                    
+                    // Control point 1 (from previous point)
+                    const cp1x = prev.x;
+                    const cp1y = prev.y + distance;
+                    
+                    // Control point 2 (to current point)
+                    const cp2x = curr.x;
+                    const cp2y = curr.y - distance;
+                    
+                    pathD += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${curr.x} ${curr.y}`;
+                  }
+                  
+                  return pathD;
+                };
+                
+                const pathD = createSmoothPath(pathPoints);
+                
+                // Optimized shadow/highlight path generation
+                const createOffsetPath = (path, offsetX, offsetY) => {
+                  return path.replace(/([MLC])\s*([-\d.]+)\s+([-\d.]+)/g, (match, cmd, x, y) => {
+                    const newX = parseFloat(x) + offsetX;
+                    const newY = parseFloat(y) + offsetY;
+                    return `${cmd} ${newX} ${newY}`;
+                  });
+                };
                 
                 return (
                   <>
                     {/* 3D Shadow/Depth Path (Behind main path) */}
                     <path
-                      d={pathD.replace(/(\d+\.?\d*)/g, (match, num) => {
-                        const n = parseFloat(num);
-                        return n + 3; // Offset shadow
-                      })}
+                      d={createOffsetPath(pathD, 3, 6)}
                       stroke="url(#shadowGradient)"
                       strokeWidth="8"
                       fill="none"
@@ -467,10 +496,7 @@ export default function RWARoadmap() {
                     
                     {/* 3D Highlight Path (Top edge) */}
                     <path
-                      d={pathD.replace(/(\d+\.?\d*)/g, (match, num) => {
-                        const n = parseFloat(num);
-                        return n - 3; // Offset highlight
-                      })}
+                      d={createOffsetPath(pathD, -3, -3)}
                       stroke="rgba(255,255,255,0.7)"
                       strokeWidth="3"
                       fill="none"
