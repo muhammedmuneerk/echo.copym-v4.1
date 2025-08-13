@@ -57,7 +57,7 @@ const Contact = () => {
         <div className="grid md:grid-cols-2 gap-8 max-w-7xl mx-auto">
           {/* Sales Card */}
           <div 
-            className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer border border-gray-100 hover:border-[#15a36e] hover:transform hover:-translate-y-1"
+            className="bg-green-50 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer border border-gray-100 hover:border-[#15a36e] hover:transform hover:-translate-y-1"
             onClick={handleSalesContact}
           >
             <div className="p-8 text-left">
@@ -95,7 +95,7 @@ const Contact = () => {
 
           {/* Help & Support Card */}
           <div 
-            className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer border border-gray-100 hover:border-[#15a36e] hover:transform hover:-translate-y-1"
+            className="bg-green-50 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer border border-gray-100 hover:border-[#15a36e] hover:transform hover:-translate-y-1"
             onClick={handleSupportContact}
           >
             <div className="p-8 text-left">

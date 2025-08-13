@@ -145,9 +145,9 @@ const AboutUs = () => {
                     {/* Leadership Team */}
                     <div className="mt-16">
                         <h3 className="brand-card-title text-gray-900 mb-8">Meet Our Leadership</h3>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                            <div className="bg-gray-50 rounded-xl p-6 text-center">
-                                <div className="h-24 w-24 rounded-full bg-indigo-100 mb-4 flex items-center justify-center mx-auto">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+                            <div className="bg-green-50 rounded-xl p-2  text-center">
+                                <div className="h-24 w-24 rounded-full bg-white border border-blue-200 mb-4 flex items-center justify-center mx-auto">
                                     <span className="text-2xl font-bold text-indigo-600">JD</span>
                                 </div>
                                 <h4 className="text-lg font-semibold text-gray-900">Jane Doe</h4>
@@ -157,8 +157,8 @@ const AboutUs = () => {
                                 </p>
                             </div>
 
-                            <div className="bg-gray-50 rounded-xl p-6 text-center">
-                                <div className="h-24 w-24 rounded-full bg-indigo-100 mb-4 flex items-center justify-center mx-auto">
+                            <div className="bg-green-50 rounded-xl p-2 text-center">
+                                <div className="h-24 w-24 rounded-full bg-white border border-blue-200 mb-4 flex items-center justify-center mx-auto">
                                     <span className="text-2xl font-bold text-indigo-600">AS</span>
                                 </div>
                                 <h4 className="text-lg font-semibold text-gray-900">Alex Smith</h4>
@@ -168,8 +168,8 @@ const AboutUs = () => {
                                 </p>
                             </div>
 
-                            <div className="bg-gray-50 rounded-xl p-6 text-center">
-                                <div className="h-24 w-24 rounded-full bg-indigo-100 mb-4 flex items-center justify-center mx-auto">
+                            <div className="bg-green-50 rounded-xl p-2 text-center">
+                                <div className="h-24 w-24 rounded-full bg-white border border-blue-200 mb-4 flex items-center justify-center mx-auto">
                                     <span className="text-2xl font-bold text-indigo-600">MJ</span>
                                 </div>
                                 <h4 className="text-lg font-semibold text-gray-900">Maria Johnson</h4>
