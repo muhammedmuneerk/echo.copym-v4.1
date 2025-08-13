@@ -1399,10 +1399,10 @@ const RealEstateInvestmentSection = () => {
             </div>
 
             {/* Corner decorations */}
-            <div className="absolute top-4 left-4 w-2 h-2 bg-green-400 rounded-full animate-ping"></div>
-            <div className="absolute top-4 right-4 w-3 h-3 bg-blue-400 rounded-full animate-bounce"></div>
-            <div className="absolute bottom-4 left-4 w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
-            <div className="absolute bottom-4 right-4 w-3 h-3 bg-pink-400 rounded-full animate-spin" style={{ animationDuration: '3s' }}></div>
+            <div className="absolute top-4 left-4 w-2 h-2 bg-[#255f99] rounded-full animate-ping"></div>
+            <div className="absolute top-4 right-4 w-3 h-3 bg-[#15a36e] rounded-full animate-bounce"></div>
+            <div className="absolute bottom-4 left-4 w-3 h-3 bg-[#15a36e] rounded-full animate-pulse"></div>
+            <div className="absolute bottom-4 right-4 w-3 h-3 bg-[#255f99] rounded-full animate-spin" style={{ animationDuration: '3s' }}></div>
           </div>
         </div>
 
