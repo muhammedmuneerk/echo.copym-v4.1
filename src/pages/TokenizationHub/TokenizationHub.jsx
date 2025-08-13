@@ -202,7 +202,7 @@ const TokenizationProcess = ({ onLaunchCreator }) => {
           </button>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 lg:items-start">
           {steps.map((step, index) => (
             <div key={index}>
               <div className="relative">
@@ -316,10 +316,10 @@ const TokenDistribution = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 lg:items-start">
           {distributionMethods.map((method, index) => (
             
-            <div key={index} className="rounded-2xl p-6 cursor-pointer hover:bg-gradient-to-r from-[#d3f8e3] to-[#C7DBF0] transition-colors duration-200" onClick={() => toggleDistribution(index)}>
+            <div key={index} className="rounded-2xl p-6 cursor-pointer hover:bg-gradient-to-r from-[#d3f8e3] to-[#C7DBF0] transition-colors duration-200 lg:self-start" onClick={() => toggleDistribution(index)}>
               <Box
                 className="w-12 h-12 rounded-2xl mb-4 flex items-center justify-center text-2xl card-icon"
                 sx={{
@@ -713,10 +713,10 @@ const AnalyticsReporting = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 lg:items-start">
           {reportingFeatures.map((feature, index) => (
             
-            <div key={index} className="rounded-2xl p-6 cursor-pointer hover:bg-gradient-to-r from-[#d3f8e3] to-[#C7DBF0] transition-colors duration-200" onClick={() => toggleAnalytics(index)}>
+            <div key={index} className="rounded-2xl p-6 cursor-pointer hover:bg-gradient-to-r from-[#d3f8e3] to-[#C7DBF0] transition-colors duration-200 lg:self-start" onClick={() => toggleAnalytics(index)}>
               <Box
                 className="w-12 h-12 rounded-2xl mb-4 flex items-center justify-center text-2xl card-icon"
                 sx={{
