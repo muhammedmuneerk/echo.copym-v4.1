@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 export default function InvestorRoadmap() {
   const roadmapRef = useRef(null);
-  const ballRef = useRef(null);
   const lineRef = useRef(null);
   const [activeSection, setActiveSection] = useState(0);
   const sectionRefs = useRef([]);
@@ -104,14 +103,6 @@ export default function InvestorRoadmap() {
   // Set first section as active on mount
   useEffect(() => {
     setActiveSection(0);
-    
-    // Set initial ball color
-    if (ballRef.current && roadmapData[0]) {
-      const firstItem = roadmapData[0];
-      const color = firstItem.ballColor;
-      ballRef.current.style.boxShadow = `0 0 30px ${color}, 0 0 60px ${color}80, 0 0 90px ${color}40`;
-      ballRef.current.style.backgroundColor = color;
-    }
   }, []);
 
   // GSAP Animation Setup
@@ -143,54 +134,13 @@ export default function InvestorRoadmap() {
         const gsap = window.gsap;
         const ScrollTrigger = window.ScrollTrigger;
         
-        if (gsap && ScrollTrigger && roadmapRef.current && ballRef.current) {
+        if (gsap && ScrollTrigger && roadmapRef.current) {
           gsap.registerPlugin(ScrollTrigger);
-
-          // Calculate the actual timeline height based on content
-          const timelineHeight = (roadmapData.length - 1) * 320; // 320px per step (h-80 = 320px)
 
           // Only kill ScrollTriggers associated with this component
           ScrollTrigger.getAll()
             .filter(trigger => trigger.vars && trigger.vars.trigger === roadmapRef.current)
             .forEach(trigger => trigger.kill());
-
-          gsap.fromTo(ballRef.current, 
-            { y: 0 },
-            {
-              y: timelineHeight,
-              ease: "none",
-              scrollTrigger: {
-                trigger: roadmapRef.current,
-                start: "top center",
-                end: "bottom center",
-                scrub: 1,
-                onUpdate: (self) => {
-                  const progress = self.progress;
-                  
-                  let currentSectionIndex;
-                  if (progress <= 0.1) {
-                    currentSectionIndex = 0;
-                  } else {
-                    currentSectionIndex = Math.min(
-                      Math.floor(progress * roadmapData.length), 
-                      roadmapData.length - 1
-                    );
-                  }
-                  
-                  if (currentSectionIndex !== activeSection) {
-                    setActiveSection(currentSectionIndex);
-                  }
-
-                  if (ballRef.current && roadmapData[currentSectionIndex]) {
-                    const currentItem = roadmapData[currentSectionIndex];
-                    const color = currentItem.ballColor;
-                    ballRef.current.style.boxShadow = `0 0 30px ${color}, 0 0 60px ${color}80, 0 0 90px ${color}40`;
-                    ballRef.current.style.backgroundColor = color;
-                  }
-                }
-              }
-            }
-          );
 
           gsap.fromTo(lineRef.current, 
             { scaleY: 0, transformOrigin: "top center" },
@@ -226,7 +176,7 @@ export default function InvestorRoadmap() {
   // Fallback scroll animation for all devices
   useEffect(() => {
     const handleScroll = () => {
-      if (!roadmapRef.current || !ballRef.current) return;
+      if (!roadmapRef.current) return;
 
       const roadmapRect = roadmapRef.current.getBoundingClientRect();
       const viewportHeight = window.innerHeight;
@@ -240,18 +190,6 @@ export default function InvestorRoadmap() {
         const rawProgress = (scrollStart - roadmapTop) / scrollEnd;
         const scrollProgress = Math.max(0, Math.min(1, rawProgress));
         
-        // Calculate ball position based on actual timeline height
-        const timelineHeight = (roadmapData.length - 1) * 320;
-        const ballY = scrollProgress * timelineHeight;
-        
-        // Apply transform for both mobile and desktop
-        const isMobile = window.innerWidth < 1024; // lg breakpoint
-        if (isMobile) {
-          ballRef.current.style.transform = `translateX(-50%) translateY(${ballY}px)`;
-        } else {
-          ballRef.current.style.transform = `translateX(-50%) translateY(${ballY}px)`;
-        }
-        
         let currentSectionIndex;
         if (scrollProgress <= 0.1) {
           currentSectionIndex = 0;
@@ -263,23 +201,10 @@ export default function InvestorRoadmap() {
         
         if (clampedIndex !== activeSection && clampedIndex >= 0) {
           setActiveSection(clampedIndex);
-          
-          const currentItem = roadmapData[clampedIndex];
-          if (currentItem && ballRef.current) {
-            const color = currentItem.ballColor;
-            ballRef.current.style.boxShadow = `0 0 30px ${color}, 0 0 60px ${color}80, 0 0 90px ${color}40`;
-            ballRef.current.style.backgroundColor = color;
-          }
         }
       } else if (roadmapTop > scrollStart) {
         if (activeSection !== 0) {
           setActiveSection(0);
-          const firstItem = roadmapData[0];
-          if (firstItem && ballRef.current) {
-            const color = firstItem.ballColor;
-            ballRef.current.style.boxShadow = `0 0 30px ${color}, 0 0 60px ${color}80, 0 0 90px ${color}40`;
-            ballRef.current.style.backgroundColor = color;
-          }
         }
       }
     };
@@ -333,7 +258,7 @@ export default function InvestorRoadmap() {
       boxShadow: "0 0 0 rgba(0,0,0,0)",
       borderColor: "rgba(75, 85, 99, 0.3)"
     },
-    active: {
+    active: { 
       boxShadow: [
         "0 0 0 rgba(0,0,0,0)",
         "0 0 30px currentColor, 0 0 60px currentColor, 0 0 90px currentColor",
@@ -365,35 +290,15 @@ export default function InvestorRoadmap() {
               />
             </div>
 
-            {/* Mobile Scrolling Ball */}
-            <motion.div 
-              ref={ballRef}
-              className="absolute left-4 sm:left-6 top-0 w-6 h-6 sm:w-8 sm:h-8 bg-green-500 rounded-full z-30 transform -translate-x-1/2"
-              style={{
-                boxShadow: '0 0 30px #10B981, 0 0 60px #10B98140'
-              }}
-              animate={{
-                scale: [1, 1.2, 1],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            >
-              <div className="absolute inset-1 bg-white rounded-full opacity-40"></div>
-              <div className="absolute inset-2 bg-white rounded-full opacity-60"></div>
-            </motion.div>
-
             <div className="space-y-6 sm:space-y-8 ml-12 sm:ml-16">
-              {roadmapData.map((item, index) => (
-                <motion.div
-                  key={item.id}
+            {roadmapData.map((item, index) => (
+              <motion.div
+                key={item.id}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="relative"
-                >
+                className="relative"
+              >
                   {/* Mobile Card with Timeline Elements */}
                   <div className="bg-blue-100 rounded-2xl p-4 sm:p-6 border-2 border-gray-300 relative overflow-hidden">
                     {/* Horizontal Connector Line */}
@@ -409,53 +314,53 @@ export default function InvestorRoadmap() {
                     {/* Step Badge */}
                     <div className={`inline-block px-3 sm:px-4 py-1 sm:py-2 rounded-full text-xs sm:text-sm font-bold text-white mb-3 sm:mb-4 ${item.color}`}>
                       {item.quarter}
-                    </div>
+                  </div>
 
                     {/* Title */}
                     <h3 className="text-lg sm:text-xl font-bold text-black mb-3 sm:mb-4">{item.title}</h3>
-                    
-                    {/* Items List */}
+                  
+                  {/* Items List */}
                     <ul className="space-y-2 sm:space-y-3">
-                      {item.items.map((feature, idx) => (
-                        <motion.li 
-                          key={idx}
+                    {item.items.map((feature, idx) => (
+                      <motion.li 
+                        key={idx}
                           className="text-gray-600 text-sm sm:text-base flex items-start"
-                          initial={{ opacity: 0, x: -10 }}
-                          whileInView={{ opacity: 1, x: 0 }}
-                          transition={{ delay: idx * 0.1, duration: 0.3 }}
+                        initial={{ opacity: 0, x: -10 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ delay: idx * 0.1, duration: 0.3 }}
                         >
                           <span className="text-blue-400 mr-2 sm:mr-3 mt-1 flex-shrink-0">—</span>
                           <span>{feature}</span>
-                        </motion.li>
-                      ))}
-                    </ul>
+                      </motion.li>
+                    ))}
+                  </ul>
 
-                    {/* Glow Effect */}
-                    <AnimatePresence>
-                      {activeSection === index && (
-                        <motion.div
-                          className="absolute inset-0 rounded-2xl pointer-events-none"
-                          style={{
+                  {/* Glow Effect */}
+                  <AnimatePresence>
+                    {activeSection === index && (
+                      <motion.div
+                        className="absolute inset-0 rounded-2xl pointer-events-none"
+                        style={{
                             background: `linear-gradient(45deg, ${item.ballColor}10, transparent, ${item.ballColor}10)`,
-                          }}
-                          initial={{ opacity: 0 }}
-                          animate={{ 
-                            opacity: [0.3, 0.6, 0.3],
-                          }}
-                          exit={{ opacity: 0 }}
-                          transition={{ 
-                            duration: 2, 
-                            repeat: Infinity, 
-                            ease: "easeInOut" 
-                          }}
-                        />
-                      )}
-                    </AnimatePresence>
-                  </div>
+                        }}
+                        initial={{ opacity: 0 }}
+                        animate={{ 
+                          opacity: [0.3, 0.6, 0.3],
+                        }}
+                        exit={{ opacity: 0 }}
+                        transition={{ 
+                          duration: 2, 
+                          repeat: Infinity, 
+                          ease: "easeInOut" 
+                        }}
+                      />
+                    )}
+                  </AnimatePresence>
+                </div>
 
-                  {/* Timeline Dot - Hidden on mobile to prevent overlap with scrolling ball */}
+                  {/* Timeline Dot */}
                   <motion.div 
-                    className={`absolute left-4 sm:left-6 w-4 h-4 sm:w-6 sm:h-6 ${item.color} rounded-full transform -translate-x-1/2 z-20 hidden lg:block`}
+                    className={`absolute left-4 sm:left-6 w-4 h-4 sm:w-6 sm:h-6 ${item.color} rounded-full transform -translate-x-1/2 z-20`}
                     style={{ top: '2rem' }}
                     animate={{
                       scale: activeSection === index ? [1, 1.4, 1.2] : 1,
@@ -468,46 +373,192 @@ export default function InvestorRoadmap() {
                       ease: "easeOut"
                     }}
                   />
-                </motion.div>
-              ))}
+              </motion.div>
+            ))}
             </div>
           </div>
         </div>
 
-        {/* Desktop: Horizontal Timeline */}
+        {/* Desktop: 3D Curved Timeline */}
         <div className="hidden lg:block">
-          {/* Timeline Container */}
           <div ref={roadmapRef} className="relative max-w-6xl mx-auto">
             
-            {/* Central Timeline Line */}
-            <div className="absolute left-1/2 top-0 w-1 bg-gray-700 transform -translate-x-1/2 z-10" style={{ height: 'calc(100% - 40px)' }}>
-              <div 
-                ref={lineRef}
-                className="w-full bg-gradient-to-b from-green-500 to-blue-500 origin-top"
-                style={{ height: '100%' }}
-              />
+            {/* 3D Curved Timeline SVG */}
+            <div className="absolute left-1/2 top-0 bottom-0 transform -translate-x-1/2">
+              <svg
+                width="300"
+                height="100%"
+                viewBox={`0 0 300 ${(roadmapData.length - 1) * 320 + 100}`}
+                className="overflow-visible"
+                preserveAspectRatio="xMidYMin meet"
+              >
+                <defs>
+                  <linearGradient id="pathGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stopColor="#10b981" />
+                    <stop offset="30%" stopColor="#14b8a6" />
+                    <stop offset="60%" stopColor="#06b6d4" />
+                    <stop offset="100%" stopColor="#3b82f6" />
+                  </linearGradient>
+                  
+                  <linearGradient id="shadowGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="#000000" stopOpacity="0.1" />
+                    <stop offset="100%" stopColor="#000000" stopOpacity="0.3" />
+                  </linearGradient>
+                  
+                  <filter id="drop-shadow" x="-50%" y="-50%" width="200%" height="200%">
+                    <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+                    <feOffset dx="3" dy="6" result="offset"/>
+                    <feComponentTransfer>
+                      <feFuncA type="linear" slope="0.4"/>
+                    </feComponentTransfer>
+                    <feMerge> 
+                      <feMergeNode/>
+                      <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                  </filter>
+                </defs>
+                
+                {/* Calculate proper Y positions based on content spacing */}
+                {(() => {
+                  const stepHeight = 320; // h-80 = 320px
+                  const totalHeight = (roadmapData.length - 1) * stepHeight;
+                  
+                  // Generate smooth curve path based on actual content positions
+                  const pathPoints = roadmapData.map((_, index) => {
+                    const y = index * stepHeight + 160; // Center of each step
+                    // Create a gentle zigzag pattern for visual interest
+                    const x = 150 + (index % 2 === 0 ? 30 : -30); // Alternate left/right
+                    return { x, y };
+                  });
+                  
+                  // Create smooth curve path
+                  let pathD = `M ${pathPoints[0].x} ${pathPoints[0].y}`;
+                  for (let i = 1; i < pathPoints.length; i++) {
+                    const prev = pathPoints[i - 1];
+                    const curr = pathPoints[i];
+                    const midY = (prev.y + curr.y) / 2;
+                    pathD += ` Q ${prev.x} ${midY}, ${curr.x} ${curr.y}`;
+                  }
+                  
+                  return (
+                    <>
+                      {/* 3D Shadow/Depth Path (Behind main path) */}
+                      <path
+                        d={pathD.replace(/(\d+\.?\d*)/g, (match, num) => {
+                          const n = parseFloat(num);
+                          return n + 3; // Offset shadow
+                        })}
+                        stroke="url(#shadowGradient)"
+                        strokeWidth="8"
+                        fill="none"
+                        strokeLinecap="round"
+                        opacity="0.5"
+                      />
+                      
+                      {/* Main 3D Curved Path */}
+                      <path
+                        d={pathD}
+                        stroke="url(#pathGradient)"
+                        strokeWidth="6"
+                        fill="none"
+                        strokeLinecap="round"
+                        filter="url(#drop-shadow)"
+                      />
+                      
+                      {/* 3D Highlight Path (Top edge) */}
+                      <path
+                        d={pathD.replace(/(\d+\.?\d*)/g, (match, num) => {
+                          const n = parseFloat(num);
+                          return n - 3; // Offset highlight
+                        })}
+                        stroke="rgba(255,255,255,0.7)"
+                        strokeWidth="3"
+                        fill="none"
+                        strokeLinecap="round"
+                      />
+                      
+                      {/* Connection Points with Perfect 3D Rounds */}
+                      {roadmapData.map((_, index) => {
+                        const position = pathPoints[index];
+                        
+                        return (
+                          <g key={index}>
+                            {/* Outer shadow for depth */}
+                            <circle
+                              cx={position.x + 4}
+                              cy={position.y + 6}
+                              r="18"
+                              fill="rgba(0,0,0,0.15)"
+                              filter="blur(3px)"
+                            />
+                            
+                            {/* Base shadow circle */}
+                            <circle
+                              cx={position.x + 2}
+                              cy={position.y + 3}
+                              r="16"
+                              fill="rgba(0,0,0,0.2)"
+                            />
+                            
+                            {/* Main outer ring */}
+                            <circle
+                              cx={position.x}
+                              cy={position.y}
+                              r="16"
+                              fill="url(#pathGradient)"
+                              stroke="none"
+                            />
+                            
+                            {/* Inner white circle */}
+                            <circle
+                              cx={position.x}
+                              cy={position.y}
+                              r="11"
+                              fill="white"
+                              stroke="none"
+                            />
+                            
+                            {/* Top-left highlight */}
+                            <circle
+                              cx={position.x - 4}
+                              cy={position.y - 4}
+                              r="4"
+                              fill="rgba(255,255,255,0.9)"
+                            />
+                            
+                            {/* Secondary highlight */}
+                            <circle
+                              cx={position.x - 2}
+                              cy={position.y - 2}
+                              r="6"
+                              fill="rgba(255,255,255,0.4)"
+                            />
+                            
+                            {/* Inner gradient ring for 3D effect */}
+                            <circle
+                              cx={position.x}
+                              cy={position.y}
+                              r="8"
+                              fill="none"
+                              stroke="rgba(0,0,0,0.1)"
+                              strokeWidth="1"
+                            />
+                            
+                            {/* Bottom-right subtle shadow */}
+                            <circle
+                              cx={position.x + 3}
+                              cy={position.y + 3}
+                              r="6"
+                              fill="rgba(0,0,0,0.08)"
+                            />
+                          </g>
+                        );
+                      })}
+                    </>
+                  );
+                })()}
+              </svg>
             </div>
-
-            {/* Scrolling Ball */}
-            <motion.div 
-              ref={ballRef}
-              className="absolute left-1/2 top-0 w-8 h-8 bg-green-500 rounded-full z-30"
-              style={{
-                transform: 'translateX(-50%)',
-                boxShadow: '0 0 30px #10B981, 0 0 60px #10B98140'
-              }}
-              animate={{
-                scale: [1, 1.2, 1],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            >
-              <div className="absolute inset-1 bg-white rounded-full opacity-40"></div>
-              <div className="absolute inset-2 bg-white rounded-full opacity-60"></div>
-            </motion.div>
 
             {/* Timeline Items */}
             <motion.div 
@@ -618,8 +669,6 @@ export default function InvestorRoadmap() {
                       </motion.div>
                     </motion.div>
                   </div>
-
-                  {/* Timeline Dot - Removed to prevent overlap with scrolling ball */}
                 </div>
               ))}
             </motion.div>
