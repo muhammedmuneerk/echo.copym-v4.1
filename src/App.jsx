@@ -14,6 +14,7 @@ import { Box } from "@mui/material";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Roadmap from './pages/Roadmap/Roadmap';
 import Launchkit from './pages/Launchkit/Launchkit';
+import AccessPage from './pages/AccessPage/AccessPage';
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
           <Route path="/launchkit" element={<Launchkit />} />
           <Route path="/agent" element={<AgentPage />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/access" element={<AccessPage />} />
         </Routes>
       </main>
       {location.pathname !== "/agent" && <Footer />}
