@@ -495,7 +495,7 @@ export default function InvestorRoadmap() {
                       />
                       
                       {/* 3D Highlight Path (Top edge) */}
-                      <path
+              <path 
                         d={createOffsetPath(pathD, -3, -3)}
                         stroke="rgba(255,255,255,0.7)"
                         strokeWidth="3"
@@ -565,7 +565,7 @@ export default function InvestorRoadmap() {
                               cx={position.x}
                               cy={position.y}
                               r="8"
-                              fill="none"
+                fill="none"
                               stroke="rgba(0,0,0,0.1)"
                               strokeWidth="1"
                             />
@@ -583,7 +583,7 @@ export default function InvestorRoadmap() {
                     </>
                   );
                 })()}
-              </svg>
+            </svg>
             </div>
 
             {/* Timeline Items */}
@@ -605,10 +605,10 @@ export default function InvestorRoadmap() {
                   }`}>
                     
                     {/* Content Card */}
-                    <motion.div 
+                  <motion.div 
                       className={`relative max-w-md ${item.side === 'left' ? 'mr-20' : 'ml-20'}`}
                       variants={cardVariants}
-                      animate={activeSection === index ? "active" : "inactive"}
+                    animate={activeSection === index ? "active" : "inactive"}
                     >
                       
                       {/* Connector Line */}
@@ -624,7 +624,7 @@ export default function InvestorRoadmap() {
                       />
                       
                       {/* Quarter Badge */}
-                      <motion.div 
+                  <motion.div 
                         className={`inline-block px-4 py-2 rounded-full text-sm font-bold text-white mb-4 ${item.color}`}
                         animate={{
                           scale: activeSection === index ? 1.1 : 1,
@@ -644,26 +644,26 @@ export default function InvestorRoadmap() {
                         animate={activeSection === index ? "active" : "inactive"}
                       >
                         {/* Glow overlay */}
-                        <AnimatePresence>
-                          {activeSection === index && (
-                            <motion.div
+                    <AnimatePresence>
+                      {activeSection === index && (
+                        <motion.div
                               className="absolute inset-0 rounded-2xl pointer-events-none"
-                              style={{
+                          style={{
                                 background: `linear-gradient(45deg, ${item.ballColor}10, transparent, ${item.ballColor}10)`,
-                              }}
-                              initial={{ opacity: 0 }}
-                              animate={{ 
-                                opacity: [0.3, 0.6, 0.3],
-                              }}
-                              exit={{ opacity: 0 }}
-                              transition={{ 
-                                duration: 2, 
-                                repeat: Infinity, 
-                                ease: "easeInOut" 
-                              }}
-                            />
-                          )}
-                        </AnimatePresence>
+                          }}
+                          initial={{ opacity: 0 }}
+                          animate={{ 
+                            opacity: [0.3, 0.6, 0.3],
+                          }}
+                          exit={{ opacity: 0 }}
+                          transition={{ 
+                            duration: 2, 
+                            repeat: Infinity, 
+                            ease: "easeInOut" 
+                          }}
+                        />
+                      )}
+                    </AnimatePresence>
 
                         <div className="relative z-10">
                           <h3 className="text-xl font-bold brand-card-title text-black mb-4">{item.title}</h3>
@@ -693,7 +693,7 @@ export default function InvestorRoadmap() {
                           </ul>
                         </div>
                       </motion.div>
-                    </motion.div>
+                  </motion.div>
                   </div>
                 </div>
               ))}

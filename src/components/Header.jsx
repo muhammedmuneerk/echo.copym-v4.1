@@ -157,6 +157,7 @@ export default function Header() {
       {
         title: "AccessPass",
         description: "Verified investor onboarding with comprehensive KYC/AML compliance and accreditation verification",
+        path: "/access",
         visual: (
           <div className="w-full h-52 bg-gradient-to-br from-emerald-100 to-emerald-200 rounded-lg p-4 relative overflow-hidden">
             <div className="absolute top-3 left-3 text-sm text-emerald-600 font-semibold">Investor Verification</div>

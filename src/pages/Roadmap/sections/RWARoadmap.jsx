@@ -495,7 +495,7 @@ export default function RWARoadmap() {
                     />
                     
                     {/* 3D Highlight Path (Top edge) */}
-                    <path
+              <path 
                       d={createOffsetPath(pathD, -3, -3)}
                       stroke="rgba(255,255,255,0.7)"
                       strokeWidth="3"
@@ -565,7 +565,7 @@ export default function RWARoadmap() {
                             cx={position.x}
                             cy={position.y}
                             r="8"
-                            fill="none"
+                fill="none"
                             stroke="rgba(0,0,0,0.1)"
                             strokeWidth="1"
                           />
@@ -587,16 +587,16 @@ export default function RWARoadmap() {
           </div>
 
           {/* Timeline Items */}
-          <motion.div 
-            className="relative z-10"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
+            <motion.div 
+              className="relative z-10"
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
-          >
-            {roadmapData.map((item, index) => (
-              <div 
-                key={item.id}
+            >
+              {roadmapData.map((item, index) => (
+                <div 
+                  key={item.id}
                 className="relative h-80 flex items-center"
                 ref={el => sectionRefs.current[index] = el}
               >
@@ -612,7 +612,7 @@ export default function RWARoadmap() {
                   >
                     
                     {/* Connector Line */}
-                    <motion.div 
+                  <motion.div 
                       className={`absolute top-8 w-16 h-0.5 bg-gray-600 ${
                         item.side === 'left' ? 'right-0 translate-x-16' : 'left-0 -translate-x-16'
                       }`}
@@ -644,26 +644,26 @@ export default function RWARoadmap() {
                       animate={activeSection === index ? "active" : "inactive"}
                     >
                       {/* Glow overlay */}
-                      <AnimatePresence>
-                        {activeSection === index && (
-                          <motion.div
+                    <AnimatePresence>
+                      {activeSection === index && (
+                        <motion.div
                             className="absolute inset-0 rounded-2xl pointer-events-none"
-                            style={{
+                          style={{
                               background: `linear-gradient(45deg, ${item.ballColor}10, transparent, ${item.ballColor}10)`,
-                            }}
-                            initial={{ opacity: 0 }}
-                            animate={{ 
-                              opacity: [0.3, 0.6, 0.3],
-                            }}
-                            exit={{ opacity: 0 }}
-                            transition={{ 
-                              duration: 2, 
-                              repeat: Infinity, 
-                              ease: "easeInOut" 
-                            }}
-                          />
-                        )}
-                      </AnimatePresence>
+                          }}
+                          initial={{ opacity: 0 }}
+                          animate={{ 
+                            opacity: [0.3, 0.6, 0.3],
+                          }}
+                          exit={{ opacity: 0 }}
+                          transition={{ 
+                            duration: 2, 
+                            repeat: Infinity, 
+                            ease: "easeInOut" 
+                          }}
+                        />
+                      )}
+                    </AnimatePresence>
 
                       <div className="relative z-10">
                         <h3 className="text-xl font-bold brand-card-title text-black mb-4">{item.title}</h3>
@@ -695,9 +695,9 @@ export default function RWARoadmap() {
                     </motion.div>
                   </motion.div>
                 </div>
-              </div>
-            ))}
-          </motion.div>
+                </div>
+              ))}
+            </motion.div>
           </div>
         </div>
       </div>
