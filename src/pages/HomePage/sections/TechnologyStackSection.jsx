@@ -403,7 +403,7 @@ const TechnologyStackSection = () => {
             <Player
               autoplay
               loop
-              src="/assets/lottie/Crypto%20chains/Crypto%20chains.json"
+              src="/assets/lottie/Crypto chains-2/Crypto chains-2.json"
               style={{ 
                 height: isMobile ? "280px" : "450px", 
                 width: isMobile ? "280px" : "450px" 
