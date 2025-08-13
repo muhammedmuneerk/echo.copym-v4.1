@@ -373,12 +373,7 @@ const RealEstateInvestmentSection = () => {
           </div>
         </div> */}
 
-        {/* Subtle decorative elements */}
-        <div className="absolute -bottom-12 -left-12 w-4 h-4 bg-gradient-to-r from-gray-300 to-gray-400 rounded-full opacity-60 animate-pulse shadow-lg"></div>
-        <div className="absolute -bottom-12 -right-12 w-4 h-4 bg-gradient-to-r from-gray-400 to-gray-500 rounded-full opacity-60 animate-pulse shadow-lg"></div>
-        <div className="absolute -top-8 -right-8 w-3 h-3 bg-gradient-to-r from-gray-200 to-gray-300 rounded-full opacity-70 animate-bounce shadow-md"></div>
-        <div className="absolute -top-8 -left-8 w-3 h-3 bg-gradient-to-r from-gray-300 to-gray-400 rounded-full opacity-70 animate-bounce shadow-md"></div>
-      </div>
+        </div>
     </div>
   );
 
@@ -772,11 +767,6 @@ const RealEstateInvestmentSection = () => {
           </div>
         </div>
 
-        {/* Decorative elements */}
-        <div className="absolute top-8 left-8 w-3 h-3 bg-gradient-to-r from-purple-400 to-purple-500 rounded-full animate-pulse shadow-md"></div>
-        <div className="absolute top-12 right-12 w-2 h-2 bg-gradient-to-r from-blue-400 to-blue-500 rounded-full animate-bounce shadow-sm"></div>
-        <div className="absolute bottom-8 right-8 w-2 h-2 bg-gradient-to-r from-green-400 to-green-500 rounded-full animate-ping shadow-sm"></div>
-        <div className="absolute bottom-12 left-12 w-3 h-3 bg-gradient-to-r from-pink-400 to-pink-500 rounded-full animate-pulse shadow-md"></div>
       </div>
     </div>
   );
@@ -1290,9 +1280,9 @@ const RealEstateInvestmentSection = () => {
                   </div>
 
                   {/* Corner decorations */}
-                  <div className="absolute top-4 left-4 w-2 h-2 bg-green-400 rounded-full animate-ping"></div>
+                  <div className="absolute top-4 left-4 w-3 h-3 bg-green-400 rounded-full animate-ping"></div>
                   <div className="absolute top-4 right-4 w-3 h-3 bg-blue-400 rounded-full animate-bounce"></div>
-                  <div className="absolute bottom-4 left-4 w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
+                  <div className="absolute bottom-4 left-4 w-3 h-3 bg-purple-400 rounded-full animate-pulse"></div>
                   <div className="absolute bottom-4 right-4 w-3 h-3 bg-pink-400 rounded-full animate-spin" style={{ animationDuration: '3s' }}></div>
                 </div>
               </div>
