@@ -12,6 +12,7 @@ import AboutUs from './pages/aboutus/aboutus';
 import ScrollToTop from "./components/ScrollToTop";
 import { Box } from "@mui/material";
 import { Routes, Route, useLocation } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
 import Roadmap from './pages/Roadmap/Roadmap';
 import Launchkit from './pages/Launchkit/Launchkit';
 import AccessPage from './pages/AccessPage/AccessPage';
@@ -54,32 +55,41 @@ function App() {
     }
   }, [showSplash]);
 
-  // Show splash screen during initial load
-  if (showSplash) {
-    return <SplashScreen />;
-  }
-
   return (
-    <Box
-    ref={appRef} 
-     className="min-h-screen relative bg-blue-100 text-text-primary overflow-x-hidden">
-      <ScrollToTop />
-      <Header />
-      <main className="relative z-20 overflow-x-hidden">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/about" element={<AboutUs />} />
-          <Route path="/roadmap" element={<Roadmap />} />
-          <Route path="/marketplace" element={<Marketplace />} />
-          <Route path="/tokenization" element={<TokenizationHub />} />
-          <Route path="/launchkit" element={<Launchkit />} />
-          <Route path="/agent" element={<AgentPage />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/access" element={<AccessPage />} />
-        </Routes>
-      </main>
-      {location.pathname !== "/agent" && <Footer />}
-    </Box>
+    <AnimatePresence mode="wait">
+      {showSplash ? (
+        <motion.div
+          key="splash"
+          initial={{ opacity: 1 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.6, ease: "easeInOut" }}
+        >
+          <SplashScreen />
+        </motion.div>
+      ) : (
+        <Box
+        ref={appRef} 
+         className="min-h-screen relative bg-blue-100 text-text-primary overflow-x-hidden">
+          <ScrollToTop />
+          <Header />
+          <main className="relative z-20 overflow-x-hidden">
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/about" element={<AboutUs />} />
+              <Route path="/roadmap" element={<Roadmap />} />
+              <Route path="/marketplace" element={<Marketplace />} />
+              <Route path="/tokenization" element={<TokenizationHub />} />
+              <Route path="/launchkit" element={<Launchkit />} />
+              <Route path="/agent" element={<AgentPage />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/access" element={<AccessPage />} />
+            </Routes>
+          </main>
+          {location.pathname !== "/agent" && <Footer />}
+        </Box>
+      )}
+    </AnimatePresence>
   );
 }
 
