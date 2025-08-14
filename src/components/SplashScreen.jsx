@@ -51,7 +51,7 @@ const SplashScreen = () => {
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         <video 
           ref={videoRef}
-          className="absolute min-w-full min-h-full object-cover"
+          className="absolute inset-0 w-full h-full object-center transform origin-center scale-[3] md:scale-[1.5]"
           autoPlay
           muted
           loop
