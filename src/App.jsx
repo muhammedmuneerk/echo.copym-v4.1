@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Header from './components/Header';
 import Hero from './pages/HomePage/sections/Hero';
 import MarketplacePreview from './pages/HomePage/sections/MarketplacePreview';
@@ -15,13 +15,54 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import Roadmap from './pages/Roadmap/Roadmap';
 import Launchkit from './pages/Launchkit/Launchkit';
 import AccessPage from './pages/AccessPage/AccessPage';
+import SplashScreen from './components/SplashScreen';
+import { animate } from 'animejs';
 
 
 function App() {
   const location = useLocation();
+   const [showSplash, setShowSplash] = useState(true);
+  const appRef = useRef(null);
+
+  // Handle splash screen timing
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowSplash(false);
+      
+      // Initial page load animation after splash screen
+      if (appRef.current) {
+        animate('.bg-background', {
+          opacity: [0, 1],
+          duration: 800,
+          easing: 'easeInOutQuad'
+        });
+      }
+    }, 5000); 
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Additional animation for navbar
+  useEffect(() => {
+    if (!showSplash) {
+      animate('nav', {
+        translateY: [-50, 0],
+        opacity: [0, 1],
+        duration: 1000,
+        easing: 'easeOutExpo'
+      });
+    }
+  }, [showSplash]);
+
+  // Show splash screen during initial load
+  if (showSplash) {
+    return <SplashScreen />;
+  }
 
   return (
-    <Box className="min-h-screen relative bg-blue-100 text-text-primary overflow-x-hidden">
+    <Box
+    ref={appRef} 
+     className="min-h-screen relative bg-blue-100 text-text-primary overflow-x-hidden">
       <ScrollToTop />
       <Header />
       <main className="relative z-20 overflow-x-hidden">
