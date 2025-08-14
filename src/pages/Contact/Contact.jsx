@@ -38,31 +38,31 @@ const Contact = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-4 pb-16">
         {/* Header Section */}
-        <div className="text-left mb-16 mt-8">
-          <h1 className="brand-title mb-6 text-[#255f99]">
+        <div className="text-left mb-8 mt-6 sm:mb-16 sm:mt-8">
+          <h1 className="brand-title text-3xl sm:text-5xl lg:text-6xl leading-tight mb-4 sm:mb-6 text-[#255f99]">
             Select the{' '}
             <span className="relative text-[#15a36e]">
               Copym team
             </span>{' '}
           </h1>
-          <h1 className="brand-title mb-6 text-[#255f99]">
+          <h1 className="brand-title text-3xl sm:text-5xl lg:text-6xl leading-tight mb-2 sm:mb-6 text-[#255f99]">
             you wish to reach
           </h1>
-          <p className="brand-description">
+          <p className="brand-description text-base sm:text-xl">
             We will be delighted to help you out!
           </p>
         </div>
 
         {/* Contact Cards */}
-        <div className="grid md:grid-cols-2 gap-8 max-w-7xl mx-auto">
+        <div className="grid gap-5 sm:gap-8 md:grid-cols-2 max-w-7xl mx-auto">
           {/* Sales Card */}
           <div 
             className="bg-green-50 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer border border-gray-100 hover:border-[#15a36e] hover:transform hover:-translate-y-1"
             onClick={handleSalesContact}
           >
-            <div className="p-8 text-left">
+            <div className="p-5 sm:p-8 text-left">
               {/* Icon Container */}
-              <div className="w-12 h-12 bg-white border-2 border-[#15a36e] rounded-full flex items-center justify-center mb-4">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white border-2 border-[#15a36e] rounded-full flex items-center justify-center mb-4">
                 <svg
                   width="24"
                   height="24"
@@ -86,7 +86,7 @@ const Contact = () => {
                 For enterprise support or accessing premium features
               </p>
               
-              <button className="w-full bg-gray-100 text-gray-700 border border-gray-200 rounded-lg py-3 px-6 font-medium hover:bg-gray-200 hover:border-gray-300 transition-all duration-200 flex items-center justify-center">
+              <button className="w-full bg-gray-100 text-gray-700 border border-gray-200 rounded-lg py-2.5 px-4 sm:py-3 sm:px-6 font-medium text-sm sm:text-base hover:bg-gray-200 hover:border-gray-300 transition-all duration-200 flex items-center justify-center">
                 Contact Sales
                 <span className="ml-2 text-lg">→</span>
               </button>
@@ -98,9 +98,9 @@ const Contact = () => {
             className="bg-green-50 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer border border-gray-100 hover:border-[#15a36e] hover:transform hover:-translate-y-1"
             onClick={handleSupportContact}
           >
-            <div className="p-8 text-left">
+            <div className="p-5 sm:p-8 text-left">
               {/* Icon Container */}
-              <div className="w-12 h-12 bg-white border-2 border-[#15a36e] rounded-full flex items-center justify-center mb-4">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white border-2 border-[#15a36e] rounded-full flex items-center justify-center mb-4">
                 <svg
                   width="24"
                   height="24"
@@ -123,7 +123,7 @@ const Contact = () => {
                 For customer support inquiries
               </p>
               
-              <button className="w-full bg-gray-100 text-gray-700 border border-gray-200 rounded-lg py-3 px-6 font-medium hover:bg-gray-200 hover:border-gray-300 transition-all duration-200 flex items-center justify-center">
+              <button className="w-full bg-gray-100 text-gray-700 border border-gray-200 rounded-lg py-2.5 px-4 sm:py-3 sm:px-6 font-medium text-sm sm:text-base hover:bg-gray-200 hover:border-gray-300 transition-all duration-200 flex items-center justify-center">
                 Contact Support
                 <span className="ml-2 text-lg">→</span>
               </button>
