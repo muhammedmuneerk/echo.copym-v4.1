@@ -428,7 +428,7 @@ const AiOverview = () => {
             <Player
               autoplay
               loop
-              src="/assets/lottie/ai-random/ai-random.json"
+              src="/assets/lottie/Robot with charts/Robot with charts.json"
               className='h-[320px] sm:h-[380px] lg:h-[400px] w-[400px]'
             />
           </div>
