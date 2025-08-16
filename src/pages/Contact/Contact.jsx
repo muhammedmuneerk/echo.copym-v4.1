@@ -347,8 +347,8 @@ const Contact = () => {
           </p>
         </motion.div>
 
-        {/* Quick Contact Cards - Mobile Optimized Grid */}
-        <motion.div className="grid gap-3 sm:gap-4 md:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mb-8 sm:mb-12" variants={itemVariants}>
+        {/* Quick Contact Cards - Smart 3-Column Layout */}
+        <motion.div className="grid gap-3 sm:gap-4 lg:gap-6 grid-cols-3 sm:grid-cols-2 lg:grid-cols-3 mb-8 sm:mb-12" variants={itemVariants}>
           {contactTypes.map((type) => (
             <motion.div
               key={type.value}
@@ -357,20 +357,20 @@ const Contact = () => {
               whileTap={{ scale: 0.98 }}
               onClick={() => handleQuickContact(type.value)}
             >
-              <div className="p-4 sm:p-6 text-center">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-[#1e40af] to-[#065f46] rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                  <type.icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+              <div className="p-2 sm:p-4 lg:p-6 text-center">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-gradient-to-br from-[#1e40af] to-[#065f46] rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3 lg:mb-4">
+                  <type.icon className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-white" />
                 </div>
-                <h3 className="font-semibold text-[#1e40af] mb-2 text-sm sm:text-base">{type.label}</h3>
-                <p className="text-xs sm:text-sm text-gray-600">Secure email for qualified parties</p>
+                <h3 className="font-semibold text-[#1e40af] mb-1 sm:mb-2 text-xs sm:text-sm lg:text-base leading-tight">{type.label}</h3>
+                <p className="text-xs text-gray-600 leading-tight">Secure email for qualified parties</p>
               </div>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Main Content Grid - Responsive Layout */}
+        {/* Main Content Grid - Fixed Responsive Layout */}
         <div className="grid lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-12">
-          {/* Contact Form - Mobile Optimized */}
+          {/* Contact Form - Optimized for all screens */}
           <motion.div className="lg:col-span-2" variants={itemVariants}>
             <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-100 p-4 sm:p-6 lg:p-8">
               <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#1e40af] mb-4 sm:mb-6">Submit Your Inquiry</h2>
@@ -398,8 +398,8 @@ const Contact = () => {
               )}
 
               <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
-                {/* Name and Email - Mobile Stack */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                {/* Name and Email - 2 columns on all devices */}
+                <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:gap-6">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
                     <input
@@ -431,8 +431,8 @@ const Contact = () => {
                   </div>
                 </div>
 
-                {/* Company and Role - Mobile Stack */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                {/* Company and Role - 2 columns on all devices */}
+                <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:gap-6">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">Company *</label>
                     <input
@@ -462,10 +462,10 @@ const Contact = () => {
                     />
                     {errors.role && <p className="mt-1 text-xs sm:text-sm text-red-600">{errors.role}</p>}
                   </div>
-        </div>
+                </div>
 
-                {/* Contact Type and Preferred Contact - Mobile Stack */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                {/* Contact Type and Preferred Contact - 2 columns on all devices */}
+                <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:gap-6">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">Contact Type</label>
                     <select
@@ -496,7 +496,7 @@ const Contact = () => {
                   </div>
                 </div>
 
-                {/* Phone Number - Conditional */}
+                {/* Phone Number - Conditional, full width */}
                 {formData.preferredContact === 'phone' && (
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
@@ -513,7 +513,7 @@ const Contact = () => {
                   </div>
                 )}
 
-                {/* Subject */}
+                {/* Subject - Full width for better UX */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Subject *</label>
                   <input
@@ -529,8 +529,8 @@ const Contact = () => {
                   {errors.subject && <p className="mt-1 text-xs sm:text-sm text-red-600">{errors.subject}</p>}
                 </div>
 
-                {/* Asset Type, Investment Interest, Accreditation - Mobile Stack */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                {/* Asset Type, Investment Interest - 2 columns on all devices */}
+                <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:gap-6">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">Interested In</label>
                     <select
@@ -560,24 +560,25 @@ const Contact = () => {
                       ))}
                     </select>
                   </div>
+                </div>
 
-                  <div className="sm:col-span-2 lg:col-span-1">
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Accreditation Status</label>
-                    <select
-                      name="accreditation"
-                      value={formData.accreditation}
-                      onChange={handleInputChange}
-                      className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#065f46] text-sm sm:text-base bg-white text-gray-900"
-                    >
-                      <option value="">Select status</option>
-                      <option value="accredited">Accredited Investor</option>
-                      <option value="institution">Institutional Investor</option>
-                      <option value="not_accredited">Not Accredited (Limited Access)</option>
-                    </select>
-                  </div>
-              </div>
-              
-                {/* Message */}
+                {/* Accreditation Status - Full width for better UX */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Accreditation Status</label>
+                  <select
+                    name="accreditation"
+                    value={formData.accreditation}
+                    onChange={handleInputChange}
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#065f46] text-sm sm:text-base bg-white text-gray-900"
+                  >
+                    <option value="">Select status</option>
+                    <option value="accredited">Accredited Investor</option>
+                    <option value="institution">Institutional Investor</option>
+                    <option value="not_accredited">Not Accredited (Limited Access)</option>
+                  </select>
+                </div>
+
+                {/* Message - Full width for better UX */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Message *</label>
                   <textarea
@@ -593,7 +594,7 @@ const Contact = () => {
                   {errors.message && <p className="mt-1 text-xs sm:text-sm text-red-600">{errors.message}</p>}
                 </div>
 
-                {/* File Upload - Mobile Optimized */}
+                {/* File Upload - Optimized layout */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Attach Document (Optional)</label>
                   <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
@@ -612,7 +613,7 @@ const Contact = () => {
                   <p className="mt-1 text-xs text-gray-500">Max 10MB: PDF, DOC, DOCX</p>
                 </div>
 
-                {/* Compliance Checkbox - Mobile Optimized */}
+                {/* Compliance Checkbox - Optimized layout */}
                 <div className="flex items-start space-x-3">
                   <input
                     type="checkbox"
@@ -630,10 +631,10 @@ const Contact = () => {
                       and acknowledge that this is for qualified investors only *
                     </label>
                     {errors.compliance && <p className="mt-1 text-xs sm:text-sm text-red-600">{errors.compliance}</p>}
-            </div>
-          </div>
+                  </div>
+                </div>
 
-                {/* Submit Button - Mobile Optimized */}
+                {/* Submit Button - Full width */}
                 <motion.button
                   type="submit"
                   disabled={isSubmitting}
@@ -657,11 +658,11 @@ const Contact = () => {
             </div>
           </motion.div>
 
-          {/* Sidebar - Consolidated Design */}
+          {/* Sidebar - Fixed for better screen utilization */}
           <motion.div className="space-y-6" variants={itemVariants}>
             {/* Contact Information - Single Consolidated Card */}
-            <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-100 p-6">
-              <h3 className="font-semibold text-[#1e40af] mb-4 text-lg">Contact Information</h3>
+            <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-100 p-4 sm:p-6">
+              <h3 className="font-semibold text-[#1e40af] mb-4 text-base sm:text-lg">Contact Information</h3>
               <div className="space-y-4">
                 {contactInfo.map((info, idx) => (
                   <div key={idx} className="flex items-start space-x-3">
@@ -689,11 +690,11 @@ const Contact = () => {
                   </div>
                 ))}
               </div>
-              </div>
-              
+            </div>
+
             {/* Social Media & Resources - Combined Card */}
-            <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-100 p-6">
-              <h3 className="font-semibold text-[#1e40af] mb-4 text-lg">Connect & Resources</h3>
+            <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-100 p-4 sm:p-6">
+              <h3 className="font-semibold text-[#1e40af] mb-4 text-base sm:text-lg">Connect & Resources</h3>
               
               {/* Social Media */}
               <div className="mb-6">
@@ -730,13 +731,13 @@ const Contact = () => {
                       <span className="text-gray-700 text-xs">{r.name}</span>
                     </a>
                   ))}
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
 
             {/* Why Partner With Us - Simplified */}
-            <div className="bg-gradient-to-br from-[#1e40af] to-[#065f46] rounded-2xl p-6 text-white">
-              <h3 className="font-semibold text-lg mb-4">Why Partner With Us</h3>
+            <div className="bg-gradient-to-br from-[#1e40af] to-[#065f46] rounded-2xl p-4 sm:p-6 text-white">
+              <h3 className="font-semibold text-base sm:text-lg mb-4">Why Partner With Us</h3>
               <div className="space-y-3">
                 {features.map((f, i) => (
                   <div key={i} className="flex items-start space-x-3">
@@ -752,7 +753,7 @@ const Contact = () => {
           </motion.div>
         </div>
 
-        {/* Map Section - Simplified */}
+        {/* Map Section - Optimized layout */}
         <motion.div className="mt-12 sm:mt-16" variants={itemVariants}>
           <div className="text-center mb-6 sm:mb-8">
             <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#1e40af] mb-3 sm:mb-4">Find Us</h2>
@@ -771,17 +772,17 @@ const Contact = () => {
                 referrerPolicy="no-referrer-when-downgrade"
                 title="Copym Office Location - Bangalore"
               ></iframe>
-      </div>
+            </div>
           </div>
         </motion.div>
 
-        {/* FAQ Section - Simplified */}
+        {/* FAQ Section - 2 columns on all devices */}
         <motion.div className="mt-12 sm:mt-16" variants={itemVariants}>
           <div className="text-center mb-6 sm:mb-8">
             <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#1e40af] mb-3 sm:mb-4">Frequently Asked Questions</h2>
             <p className="text-gray-600 text-sm sm:text-base">Answers for institutional partners and investors</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:gap-6">
             {[
               { q: "Is your platform SEC-compliant?", a: "Yes, all offerings are compliant with Regulation D, S, and A+ where applicable." },
               { q: "Who can invest?", a: "Accredited and institutional investors globally, subject to local regulations." },
@@ -792,12 +793,12 @@ const Contact = () => {
             ].map((faq, i) => (
               <motion.div
                 key={i}
-                className="bg-white/90 backdrop-blur-sm rounded-lg shadow-md border border-gray-100 p-4 sm:p-6"
+                className="bg-white/90 backdrop-blur-sm rounded-lg shadow-md border border-gray-100 p-3 sm:p-4 lg:p-6"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
               >
-                <h3 className="font-semibold text-[#1e40af] mb-2 text-sm sm:text-base">{faq.q}</h3>
+                <h3 className="font-semibold text-[#1e40af] mb-2 text-xs sm:text-sm lg:text-base leading-tight">{faq.q}</h3>
                 <p className="text-gray-600 text-xs sm:text-sm leading-relaxed">{faq.a}</p>
               </motion.div>
             ))}
