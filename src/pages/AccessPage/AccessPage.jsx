@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
+import { useGSAP } from '../../hooks/useGSAPAnimations';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
     Diamond,
     Shield,
@@ -30,6 +33,14 @@ import CoinGeckoChart from '../../components/CoinGeckoChart';
 
 export default function AccessPage() {
   const [selectedNetwork, setSelectedNetwork] = useState(null);
+  const pageRef = useRef(null);
+  const chartRef = useRef(null);
+  const heroRef = useRef(null);
+  const benefitsRef = useRef(null);
+  const featuresRef = useRef(null);
+  const networksRef = useRef(null);
+  const credentialRef = useRef(null);
+  const ctaRef = useRef(null);
 
   const networks = [
     { key: 'ethereum', name: 'Ethereum', ticker: 'ETH', gradient: 'from-[#627EEA] to-[#3C5FAD]', icon: '🔷' },
@@ -65,52 +76,289 @@ export default function AccessPage() {
     { icon: Vote, text: "Governance voting rights in COPYM DAO decisions" }
   ];
 
+  // Advanced GSAP Animations
+  useGSAP(pageRef, () => {
+    // Register ScrollTrigger if not already registered
+    if (!gsap.plugins.ScrollTrigger) {
+      gsap.registerPlugin(ScrollTrigger);
+    }
+    
+    // Parallax background elements
+    gsap.to('.floating-bg-1', {
+      yPercent: -50,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: pageRef.current,
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1
+      }
+    });
+
+    gsap.to('.floating-bg-2', {
+      yPercent: 30,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: pageRef.current,
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1.5
+      }
+    });
+
+    // Hero section animations
+    gsap.fromTo(heroRef.current, 
+      { opacity: 0, y: 100 },
+      { 
+        opacity: 1, 
+        y: 0, 
+        duration: 1.2,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: heroRef.current,
+          start: 'top 80%',
+          end: 'top 20%',
+          toggleActions: 'play none none reverse'
+        }
+      }
+    );
+
+    // Chart zoom effect
+    gsap.fromTo(chartRef.current,
+      { scale: 0.8, opacity: 0.7 },
+      {
+        scale: 1.2,
+        opacity: 1,
+        duration: 1.5,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: chartRef.current,
+          start: 'top 70%',
+          end: 'center 30%',
+          scrub: 1,
+          onUpdate: (self) => {
+            // Dynamic zoom based on scroll progress
+            const progress = self.progress;
+            const scale = 0.8 + (progress * 0.4); // Scale from 0.8 to 1.2
+            const opacity = 0.7 + (progress * 0.3); // Opacity from 0.7 to 1
+            
+            gsap.set(chartRef.current, {
+              scale: scale,
+              opacity: opacity,
+              transformOrigin: 'center center'
+            });
+          }
+        }
+      }
+    );
+
+    // Benefits cards stagger animation
+    gsap.fromTo('.benefit-card',
+      { opacity: 0, y: 50, scale: 0.9 },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: 'back.out(1.7)',
+        scrollTrigger: {
+          trigger: benefitsRef.current,
+          start: 'top 80%',
+          end: 'top 20%',
+          toggleActions: 'play none none reverse'
+        }
+      }
+    );
+
+    // Features section slide-in
+    gsap.fromTo('.feature-item',
+      { opacity: 0, x: -100 },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: featuresRef.current,
+          start: 'top 80%',
+          end: 'top 20%',
+          toggleActions: 'play none none reverse'
+        }
+      }
+    );
+
+    // Network cards 3D effect
+    gsap.fromTo('.network-card',
+      { opacity: 0, rotationY: 45, scale: 0.8 },
+      {
+        opacity: 1,
+        rotationY: 0,
+        scale: 1,
+        duration: 0.6,
+        stagger: 0.05,
+        ease: 'back.out(1.7)',
+        scrollTrigger: {
+          trigger: networksRef.current,
+          start: 'top 80%',
+          end: 'top 20%',
+          toggleActions: 'play none none reverse'
+        }
+      }
+    );
+
+    // Credential card floating animation
+    gsap.to(credentialRef.current, {
+      y: -20,
+      duration: 3,
+      ease: 'power2.inOut',
+      yoyo: true,
+      repeat: -1,
+      scrollTrigger: {
+        trigger: credentialRef.current,
+        start: 'top 80%',
+        end: 'bottom 20%',
+        toggleActions: 'play none none reverse'
+      }
+    });
+
+    // CTA section glow effect
+    gsap.to(ctaRef.current, {
+      boxShadow: '0 0 50px rgba(37, 95, 153, 0.3)',
+      duration: 2,
+      ease: 'power2.inOut',
+      yoyo: true,
+      repeat: -1,
+      scrollTrigger: {
+        trigger: ctaRef.current,
+        start: 'top 80%',
+        end: 'bottom 20%',
+        toggleActions: 'play none none reverse'
+      }
+    });
+
+    // Text reveal animations
+    gsap.fromTo('.reveal-text',
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: '.reveal-text',
+          start: 'top 90%',
+          end: 'top 60%',
+          toggleActions: 'play none none reverse'
+        }
+      }
+    );
+
+    // Comparison table row animations
+    gsap.fromTo('.comparison-row',
+      { opacity: 0, x: -50 },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 0.6,
+        stagger: 0.1,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: '.comparison-table',
+          start: 'top 80%',
+          end: 'top 20%',
+          toggleActions: 'play none none reverse'
+        }
+      }
+    );
+
+    // Unlock features stagger
+    gsap.fromTo('.unlock-feature',
+      { opacity: 0, scale: 0.8 },
+      {
+        opacity: 1,
+        scale: 1,
+        duration: 0.5,
+        stagger: 0.08,
+        ease: 'back.out(1.7)',
+        scrollTrigger: {
+          trigger: '.unlock-features',
+          start: 'top 80%',
+          end: 'top 20%',
+          toggleActions: 'play none none reverse'
+        }
+      }
+    );
+
+    // Smooth scroll to sections
+    const smoothScrollTo = (target) => {
+      gsap.to(window, {
+        duration: 1.5,
+        scrollTo: { y: target, offsetY: 100 },
+        ease: 'power2.inOut'
+      });
+    };
+
+    // Add click handlers for smooth scrolling
+    document.querySelectorAll('[data-scroll-to]').forEach(button => {
+      button.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.querySelector(button.getAttribute('data-scroll-to'));
+        if (target) smoothScrollTo(target);
+      });
+    });
+
+    // Magnetic effect for buttons
+    document.querySelectorAll('.magnetic-button').forEach(button => {
+      button.addEventListener('mousemove', (e) => {
+        const rect = button.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        
+        gsap.to(button, {
+          x: x * 0.3,
+          y: y * 0.3,
+          duration: 0.3,
+          ease: 'power2.out'
+        });
+      });
+
+      button.addEventListener('mouseleave', () => {
+        gsap.to(button, {
+          x: 0,
+          y: 0,
+          duration: 0.3,
+          ease: 'power2.out'
+        });
+      });
+    });
+
+    // Cleanup function
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
+  });
+
   return (
-    <div className="min-h-screen  relative overflow-hidden">
-      {/* Background Elements */}
+    <div ref={pageRef} className="min-h-screen relative overflow-hidden">
+      {/* Enhanced Background Elements */}
       {/* <div className="absolute inset-0">
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_20%_80%,rgba(37,95,153,0.1),transparent_50%)]"></div>
         <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_80%_20%,rgba(21,163,110,0.1),transparent_50%)]"></div>
         <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(37,95,153,0.03)_25%,rgba(37,95,153,0.03)_50%,transparent_50%,transparent_75%,rgba(37,95,153,0.03)_75%)] bg-[length:40px_40px]"></div>
       </div> */}
 
-      {/* Floating Elements */}
-      <motion.div 
-        className="absolute top-20 right-20 w-96 h-96 bg-gradient-to-br from-[#255f99]/10 to-[#15a36e]/10 rounded-full blur-3xl"
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.3, 0.6, 0.3],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
-      <motion.div 
-        className="absolute bottom-20 left-20 w-80 h-80 bg-gradient-to-br from-[#15a36e]/10 to-[#255f99]/10 rounded-full blur-3xl"
-        animate={{
-          scale: [1.2, 1, 1.2],
-          opacity: [0.4, 0.7, 0.4],
-        }}
-        transition={{
-          duration: 10,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 2
-        }}
-      />
+      {/* Enhanced Floating Elements with GSAP */}
+      <div className="floating-bg-1 absolute top-20 right-20 w-96 h-96 bg-gradient-to-br from-[#255f99]/10 to-[#15a36e]/10 rounded-full blur-3xl"></div>
+      <div className="floating-bg-2 absolute bottom-20 left-20 w-80 h-80 bg-gradient-to-br from-[#15a36e]/10 to-[#255f99]/10 rounded-full blur-3xl"></div>
 
       {/* Main Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         
         {/* Hero Section */}
-        <motion.div 
-          className="text-center mb-20"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
+        <div ref={heroRef} className="text-center mb-20">
           {/* Badge */}
           <motion.div
             className="inline-flex items-center px-6 py-3 bg-white/80 backdrop-blur-sm border border-[#255f99]/20 rounded-full mb-8 shadow-lg"
@@ -123,12 +371,7 @@ export default function AccessPage() {
           </motion.div>
 
           {/* Main Title */}
-          <motion.h1 
-            className="brand-title mb-8 text-[#255f99]"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.4 }}
-          >
+          <h1 className="brand-title mb-8 text-[#255f99] reveal-text">
             Your Gateway to{' '}
             <span className="relative text-[#15a36e]">
               COPYM's Exclusive World
@@ -139,26 +382,22 @@ export default function AccessPage() {
                 transition={{ duration: 0.8, delay: 1.2 }}
               />
             </span>
-          </motion.h1>
+          </h1>
 
           {/* Description */}
-          <motion.p 
-            className="brand-description max-w-3xl mx-auto mb-12"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-          >
+          <p className="brand-description max-w-3xl mx-auto mb-12 reveal-text">
             Unlock premium access to real-world assets, member-only rewards, and the next wave of Web3 innovation with your exclusive access pass.
-          </motion.p>
+          </p>
 
           {/* CTA Button */}
           <motion.button
-            className="group relative px-12 py-4 bg-gradient-to-r from-[#255f99] to-[#15a36e] text-white font-bold text-lg rounded-full shadow-2xl hover:shadow-3xl transition-all duration-500 overflow-hidden"
+            className="magnetic-button group relative px-12 py-4 bg-gradient-to-r from-[#255f99] to-[#15a36e] text-white font-bold text-lg rounded-full shadow-2xl hover:shadow-3xl transition-all duration-500 overflow-hidden"
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
+            data-scroll-to="#chart-section"
           >
             <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             <span className="relative flex items-center">
@@ -166,29 +405,19 @@ export default function AccessPage() {
               <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
             </span>
           </motion.button>
-        </motion.div>
+        </div>
 
-        {/* Chart Section */}
-        <motion.div 
-          className="mb-20"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.0 }}
-        >
+        {/* Chart Section with GSAP Zoom Effect */}
+        <div id="chart-section" ref={chartRef} className="mb-20">
           <div className="bg-white/80 backdrop-blur-sm rounded-3xl border border-white/50 shadow-2xl overflow-hidden">
             <CoinGeckoChart />
           </div>
-        </motion.div>
+        </div>
 
         {/* Benefits Grid */}
-        <motion.div
-          className="mb-20"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.2 }}
-        >
-          <div className="text-center mb-12">
-            <h2 className="brand-section-title text-[#255f99] mb-4">
+        <div ref={benefitsRef} className="mb-20">
+          <div className="text-center mb-12 pt-12">
+            <h2 className="brand-section-title text-[#255f99] mb-4 reveal-text">
               Why Get the COPYM Access Pass?
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-[#15a36e] to-[#255f99] mx-auto rounded-full"></div>
@@ -196,13 +425,9 @@ export default function AccessPage() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {benefits.map((benefit, index) => (
-              <motion.div
+              <div
                 key={index}
-                className="group relative bg-white/90 backdrop-blur-sm p-8 rounded-2xl border border-white/50 shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden"
-                whileHover={{ y: -8, scale: 1.02 }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 1.3 + index * 0.1 }}
+                className="benefit-card group relative bg-white/90 backdrop-blur-sm p-8 rounded-2xl border border-white/50 shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden"
               >
                 <div className={`absolute inset-0 bg-gradient-to-br ${benefit.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}></div>
                 <div className="relative text-center">
@@ -216,20 +441,15 @@ export default function AccessPage() {
                     {benefit.description}
                   </p>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
-        </motion.div>
+        </div>
 
         {/* Unlock Features */}
-        <motion.div
-          className="mb-20"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.4 }}
-        >
+        <div className="unlock-features mb-20">
           <div className="text-center mb-12">
-            <h2 className="brand-section-title text-[#255f99] mb-4">
+            <h2 className="brand-section-title text-[#255f99] mb-4 reveal-text">
               Everything Your Pass Unlocks
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-[#15a36e] to-[#255f99] mx-auto rounded-full"></div>
@@ -237,31 +457,23 @@ export default function AccessPage() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {unlockFeatures.map((feature, index) => (
-              <motion.div
+              <div
                 key={index}
-                className="group flex items-start gap-4 p-6 bg-white/80 backdrop-blur-sm rounded-xl border border-white/50 shadow-lg hover:shadow-xl transition-all duration-300"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: 1.5 + index * 0.1 }}
+                className="unlock-feature group flex items-start gap-4 p-6 bg-white/80 backdrop-blur-sm rounded-xl border border-white/50 shadow-lg hover:shadow-xl transition-all duration-300"
               >
                 <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#15a36e] to-[#255f99] flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-300 flex-shrink-0">
                   <feature.icon className="w-6 h-6 text-white" />
                 </div>
                 <span className="text-gray-700 font-medium leading-relaxed">{feature.text}</span>
-              </motion.div>
+              </div>
             ))}
           </div>
-        </motion.div>
+        </div>
 
         {/* Platform Features */}
-        <motion.div
-          className="mb-20"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.6 }}
-        >
+        <div ref={featuresRef} className="mb-20">
           <div className="text-center mb-12">
-            <h2 className="brand-section-title text-[#255f99] mb-4">
+            <h2 className="brand-section-title text-[#255f99] mb-4 reveal-text">
               Platform Features
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-[#15a36e] to-[#255f99] mx-auto rounded-full"></div>
@@ -269,12 +481,9 @@ export default function AccessPage() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {features.map((feature, index) => (
-              <motion.div
+              <div
                 key={index}
-                className="group flex items-start gap-6 p-8 bg-white/90 backdrop-blur-sm rounded-2xl border border-white/50 shadow-xl hover:shadow-2xl transition-all duration-500"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 1.7 + index * 0.1 }}
+                className="feature-item group flex items-start gap-6 p-8 bg-white/90 backdrop-blur-sm rounded-2xl border border-white/50 shadow-xl hover:shadow-2xl transition-all duration-500"
               >
                 <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${feature.color} flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 flex-shrink-0`}>
                   <feature.icon className="w-8 h-8 text-white" />
@@ -285,26 +494,21 @@ export default function AccessPage() {
                   </h3>
                   <p className="text-gray-600 leading-relaxed">{feature.description}</p>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
-        </motion.div>
+        </div>
 
         {/* Benefits Comparison */}
-        <motion.div
-          className="mb-20"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.8 }}
-        >
+        <div className="mb-20">
           <div className="text-center mb-12">
-            <h2 className="brand-section-title text-[#255f99] mb-4">
+            <h2 className="brand-section-title text-[#255f99] mb-4 reveal-text">
               Benefits Comparison
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-[#15a36e] to-[#255f99] mx-auto rounded-full"></div>
           </div>
           
-          <div className="bg-white/90 backdrop-blur-sm rounded-3xl border border-white/50 overflow-hidden shadow-2xl">
+          <div className="comparison-table bg-white/90 backdrop-blur-sm rounded-3xl border border-white/50 overflow-hidden shadow-2xl">
             <div className="grid grid-cols-3 text-sm font-bold text-gray-600 border-b border-gray-200/50">
               <div className="p-6 bg-gray-50/80 backdrop-blur-sm">FEATURE</div>
               <div className="p-6 bg-[#15a36e]/10 text-[#15a36e] backdrop-blur-sm">TOKENIZATION</div>
@@ -318,7 +522,7 @@ export default function AccessPage() {
               { feature: 'Fees', tokenization: '0.5-2%', traditional: '5-15%', icon: Percent },
               { feature: 'Access', tokenization: 'Global', traditional: 'Local', icon: Globe }
             ].map((row, index) => (
-              <div key={index} className="grid grid-cols-3 text-sm border-b border-gray-100/50 last:border-b-0 hover:bg-gray-50/30 transition-colors">
+              <div key={index} className="comparison-row grid grid-cols-3 text-sm border-b border-gray-100/50 last:border-b-0 hover:bg-gray-50/30 transition-colors">
                 <div className="p-6 font-semibold text-gray-900 flex items-center gap-3">
                   <row.icon className="w-5 h-5 text-[#255f99]" />
                   {row.feature}
@@ -331,17 +535,12 @@ export default function AccessPage() {
               </div>
             ))}
           </div>
-        </motion.div>
+        </div>
 
         {/* Supported Networks */}
-        <motion.div
-          className="mb-20"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 2.0 }}
-        >
+        <div ref={networksRef} className="mb-20">
           <div className="text-center mb-12">
-            <h2 className="brand-section-title text-[#255f99] mb-4">
+            <h2 className="brand-section-title text-[#255f99] mb-4 reveal-text">
               Supported Networks
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-[#15a36e] to-[#255f99] mx-auto rounded-full"></div>
@@ -351,14 +550,14 @@ export default function AccessPage() {
             {networks.map((network) => (
               <motion.div
                 key={network.key}
-                whileHover={{ y: -4, scale: 1.05 }}
+                className="network-card group relative bg-white/90 backdrop-blur-sm p-6 rounded-2xl border-2 transition-all duration-300 overflow-hidden cursor-pointer border-white/50 shadow-xl hover:shadow-2xl"
+                whileHover={{ y: -4, scale: 1.05, rotateY: 5 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => setSelectedNetwork(selectedNetwork === network.key ? null : network.key)}
-                className={`group relative bg-white/90 backdrop-blur-sm p-6 rounded-2xl border-2 transition-all duration-300 overflow-hidden cursor-pointer ${
-                  selectedNetwork === network.key 
-                    ? 'border-[#15a36e] shadow-2xl scale-105' 
-                    : 'border-white/50 shadow-xl hover:shadow-2xl'
-                }`}
+                style={{
+                  transformStyle: 'preserve-3d',
+                  perspective: '1000px'
+                }}
               >
                 <div className={`absolute inset-0 bg-gradient-to-br ${network.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-300`}></div>
                 <div className="relative text-center">
@@ -381,80 +580,70 @@ export default function AccessPage() {
               </motion.div>
             ))}
           </div>
-        </motion.div>
+        </div>
 
         {/* Credential Preview */}
-        <motion.div
-                  className="mb-20"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 2.2 }}
-                >
-                  <div className="grid lg:grid-cols-2 gap-12 items-center">
-                    <div className="text-center lg:text-left">
-                      <h2 className="brand-section-title text-[#255f99] mb-4">
-                        Your Access Credential
-                      </h2>
-                      <div className="w-24 h-1 bg-gradient-to-r from-[#15a36e] to-[#255f99] lg:mx-0 mx-auto rounded-full mb-6"></div>
-                      <p className="text-gray-600 text-lg leading-relaxed mb-8">
-                        Your digital identity that unlocks exclusive access to the COPYM ecosystem. 
-                        Secure, verifiable, and always with you.
-                      </p>
-                      <div className="space-y-4">
-                        <div className="flex items-center gap-3 text-gray-700">
-                          <CheckCircle className="w-5 h-5 text-[#15a36e]" />
-                          <span>Secure blockchain verification</span>
-                        </div>
-                        <div className="flex items-center gap-3 text-gray-700">
-                          <CheckCircle className="w-5 h-5 text-[#15a36e]" />
-                          <span>Instant access to all features</span>
-                        </div>
-                        <div className="flex items-center gap-3 text-gray-700">
-                          <CheckCircle className="w-5 h-5 text-[#15a36e]" />
-                          <span>Portable across devices</span>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div className="flex justify-center">
-                      <div className="bg-white/90 backdrop-blur-sm rounded-3xl border border-white/50 shadow-2xl p-8">
-                        <CredentialCard
-                          user={{
-                            name: 'Alex Morgan',
-                            employeeNumber: 'EMP-2048',
-                            passNumber: 'PASS-7F32',
-                            points: '1,250',
-                            qrImage: ''
-                          }}
-                          variant="bottleGreen"
-                          stacked
-                          backVariant="darkBlue"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
+        <div ref={credentialRef} className="mb-20">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="text-center lg:text-left">
+              <h2 className="brand-section-title text-[#255f99] mb-4 reveal-text">
+                Your Access Credential
+              </h2>
+              <div className="w-24 h-1 bg-gradient-to-r from-[#15a36e] to-[#255f99] lg:mx-0 mx-auto rounded-full mb-6"></div>
+              <p className="text-gray-600 text-lg leading-relaxed mb-8 reveal-text">
+                Your digital identity that unlocks exclusive access to the COPYM ecosystem. 
+                Secure, verifiable, and always with you.
+              </p>
+              <div className="space-y-4">
+                <div className="flex items-center gap-3 text-gray-700 reveal-text">
+                  <CheckCircle className="w-5 h-5 text-[#15a36e]" />
+                  <span>Secure blockchain verification</span>
+                </div>
+                <div className="flex items-center gap-3 text-gray-700 reveal-text">
+                  <CheckCircle className="w-5 h-5 text-[#15a36e]" />
+                  <span>Instant access to all features</span>
+                </div>
+                <div className="flex items-center gap-3 text-gray-700 reveal-text">
+                  <CheckCircle className="w-5 h-5 text-[#15a36e]" />
+                  <span>Portable across devices</span>
+                </div>
+              </div>
+            </div>
+            
+            <div className="flex justify-center">
+              <div className="bg-white/90 backdrop-blur-sm rounded-3xl border border-white/50 shadow-2xl p-8">
+                <CredentialCard
+                  user={{
+                    name: 'Alex Morgan',
+                    employeeNumber: 'EMP-2048',
+                    passNumber: 'PASS-7F32',
+                    points: '1,250',
+                    qrImage: ''
+                  }}
+                  variant="bottleGreen"
+                  stacked
+                  backVariant="darkBlue"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
 
         {/* Final CTA */}
-        <motion.div
-          className="text-center"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 2.4 }}
-        >
+        <div ref={ctaRef} className="text-center">
           <div className="bg-gradient-to-r from-[#255f99] to-[#15a36e] rounded-3xl p-12 text-white">
             <Crown className="w-16 h-16 mx-auto mb-6 text-white/80" />
-            <h3 className="text-3xl font-bold mb-4">Ready to Join the Elite?</h3>
-            <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
+            <h3 className="text-3xl font-bold mb-4 reveal-text">Ready to Join the Elite?</h3>
+            <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto reveal-text">
               Don't miss out on exclusive access to the future of real-world asset tokenization.
             </p>
-            <button className="group bg-white/20 backdrop-blur-sm px-8 py-4 rounded-full font-bold text-lg hover:bg-white/30 transition-all duration-300 flex items-center mx-auto">
+            <button className="magnetic-button group bg-white/20 backdrop-blur-sm px-8 py-4 rounded-full font-bold text-lg hover:bg-white/30 transition-all duration-300 flex items-center mx-auto">
               <Sparkles className="mr-3 w-5 h-5" />
               Get Your Access Pass Now
               <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
             </button>
           </div>
-        </motion.div>
+        </div>
       </div>
     </div>
   );
