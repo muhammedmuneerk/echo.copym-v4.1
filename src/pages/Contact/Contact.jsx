@@ -1,20 +1,34 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  Mail, 
-  Phone, 
-  MapPin, 
-  Clock, 
-  Send, 
-  CheckCircle, 
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Clock,
+  Send,
+  CheckCircle,
   AlertCircle,
   Building2,
   HeadphonesIcon,
   MessageSquare,
-  Star,
   Users,
   Shield,
-  Zap
+  Zap,
+  Upload,
+  FileText,
+  Globe,
+  Linkedin,
+  Twitter,
+  Facebook,
+  Instagram,
+  Youtube,
+  MessageCircle,
+  ExternalLink,
+  Download,
+  Star,
+  Scale,
+  Lock,
+  Award
 } from 'lucide-react';
 
 const Contact = () => {
@@ -22,88 +36,141 @@ const Contact = () => {
     name: '',
     email: '',
     company: '',
+    role: '',
+    assetType: '',
+    investmentInterest: '',
+    accreditation: '',
     subject: '',
     message: '',
-    contactType: 'general'
+    contactType: 'investor',
+    phone: '',
+    preferredContact: 'email',
+    compliance: false
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
   const [errors, setErrors] = useState({});
+  const [showLiveChat, setShowLiveChat] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
 
+  // RWA-specific contact types
   const contactTypes = [
-    { value: 'general', label: 'General Inquiry', icon: MessageSquare },
-    { value: 'sales', label: 'Sales & Partnerships', icon: Building2 },
-    { value: 'support', label: 'Technical Support', icon: HeadphonesIcon },
-    { value: 'enterprise', label: 'Enterprise Solutions', icon: Users }
+    { value: 'investor', label: 'Investor Inquiry', icon: Users },
+    { value: 'issuer', label: 'Asset Issuer / Sponsor', icon: Building2 },
+    { value: 'partner', label: 'Institutional Partnership', icon: Users },
+    { value: 'legal', label: 'Legal & Compliance', icon: Scale },
+    { value: 'tech', label: 'Technical Integration', icon: Globe },
+    { value: 'support', label: 'Platform Support', icon: Shield }
+  ];
+
+  // RWA-specific asset types
+  const assetOptions = [
+    'Real Estate',
+    'Private Equity',
+    'Infrastructure',
+    'Commodities',
+    'Art & Collectibles',
+    'Debt Instruments',
+    'Venture Capital',
+    'Hedge Funds',
+    'Other'
+  ];
+
+  const investmentLevels = [
+    'Under $100K',
+    '$100K - $500K',
+    '$500K - $1M',
+    '$1M - $5M',
+    'Over $5M',
+    'Exploring Options'
   ];
 
   const contactInfo = [
     {
       icon: Mail,
-      title: 'Email Us',
-      details: ['hello@copym.ai', 'support@copym.ai'],
-      description: 'Get in touch via email for any inquiries'
+      title: 'Email Support',
+      details: ['support@copym.xyz', 'hello@copym.xyz'],
+      description: 'Get in touch via email for any inquiries',
+      action: 'mailto:support@copym.xyz'
     },
     {
       icon: Phone,
-      title: 'Call Us',
-      details: ['+1 (555) 123-4567', '+1 (555) 987-6543'],
-      description: 'Speak directly with our team'
+      title: 'Direct Line',
+      details: ['+1 (555) 123-4567'],
+      description: 'Speak directly with our team',
+      action: 'tel:+15551234567'
     },
     {
       icon: MapPin,
       title: 'Visit Us',
-      details: ['123 Innovation Drive', 'San Francisco, CA 94105'],
-      description: 'Drop by our office for a meeting'
+      details: ['123 Tech Park, Whitefield', 'Bangalore, Karnataka 560066, India'],
+      description: 'Drop by our office for a meeting',
+      action: 'https://maps.app.goo.gl/tRFiZ3JenBnBVG158?g_st=ac'
     },
     {
       icon: Clock,
       title: 'Business Hours',
-      details: ['Mon-Fri: 9AM-6PM PST', 'Sat: 10AM-4PM PST'],
-      description: 'We\'re here when you need us'
+      details: ['24/7 Support Available', 'Round the clock assistance'],
+      description: 'We\'re here when you need us',
+      action: null
     }
+  ];
+
+  const socialMedia = [
+    { name: 'LinkedIn', icon: Linkedin, url: 'https://linkedin.com/company/rwa-platform', color: 'hover:text-blue-600' },
+    { name: 'Twitter', icon: Twitter, url: 'https://twitter.com/rwa-platform', color: 'hover:text-blue-400' },
+    { name: 'Facebook', icon: Facebook, url: 'https://facebook.com/rwa-platform', color: 'hover:text-blue-700' },
+    { name: 'Instagram', icon: Instagram, url: 'https://instagram.com/rwa-platform', color: 'hover:text-pink-600' },
+    { name: 'YouTube', icon: Youtube, url: 'https://youtube.com/rwa-platform', color: 'hover:text-red-600' }
   ];
 
   const features = [
     {
       icon: Shield,
-      title: 'Secure Communication',
-      description: 'All communications are encrypted and secure'
+      title: 'Regulatory Compliance',
+      description: 'Fully compliant with SEC, KYC, and AML standards'
     },
     {
-      icon: Zap,
-      title: 'Quick Response',
-      description: 'We typically respond within 24 hours'
+      icon: Scale,
+      title: 'Legal Framework',
+      description: 'Robust legal structure for asset tokenization'
     },
     {
-      icon: Star,
-      title: 'Expert Support',
-      description: 'Get help from our experienced team'
+      icon: Lock,
+      title: 'Secure Infrastructure',
+      description: 'Enterprise-grade security and audit trails'
     }
+  ];
+
+  const resources = [
+    { name: 'Investor Deck', icon: Download, url: '/resources/investor-deck.pdf' },
+    { name: 'Whitepaper', icon: FileText, url: '/resources/whitepaper.pdf' },
+    { name: 'Compliance Framework', icon: Shield, url: '/compliance' },
+    { name: 'API Documentation', icon: Globe, url: '/api' }
   ];
 
   const validateForm = () => {
     const newErrors = {};
-    
-    if (!formData.name.trim()) {
-      newErrors.name = 'Name is required';
+
+    if (!formData.name.trim()) newErrors.name = 'Name is required';
+    if (!formData.email.trim()) newErrors.email = 'Email is required';
+    else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'Invalid email';
+
+    if (!formData.company.trim()) newErrors.company = 'Company or organization is required';
+    if (!formData.role.trim()) newErrors.role = 'Your role (e.g., CFO, Portfolio Manager) is required';
+
+    if (!formData.subject.trim()) newErrors.subject = 'Subject is required';
+    if (!formData.message.trim() || formData.message.length < 20) {
+      newErrors.message = 'Message must be at least 20 characters';
     }
-    
-    if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Please enter a valid email address';
+
+    if (formData.preferredContact === 'phone' && !formData.phone.trim()) {
+      newErrors.phone = 'Phone number is required';
     }
-    
-    if (!formData.subject.trim()) {
-      newErrors.subject = 'Subject is required';
-    }
-    
-    if (!formData.message.trim()) {
-      newErrors.message = 'Message is required';
-    } else if (formData.message.length < 10) {
-      newErrors.message = 'Message must be at least 10 characters';
+
+    if (!formData.compliance) {
+      newErrors.compliance = 'You must agree to the compliance terms';
     }
 
     setErrors(newErrors);
@@ -111,44 +178,54 @@ const Contact = () => {
   };
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
+    const { name, value, type, checked } = e.target;
+    setFormData((prev) => ({ 
+      ...prev, 
+      [name]: type === 'checkbox' ? checked : value 
     }));
-    
-    // Clear error when user starts typing
+
+    // Clear error on input
     if (errors[name]) {
-      setErrors(prev => ({
-        ...prev,
-        [name]: ''
-      }));
+      setErrors((prev) => ({ ...prev, [name]: '' }));
+    }
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file && file.size <= 10 * 1024 * 1024) {
+      setSelectedFile(file);
+    } else {
+      alert('File must be under 10MB');
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    if (!validateForm()) {
-      return;
-    }
+    if (!validateForm()) return;
 
     setIsSubmitting(true);
     setSubmitStatus(null);
 
     try {
       // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
+      await new Promise((resolve) => setTimeout(resolve, 2000));
       setSubmitStatus('success');
       setFormData({
         name: '',
         email: '',
         company: '',
+        role: '',
+        assetType: '',
+        investmentInterest: '',
+        accreditation: '',
         subject: '',
         message: '',
-        contactType: 'general'
+        contactType: 'investor',
+        phone: '',
+        preferredContact: 'email',
+        compliance: false
       });
+      setSelectedFile(null);
     } catch (error) {
       setSubmitStatus('error');
     } finally {
@@ -158,15 +235,21 @@ const Contact = () => {
 
   const handleQuickContact = (type) => {
     const emails = {
-      sales: 'sales@copym.ai',
-      support: 'support@copym.ai',
-      general: 'hello@copym.ai'
+      investor: 'support@copym.xyz',
+      issuer: 'support@copym.xyz',
+      partner: 'support@copym.xyz',
+      legal: 'support@copym.xyz',
+      tech: 'support@copym.xyz',
+      support: 'support@copym.xyz'
     };
     
     const subjects = {
-      sales: 'Sales Inquiry',
-      support: 'Support Request',
-      general: 'General Inquiry'
+      investor: 'Investor Inquiry',
+      issuer: 'Asset Issuer Inquiry',
+      partner: 'Partnership Inquiry',
+      legal: 'Legal & Compliance Inquiry',
+      tech: 'Technical Integration Inquiry',
+      support: 'Platform Support Request'
     };
 
     window.location.href = `mailto:${emails[type]}?subject=${subjects[type]}`;
@@ -176,10 +259,7 @@ const Contact = () => {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        duration: 0.6,
-        staggerChildren: 0.1
-      }
+      transition: { duration: 0.6, staggerChildren: 0.1 }
     }
   };
 
@@ -197,63 +277,83 @@ const Contact = () => {
       {/* Background Elements */}
       <div className="absolute inset-0 opacity-5">
         <svg className="w-full h-full" viewBox="0 0 1000 1000" fill="none">
-          <path
-            d="M100 100C200 200 300 50 400 150C500 250 600 100 700 200C800 300 900 150 1000 250"
-            stroke="currentColor"
-            strokeWidth="2"
-            fill="none"
-            className="text-black"
-          />
-          <path
-            d="M0 300C100 400 200 250 300 350C400 450 500 300 600 400C700 500 800 350 900 450"
-            stroke="currentColor"
-            strokeWidth="2"
-            fill="none"
-            className="text-black"
-          />
+          <path d="M100 100C200 200 300 50 400 150C500 250 600 100 700 200C800 300 900 150 1000 250" stroke="currentColor" strokeWidth="2" fill="none" className="text-black" />
+          <path d="M0 300C100 400 200 250 300 350C400 450 500 300 600 400C700 500 800 350 900 450" stroke="currentColor" strokeWidth="2" fill="none" className="text-black" />
         </svg>
       </div>
 
-      {/* Gradient Shapes */}
+      {/* Gradient Orbs */}
       <div className="absolute top-[-150px] right-[-150px] w-[500px] h-[500px] bg-gradient-to-br from-blue-400 to-green-400 rounded-full blur-[60px] opacity-20"></div>
       <div className="absolute bottom-[-150px] left-[-150px] w-[400px] h-[400px] bg-gradient-to-tr from-green-400 to-blue-400 rounded-full blur-[50px] opacity-20"></div>
 
+      {/* Live Chat Widget */}
       <motion.div 
+        className="fixed bottom-6 right-6 z-50"
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{ delay: 1 }}
+      >
+        <button
+          onClick={() => setShowLiveChat(!showLiveChat)}
+          className="bg-gradient-to-r from-[#1e40af] to-[#065f46] text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-200"
+          aria-label="Open live chat"
+        >
+          <MessageCircle className="w-6 h-6" />
+        </button>
+        
+        {showLiveChat && (
+          <motion.div 
+            className="absolute bottom-16 right-0 w-80 bg-white rounded-lg shadow-xl border"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+          >
+            <div className="p-4 border-b">
+              <h3 className="font-semibold text-[#1e40af]">Live Chat</h3>
+              <p className="text-sm text-gray-600">We're online and ready to help!</p>
+            </div>
+            <div className="p-4">
+              <p className="text-sm text-gray-600 mb-3">Start a conversation with our support team.</p>
+              <button className="w-full bg-[#065f46] text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-[#064e3b] transition-colors">
+                Start Chat
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </motion.div>
+
+      <motion.div
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-8 pb-16"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
       >
-        {/* Header Section */}
+        {/* Header */}
         <motion.div className="text-center mb-12 sm:mb-16" variants={itemVariants}>
-          <h1 className="brand-title text-3xl sm:text-5xl lg:text-6xl leading-tight mb-4 sm:mb-6 text-[#255f99]">
-            Get in{' '}
-            <span className="relative text-[#15a36e]">
-              Touch
-            </span>
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl leading-tight mb-4 sm:mb-6 text-[#1e40af] font-bold">
+            Contact Our <span className="text-[#065f46]">RWA Team</span>
           </h1>
-          <p className="brand-description text-base sm:text-xl max-w-3xl mx-auto">
-            We're here to help! Whether you have questions about our platform, need technical support, 
-            or want to explore partnership opportunities, our team is ready to assist you.
+          <p className="text-base sm:text-xl max-w-3xl mx-auto text-gray-700">
+            Connect with our team for investor onboarding, asset tokenization,
+            legal compliance, or technical integration.
           </p>
         </motion.div>
 
-        {/* Quick Contact Cards */}
-        <motion.div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-4 mb-12" variants={itemVariants}>
+        {/* Quick Contact (RWA-Focused) */}
+        <motion.div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3 mb-12" variants={itemVariants}>
           {contactTypes.map((type) => (
             <motion.div
               key={type.value}
-              className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer border border-gray-100 hover:border-[#15a36e] hover:transform hover:-translate-y-1"
-              onClick={() => handleQuickContact(type.value)}
+              className="bg-white rounded-xl shadow-lg border border-gray-100 hover:border-[#065f46] hover:shadow-xl transition-all cursor-pointer hover:-translate-y-1"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
+              onClick={() => handleQuickContact(type.value)}
             >
               <div className="p-6 text-center">
-                <div className="w-12 h-12 bg-gradient-to-br from-[#255f99] to-[#15a36e] rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-12 h-12 bg-gradient-to-br from-[#1e40af] to-[#065f46] rounded-full flex items-center justify-center mx-auto mb-4">
                   <type.icon className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="font-semibold text-[#255f99] mb-2">{type.label}</h3>
-                <p className="text-sm text-gray-600">Quick contact via email</p>
+                <h3 className="font-semibold text-[#1e40af] mb-2">{type.label}</h3>
+                <p className="text-sm text-gray-600">Secure email for qualified parties</p>
               </div>
             </motion.div>
           ))}
@@ -263,95 +363,103 @@ const Contact = () => {
           {/* Contact Form */}
           <motion.div className="lg:col-span-2" variants={itemVariants}>
             <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8">
-              <h2 className="text-2xl sm:text-3xl font-bold text-[#255f99] mb-6">Send us a Message</h2>
-              
+              <h2 className="text-2xl sm:text-3xl font-bold text-[#1e40af] mb-6">Submit Your Inquiry</h2>
+
               {submitStatus === 'success' && (
-                <motion.div 
+                <motion.div
                   className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg flex items-center"
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                 >
                   <CheckCircle className="w-5 h-5 text-green-600 mr-3" />
-                  <span className="text-green-800">Thank you! Your message has been sent successfully.</span>
+                  <span className="text-green-800">Thank you. We'll respond within 24 business hours.</span>
                 </motion.div>
               )}
 
               {submitStatus === 'error' && (
-                <motion.div 
+                <motion.div
                   className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-center"
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                 >
                   <AlertCircle className="w-5 h-5 text-red-600 mr-3" />
-                  <span className="text-red-800">Something went wrong. Please try again.</span>
+                  <span className="text-red-800">Submission failed. Please try again.</span>
                 </motion.div>
               )}
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid sm:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Name *
-                    </label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
                     <input
                       type="text"
                       name="name"
                       value={formData.name}
                       onChange={handleInputChange}
-                      className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#15a36e] focus:border-transparent transition-all duration-200 ${
-                        errors.name ? 'border-red-300' : 'border-gray-300'
-                      }`}
-                      placeholder="Your full name"
+                      className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#065f46] focus:border-transparent ${errors.name ? 'border-red-300' : 'border-gray-300'
+                        }`}
+                      placeholder="John Smith"
+                      required
                     />
-                    {errors.name && (
-                      <p className="mt-1 text-sm text-red-600">{errors.name}</p>
-                    )}
+                    {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name}</p>}
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Email *
-                    </label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Email *</label>
                     <input
                       type="email"
                       name="email"
                       value={formData.email}
                       onChange={handleInputChange}
-                      className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#15a36e] focus:border-transparent transition-all duration-200 ${
-                        errors.email ? 'border-red-300' : 'border-gray-300'
-                      }`}
-                      placeholder="your.email@example.com"
+                      className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#065f46] focus:border-transparent ${errors.email ? 'border-red-300' : 'border-gray-300'
+                        }`}
+                      placeholder="john@institution.com"
+                      required
                     />
-                    {errors.email && (
-                      <p className="mt-1 text-sm text-red-600">{errors.email}</p>
-                    )}
+                    {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
                   </div>
                 </div>
 
                 <div className="grid sm:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Company
-                    </label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Company *</label>
                     <input
                       type="text"
                       name="company"
                       value={formData.company}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#15a36e] focus:border-transparent transition-all duration-200"
-                      placeholder="Your company name"
+                      className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#065f46] focus:border-transparent ${errors.company ? 'border-red-300' : 'border-gray-300'
+                        }`}
+                      placeholder="ABC Capital Partners"
+                      required
                     />
+                    {errors.company && <p className="mt-1 text-sm text-red-600">{errors.company}</p>}
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Contact Type
-                    </label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Role *</label>
+                    <input
+                      type="text"
+                      name="role"
+                      value={formData.role}
+                      onChange={handleInputChange}
+                      className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#065f46] focus:border-transparent ${errors.role ? 'border-red-300' : 'border-gray-300'
+                        }`}
+                      placeholder="CFO, Portfolio Manager, etc."
+                      required
+                    />
+                    {errors.role && <p className="mt-1 text-sm text-red-600">{errors.role}</p>}
+                  </div>
+                </div>
+
+                <div className="grid sm:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Contact Type</label>
                     <select
                       name="contactType"
                       value={formData.contactType}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#15a36e] focus:border-transparent transition-all duration-200"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#065f46]"
                     >
                       {contactTypes.map((type) => (
                         <option key={type.value} value={type.value}>
@@ -360,62 +468,164 @@ const Contact = () => {
                       ))}
                     </select>
                   </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Preferred Contact</label>
+                    <select
+                      name="preferredContact"
+                      value={formData.preferredContact}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#065f46]"
+                    >
+                      <option value="email">Email</option>
+                      <option value="phone">Phone</option>
+                    </select>
+                  </div>
                 </div>
 
+                {formData.preferredContact === 'phone' && (
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                      className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#065f46] ${errors.phone ? 'border-red-300' : 'border-gray-300'
+                        }`}
+                      placeholder="+1 (555) 123-4567"
+                    />
+                    {errors.phone && <p className="mt-1 text-sm text-red-600">{errors.phone}</p>}
+                  </div>
+                )}
+
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Subject *
-                  </label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Subject *</label>
                   <input
                     type="text"
                     name="subject"
                     value={formData.subject}
                     onChange={handleInputChange}
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#15a36e] focus:border-transparent transition-all duration-200 ${
-                      errors.subject ? 'border-red-300' : 'border-gray-300'
-                    }`}
-                    placeholder="What's this about?"
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#065f46] ${errors.subject ? 'border-red-300' : 'border-gray-300'
+                      }`}
+                    placeholder="e.g., Investment in Commercial Real Estate"
+                    required
                   />
-                  {errors.subject && (
-                    <p className="mt-1 text-sm text-red-600">{errors.subject}</p>
-                  )}
+                  {errors.subject && <p className="mt-1 text-sm text-red-600">{errors.subject}</p>}
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Message *
-                  </label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Interested In</label>
+                  <select
+                    name="assetType"
+                    value={formData.assetType}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#065f46]"
+                  >
+                    <option value="">Select asset type</option>
+                    {assetOptions.map((opt) => (
+                      <option key={opt} value={opt}>{opt}</option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Investment Interest</label>
+                  <select
+                    name="investmentInterest"
+                    value={formData.investmentInterest}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#065f46]"
+                  >
+                    <option value="">Select level</option>
+                    {investmentLevels.map((level) => (
+                      <option key={level} value={level}>{level}</option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Accreditation Status</label>
+                  <select
+                    name="accreditation"
+                    value={formData.accreditation}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#065f46]"
+                  >
+                    <option value="">Select status</option>
+                    <option value="accredited">Accredited Investor</option>
+                    <option value="institution">Institutional Investor</option>
+                    <option value="not_accredited">Not Accredited (Limited Access)</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Message *</label>
                   <textarea
                     name="message"
                     value={formData.message}
                     onChange={handleInputChange}
-                    rows={6}
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#15a36e] focus:border-transparent transition-all duration-200 resize-none ${
-                      errors.message ? 'border-red-300' : 'border-gray-300'
-                    }`}
-                    placeholder="Tell us more about your inquiry..."
+                    rows={5}
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#065f46] resize-none ${errors.message ? 'border-red-300' : 'border-gray-300'
+                      }`}
+                    placeholder="Please describe your interest, use case, or integration needs..."
+                    required
                   />
-                  {errors.message && (
-                    <p className="mt-1 text-sm text-red-600">{errors.message}</p>
-                  )}
+                  {errors.message && <p className="mt-1 text-sm text-red-600">{errors.message}</p>}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Attach Document (Optional)</label>
+                  <div className="flex items-center space-x-4">
+                    <input type="file" onChange={handleFileChange} className="hidden" id="file-upload" accept=".pdf,.doc,.docx,.txt" />
+                    <label
+                      htmlFor="file-upload"
+                      className="flex items-center space-x-2 px-4 py-3 border border-gray-300 rounded-lg cursor-pointer hover:border-[#065f46]"
+                    >
+                      <Upload className="w-5 h-5 text-gray-500" />
+                      <span className="text-gray-700">Upload File</span>
+                    </label>
+                    {selectedFile && <span className="text-sm text-gray-600">{selectedFile.name}</span>}
+                  </div>
+                  <p className="mt-1 text-xs text-gray-500">Max 10MB: PDF, DOC, DOCX</p>
+                </div>
+
+                <div className="flex items-start space-x-3">
+                  <input
+                    type="checkbox"
+                    name="compliance"
+                    checked={formData.compliance}
+                    onChange={handleInputChange}
+                    className="mt-1 h-4 w-4 text-[#065f46] focus:ring-[#065f46] border-gray-300 rounded"
+                  />
+                  <div>
+                    <label className="text-sm text-gray-700">
+                      I agree to the{' '}
+                      <a href="/compliance" className="text-[#065f46] hover:underline">
+                        compliance terms
+                      </a>{' '}
+                      and acknowledge that this is for qualified investors only *
+                    </label>
+                    {errors.compliance && <p className="mt-1 text-sm text-red-600">{errors.compliance}</p>}
+                  </div>
                 </div>
 
                 <motion.button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-gradient-to-r from-[#255f99] to-[#15a36e] text-white font-semibold py-4 px-6 rounded-lg hover:from-[#1e4c80] hover:to-[#0f8a5a] transition-all duration-200 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full bg-gradient-to-r from-[#1e40af] to-[#065f46] text-white font-semibold py-4 px-6 rounded-lg hover:from-[#1e3a8a] hover:to-[#064e3b] transition-all disabled:opacity-50 flex items-center justify-center"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
                   {isSubmitting ? (
                     <>
                       <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-3"></div>
-                      Sending...
+                      Submitting...
                     </>
                   ) : (
                     <>
                       <Send className="w-5 h-5 mr-3" />
-                      Send Message
+                      Submit Inquiry
                     </>
                   )}
                 </motion.button>
@@ -423,87 +633,145 @@ const Contact = () => {
             </div>
           </motion.div>
 
-          {/* Contact Information */}
+          {/* Sidebar */}
           <motion.div className="space-y-6" variants={itemVariants}>
-            {/* Contact Info Cards */}
-            <div className="space-y-4">
-              {contactInfo.map((info, index) => (
-                <motion.div
-                  key={index}
-                  className="bg-white rounded-xl shadow-lg p-6"
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                >
-                  <div className="flex items-start space-x-4">
-                    <div className="w-10 h-10 bg-gradient-to-br from-[#255f99] to-[#15a36e] rounded-full flex items-center justify-center flex-shrink-0">
-                      <info.icon className="w-5 h-5 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-[#255f99] mb-1">{info.title}</h3>
-                      {info.details.map((detail, idx) => (
-                        <p key={idx} className="text-gray-600 text-sm mb-1">{detail}</p>
-                      ))}
-                      <p className="text-gray-500 text-xs mt-2">{info.description}</p>
-                    </div>
+            {contactInfo.map((info, idx) => (
+              <motion.div
+                key={idx}
+                className="bg-white rounded-xl shadow-lg p-6"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: idx * 0.1 }}
+              >
+                <div className="flex items-start space-x-4">
+                  <div className="w-10 h-10 bg-gradient-to-br from-[#1e40af] to-[#065f46] rounded-full flex items-center justify-center">
+                    <info.icon className="w-5 h-5 text-white" />
                   </div>
-                </motion.div>
-              ))}
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-[#1e40af] mb-1">{info.title}</h3>
+                    {info.details.map((d, i) => (
+                      <p key={i} className="text-gray-600 text-sm mb-1">{d}</p>
+                    ))}
+                    <p className="text-gray-500 text-xs mt-2">{info.description}</p>
+                    {info.action && (
+                      <a
+                        href={info.action}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center text-[#065f46] text-sm mt-2 hover:underline"
+                      >
+                        <ExternalLink className="w-4 h-4 mr-1" />
+                        {info.action.includes('mailto') ? 'Email Us' : info.action.includes('tel') ? 'Call' : 'View Map'}
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+
+            {/* Social Media */}
+            <div className="bg-white rounded-xl shadow-lg p-6">
+              <h3 className="font-semibold text-[#1e40af] mb-4">Follow Us</h3>
+              <div className="flex space-x-3">
+                {socialMedia.map((social, index) => (
+                  <a
+                    key={index}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center transition-colors ${social.color}`}
+                    aria-label={`Follow us on ${social.name}`}
+                  >
+                    <social.icon className="w-5 h-5 text-gray-600" />
+                  </a>
+                ))}
+              </div>
             </div>
 
-            {/* Features */}
-            <div className="bg-gradient-to-br from-[#255f99] to-[#15a36e] rounded-xl p-6 text-white">
-              <h3 className="font-semibold text-lg mb-4">Why Choose Us</h3>
+            {/* Why Choose Us */}
+            <div className="bg-gradient-to-br from-[#1e40af] to-[#065f46] rounded-xl p-6 text-white">
+              <h3 className="font-semibold text-lg mb-4">Why Partner With Us</h3>
               <div className="space-y-3">
-                {features.map((feature, index) => (
-                  <div key={index} className="flex items-center space-x-3">
-                    <feature.icon className="w-5 h-5 text-white/80" />
+                {features.map((f, i) => (
+                  <div key={i} className="flex items-center space-x-3">
+                    <f.icon className="w-5 h-5 text-white/80" />
                     <div>
-                      <p className="font-medium text-sm">{feature.title}</p>
-                      <p className="text-white/70 text-xs">{feature.description}</p>
+                      <p className="font-medium text-sm">{f.title}</p>
+                      <p className="text-white/70 text-xs">{f.description}</p>
                     </div>
                   </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Resources */}
+            <div className="bg-white rounded-xl shadow-lg p-6">
+              <h3 className="font-semibold text-[#1e40af] mb-4">Resources</h3>
+              <div className="space-y-3">
+                {resources.map((r, i) => (
+                  <a
+                    key={i}
+                    href={r.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors"
+                  >
+                    <r.icon className="w-5 h-5 text-[#065f46]" />
+                    <span className="text-gray-700 text-sm">{r.name}</span>
+                  </a>
                 ))}
               </div>
             </div>
           </motion.div>
         </div>
 
+        {/* Map Section */}
+        <motion.div className="mt-16" variants={itemVariants}>
+          <div className="text-center mb-8">
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#1e40af] mb-4">Find Us</h2>
+            <p className="text-gray-600">Visit our office or get in touch</p>
+          </div>
+          
+          <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+            <div className="aspect-w-16 aspect-h-9 h-96">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d248849.886539!2d77.5945627!3d12.9715987!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae1670c9b44e6d%3A0xf8dfc3e8517e4fe0!2sWhitefield%2C%20Bengaluru%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1234567890"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Copym Office Location - Bangalore"
+              ></iframe>
+            </div>
+          </div>
+        </motion.div>
+
         {/* FAQ Section */}
         <motion.div className="mt-16" variants={itemVariants}>
           <div className="text-center mb-8">
-            <h2 className="text-2xl sm:text-3xl font-bold text-[#255f99] mb-4">Frequently Asked Questions</h2>
-            <p className="text-gray-600">Quick answers to common questions</p>
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#1e40af] mb-4">Frequently Asked Questions</h2>
+            <p className="text-gray-600">Answers for institutional partners and investors</p>
           </div>
-          
           <div className="grid md:grid-cols-2 gap-6">
             {[
-              {
-                question: "How quickly do you respond to inquiries?",
-                answer: "We typically respond to all inquiries within 24 hours during business days."
-              },
-              {
-                question: "Do you offer enterprise solutions?",
-                answer: "Yes, we provide customized enterprise solutions. Contact our sales team for details."
-              },
-              {
-                question: "What kind of support do you provide?",
-                answer: "We offer comprehensive technical support, documentation, and training resources."
-              },
-              {
-                question: "Can I schedule a demo?",
-                answer: "Absolutely! Contact us to schedule a personalized demo of our platform."
-              }
-            ].map((faq, index) => (
+              { q: "Is your platform SEC-compliant?", a: "Yes, all offerings are compliant with Regulation D, S, and A+ where applicable." },
+              { q: "Who can invest?", a: "Accredited and institutional investors globally, subject to local regulations." },
+              { q: "How are assets tokenized?", a: "Assets are legally structured via SPVs and tokenized on-chain with full ownership records." },
+              { q: "What blockchains do you use?", a: "Ethereum and Polygon for scalability and interoperability." },
+              { q: "Can I co-invest with others?", a: "Yes, syndication and fund structures are supported." },
+              { q: "Do you support secondary trading?", a: "Yes, through licensed secondary market partners." }
+            ].map((faq, i) => (
               <motion.div
-                key={index}
+                key={i}
                 className="bg-white rounded-xl shadow-lg p-6"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
+                transition={{ delay: i * 0.1 }}
               >
-                <h3 className="font-semibold text-[#255f99] mb-2">{faq.question}</h3>
-                <p className="text-gray-600 text-sm">{faq.answer}</p>
+                <h3 className="font-semibold text-[#1e40af] mb-2">{faq.q}</h3>
+                <p className="text-gray-600 text-sm">{faq.a}</p>
               </motion.div>
             ))}
           </div>
