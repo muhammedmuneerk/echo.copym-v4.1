@@ -46,7 +46,7 @@ const SplashScreen = () => {
   const tagline = "Welcome to the future of tokenization.";
 
   return (
-    <Box className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-black text-white font-orbitron">
+    <Box className="relative h-screen w-full flex items-center justify-center overflow-hidden text-white bg-white font-orbitron">
       {/* Video Background */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         <video 
@@ -56,16 +56,12 @@ const SplashScreen = () => {
           muted
           loop
           playsInline
+          preload="auto"
         >
-          
-          <source src="/assets/videos/copym-logo-video.mp4" type="video/mp4" />
+          <source src="/assets/videos/copym-logo-vdo.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-    
-        
       </div>
-
-     
     </Box>
   );
 };

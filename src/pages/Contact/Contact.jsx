@@ -352,7 +352,7 @@ const Contact = () => {
           {contactTypes.map((type) => (
             <motion.div
               key={type.value}
-              className="bg-white rounded-xl shadow-lg border border-gray-100 hover:border-[#065f46] hover:shadow-xl transition-all cursor-pointer hover:-translate-y-1 active:scale-95 touch-manipulation"
+              className="bg-white/80 backdrop-blur-sm rounded-lg border border-gray-200 hover:border-[#065f46] hover:shadow-md transition-all cursor-pointer hover:-translate-y-1 active:scale-95 touch-manipulation"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => handleQuickContact(type.value)}
@@ -372,7 +372,7 @@ const Contact = () => {
         <div className="grid lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-12">
           {/* Contact Form - Mobile Optimized */}
           <motion.div className="lg:col-span-2" variants={itemVariants}>
-            <div className="bg-white rounded-2xl shadow-xl p-4 sm:p-6 lg:p-8">
+            <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-100 p-4 sm:p-6 lg:p-8">
               <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#1e40af] mb-4 sm:mb-6">Submit Your Inquiry</h2>
 
               {submitStatus === 'success' && (
@@ -462,7 +462,7 @@ const Contact = () => {
                     />
                     {errors.role && <p className="mt-1 text-xs sm:text-sm text-red-600">{errors.role}</p>}
                   </div>
-                </div>
+        </div>
 
                 {/* Contact Type and Preferred Contact - Mobile Stack */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
@@ -575,8 +575,8 @@ const Contact = () => {
                       <option value="not_accredited">Not Accredited (Limited Access)</option>
                     </select>
                   </div>
-                </div>
-
+              </div>
+              
                 {/* Message */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Message *</label>
@@ -630,8 +630,8 @@ const Contact = () => {
                       and acknowledge that this is for qualified investors only *
                     </label>
                     {errors.compliance && <p className="mt-1 text-xs sm:text-sm text-red-600">{errors.compliance}</p>}
-                  </div>
-                </div>
+            </div>
+          </div>
 
                 {/* Submit Button - Mobile Optimized */}
                 <motion.button
@@ -657,106 +657,109 @@ const Contact = () => {
             </div>
           </motion.div>
 
-          {/* Sidebar - Mobile Optimized */}
-          <motion.div className="space-y-4 sm:space-y-6" variants={itemVariants}>
-            {contactInfo.map((info, idx) => (
-              <motion.div
-                key={idx}
-                className="bg-white rounded-xl shadow-lg p-4 sm:p-6"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: idx * 0.1 }}
-              >
-                <div className="flex items-start space-x-3 sm:space-x-4">
-                  <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-[#1e40af] to-[#065f46] rounded-full flex items-center justify-center flex-shrink-0">
-                    <info.icon className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+          {/* Sidebar - Consolidated Design */}
+          <motion.div className="space-y-6" variants={itemVariants}>
+            {/* Contact Information - Single Consolidated Card */}
+            <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-100 p-6">
+              <h3 className="font-semibold text-[#1e40af] mb-4 text-lg">Contact Information</h3>
+              <div className="space-y-4">
+                {contactInfo.map((info, idx) => (
+                  <div key={idx} className="flex items-start space-x-3">
+                    <div className="w-8 h-8 bg-gradient-to-br from-[#1e40af] to-[#065f46] rounded-full flex items-center justify-center flex-shrink-0">
+                      <info.icon className="w-4 h-4 text-white" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h4 className="font-medium text-[#1e40af] text-sm">{info.title}</h4>
+                      {info.details.map((d, i) => (
+                        <p key={i} className="text-gray-600 text-xs mb-1 break-words">{d}</p>
+                      ))}
+                      <p className="text-gray-500 text-xs mt-1">{info.description}</p>
+                      {info.action && (
+                        <a
+                          href={info.action}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center text-[#065f46] text-xs mt-1 hover:underline"
+                        >
+                          <ExternalLink className="w-3 h-3 mr-1" />
+                          {info.action.includes('mailto') ? 'Email Us' : info.action.includes('tel') ? 'Call' : 'View Map'}
+                        </a>
+                      )}
+                    </div>
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold text-[#1e40af] mb-1 text-sm sm:text-base">{info.title}</h3>
-                    {info.details.map((d, i) => (
-                      <p key={i} className="text-gray-600 text-xs sm:text-sm mb-1 break-words">{d}</p>
-                    ))}
-                    <p className="text-gray-500 text-xs mt-2">{info.description}</p>
-                    {info.action && (
-                      <a
-                        href={info.action}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center text-[#065f46] text-xs sm:text-sm mt-2 hover:underline"
-                      >
-                        <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
-                        {info.action.includes('mailto') ? 'Email Us' : info.action.includes('tel') ? 'Call' : 'View Map'}
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-
-            {/* Social Media - Mobile Optimized */}
-            <div className="bg-white rounded-xl shadow-lg p-4 sm:p-6">
-              <h3 className="font-semibold text-[#1e40af] mb-3 sm:mb-4 text-sm sm:text-base">Follow Us</h3>
-              <div className="flex flex-wrap gap-2 sm:gap-3">
-                {socialMedia.map((social, index) => (
-                  <a
-                    key={index}
-                    href={social.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`w-8 h-8 sm:w-10 sm:h-10 bg-gray-100 rounded-full flex items-center justify-center transition-colors ${social.color} touch-manipulation`}
-                    aria-label={`Follow us on ${social.name}`}
-                  >
-                    <social.icon className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" />
-                  </a>
                 ))}
               </div>
-            </div>
+              </div>
+              
+            {/* Social Media & Resources - Combined Card */}
+            <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-100 p-6">
+              <h3 className="font-semibold text-[#1e40af] mb-4 text-lg">Connect & Resources</h3>
+              
+              {/* Social Media */}
+              <div className="mb-6">
+                <h4 className="font-medium text-gray-700 mb-3 text-sm">Follow Us</h4>
+                <div className="flex flex-wrap gap-2">
+                  {socialMedia.map((social, index) => (
+                    <a
+                      key={index}
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center transition-colors ${social.color} touch-manipulation`}
+                      aria-label={`Follow us on ${social.name}`}
+                    >
+                      <social.icon className="w-4 h-4 text-gray-600" />
+                    </a>
+                  ))}
+                </div>
+              </div>
 
-            {/* Why Choose Us - Mobile Optimized */}
-            <div className="bg-gradient-to-br from-[#1e40af] to-[#065f46] rounded-xl p-4 sm:p-6 text-white">
-              <h3 className="font-semibold text-base sm:text-lg mb-3 sm:mb-4">Why Partner With Us</h3>
-              <div className="space-y-2 sm:space-y-3">
+              {/* Resources */}
+              <div>
+                <h4 className="font-medium text-gray-700 mb-3 text-sm">Resources</h4>
+                <div className="space-y-2">
+                  {resources.map((r, i) => (
+                    <a
+                      key={i}
+                      href={r.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-50 transition-colors touch-manipulation"
+                    >
+                      <r.icon className="w-4 h-4 text-[#065f46] flex-shrink-0" />
+                      <span className="text-gray-700 text-xs">{r.name}</span>
+                    </a>
+                  ))}
+            </div>
+          </div>
+        </div>
+
+            {/* Why Partner With Us - Simplified */}
+            <div className="bg-gradient-to-br from-[#1e40af] to-[#065f46] rounded-2xl p-6 text-white">
+              <h3 className="font-semibold text-lg mb-4">Why Partner With Us</h3>
+              <div className="space-y-3">
                 {features.map((f, i) => (
-                  <div key={i} className="flex items-start space-x-2 sm:space-x-3">
-                    <f.icon className="w-4 h-4 sm:w-5 sm:h-5 text-white/80 flex-shrink-0 mt-0.5" />
+                  <div key={i} className="flex items-start space-x-3">
+                    <f.icon className="w-5 h-5 text-white/80 flex-shrink-0 mt-0.5" />
                     <div>
-                      <p className="font-medium text-xs sm:text-sm">{f.title}</p>
+                      <p className="font-medium text-sm">{f.title}</p>
                       <p className="text-white/70 text-xs">{f.description}</p>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
-
-            {/* Resources - Mobile Optimized */}
-            <div className="bg-white rounded-xl shadow-lg p-4 sm:p-6">
-              <h3 className="font-semibold text-[#1e40af] mb-3 sm:mb-4 text-sm sm:text-base">Resources</h3>
-              <div className="space-y-2 sm:space-y-3">
-                {resources.map((r, i) => (
-                  <a
-                    key={i}
-                    href={r.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center space-x-2 sm:space-x-3 p-2 sm:p-3 rounded-lg hover:bg-gray-50 transition-colors touch-manipulation"
-                  >
-                    <r.icon className="w-4 h-4 sm:w-5 sm:h-5 text-[#065f46] flex-shrink-0" />
-                    <span className="text-gray-700 text-xs sm:text-sm">{r.name}</span>
-                  </a>
-                ))}
-              </div>
-            </div>
           </motion.div>
         </div>
 
-        {/* Map Section - Mobile Optimized */}
+        {/* Map Section - Simplified */}
         <motion.div className="mt-12 sm:mt-16" variants={itemVariants}>
           <div className="text-center mb-6 sm:mb-8">
             <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#1e40af] mb-3 sm:mb-4">Find Us</h2>
             <p className="text-gray-600 text-sm sm:text-base">Visit our office or get in touch</p>
           </div>
           
-          <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+          <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
             <div className="aspect-w-16 aspect-h-9 h-64 sm:h-80 lg:h-96">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d248849.886539!2d77.5945627!3d12.9715987!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae1670c9b44e6d%3A0xf8dfc3e8517e4fe0!2sWhitefield%2C%20Bengaluru%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1234567890"
@@ -768,11 +771,11 @@ const Contact = () => {
                 referrerPolicy="no-referrer-when-downgrade"
                 title="Copym Office Location - Bangalore"
               ></iframe>
-            </div>
+      </div>
           </div>
         </motion.div>
 
-        {/* FAQ Section - Mobile Optimized */}
+        {/* FAQ Section - Simplified */}
         <motion.div className="mt-12 sm:mt-16" variants={itemVariants}>
           <div className="text-center mb-6 sm:mb-8">
             <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#1e40af] mb-3 sm:mb-4">Frequently Asked Questions</h2>
@@ -789,7 +792,7 @@ const Contact = () => {
             ].map((faq, i) => (
               <motion.div
                 key={i}
-                className="bg-white rounded-xl shadow-lg p-4 sm:p-6"
+                className="bg-white/90 backdrop-blur-sm rounded-lg shadow-md border border-gray-100 p-4 sm:p-6"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
