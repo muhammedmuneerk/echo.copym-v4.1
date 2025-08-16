@@ -274,7 +274,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50 relative overflow-hidden">
+    <div className="min-h-screen bg-blue-100 relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 opacity-5">
         <svg className="w-full h-full" viewBox="0 0 1000 1000" fill="none">
@@ -283,9 +283,7 @@ const Contact = () => {
         </svg>
       </div>
 
-      {/* Gradient Orbs - Responsive sizing */}
-      <div className="absolute top-[-100px] sm:top-[-150px] right-[-100px] sm:right-[-150px] w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] bg-gradient-to-br from-blue-400 to-green-400 rounded-full blur-[40px] sm:blur-[60px] opacity-20"></div>
-      <div className="absolute bottom-[-100px] sm:bottom-[-150px] left-[-100px] sm:left-[-150px] w-[250px] h-[250px] sm:w-[400px] sm:h-[400px] bg-gradient-to-tr from-green-400 to-blue-400 rounded-full blur-[30px] sm:blur-[50px] opacity-20"></div>
+      {/* Gradient Orbs - Removed for consistent background */}
 
       {/* Live Chat Widget - Mobile Responsive */}
       <motion.div 
@@ -339,7 +337,7 @@ const Contact = () => {
         {/* Header - Enhanced Mobile Responsiveness */}
         <motion.div className="text-center mb-8 sm:mb-12 lg:mb-16" variants={itemVariants}>
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl leading-tight mb-3 sm:mb-4 lg:mb-6 text-[#1e40af] font-bold px-2">
-            Contact Our <span className="text-[#065f46]">RWA Team</span>
+            Keep in <span className="text-[#065f46]">Touch</span>
           </h1>
           <p className="text-sm sm:text-base lg:text-xl max-w-2xl sm:max-w-3xl mx-auto text-gray-700 px-4">
             Connect with our team for investor onboarding, asset tokenization,
@@ -462,7 +460,7 @@ const Contact = () => {
                     />
                     {errors.role && <p className="mt-1 text-xs sm:text-sm text-red-600">{errors.role}</p>}
                   </div>
-                </div>
+        </div>
 
                 {/* Contact Type and Preferred Contact - 2 columns on all devices */}
                 <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:gap-6">
@@ -576,8 +574,8 @@ const Contact = () => {
                     <option value="institution">Institutional Investor</option>
                     <option value="not_accredited">Not Accredited (Limited Access)</option>
                   </select>
-                </div>
-
+              </div>
+              
                 {/* Message - Full width for better UX */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Message *</label>
@@ -631,8 +629,8 @@ const Contact = () => {
                       and acknowledge that this is for qualified investors only *
                     </label>
                     {errors.compliance && <p className="mt-1 text-xs sm:text-sm text-red-600">{errors.compliance}</p>}
-                  </div>
-                </div>
+            </div>
+          </div>
 
                 {/* Submit Button - Full width */}
                 <motion.button
@@ -690,8 +688,8 @@ const Contact = () => {
                   </div>
                 ))}
               </div>
-            </div>
-
+              </div>
+              
             {/* Social Media & Resources - Combined Card */}
             <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-100 p-4 sm:p-6">
               <h3 className="font-semibold text-[#1e40af] mb-4 text-base sm:text-lg">Connect & Resources</h3>
@@ -731,9 +729,9 @@ const Contact = () => {
                       <span className="text-gray-700 text-xs">{r.name}</span>
                     </a>
                   ))}
-                </div>
-              </div>
             </div>
+          </div>
+        </div>
 
             {/* Why Partner With Us - Simplified */}
             <div className="bg-gradient-to-br from-[#1e40af] to-[#065f46] rounded-2xl p-4 sm:p-6 text-white">
@@ -772,7 +770,7 @@ const Contact = () => {
                 referrerPolicy="no-referrer-when-downgrade"
                 title="Copym Office Location - Bangalore"
               ></iframe>
-            </div>
+      </div>
           </div>
         </motion.div>
 
