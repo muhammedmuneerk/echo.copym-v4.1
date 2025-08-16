@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { AnimatedText } from '../../../components/gsap/GSAPAnimations.jsx';
 import {
   Token,
   Storefront,
@@ -51,7 +52,7 @@ const SolutionSection = () => {
         >
           <h2 className="brand-section-title mb-4 sm:mb-6 text-white flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
             <AutoAwesome className="text-green-400 text-3xl sm:text-4xl md:text-5xl lg:text-6xl" />
-            <span>Our Solution: CopymAI-Powered Tokenization + Marketplace</span>
+            <AnimatedText text="Our Solution: CopymAI-Powered Tokenization + Marketplace" />
           </h2>
           <p className="brand-description max-w-3xl mx-auto text-gray-300 px-4">
             We've built an AI-first platform that solves all this with three key components:

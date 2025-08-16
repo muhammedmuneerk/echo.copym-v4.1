@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { AnimatedText } from '../../../components/gsap/GSAPAnimations.jsx';
 import { 
   TrendingUp, 
   RocketLaunch, 
@@ -55,7 +56,7 @@ const CTASection = () => {
               </div>
               <h2 className="brand-section-title mb-4 md:mb-6 text-white flex items-center justify-center gap-2 md:gap-4">
                 <RocketLaunch className="text-green-400" />
-                Investment Opportunity
+                <AnimatedText text="Investment Opportunity" />
               </h2>
               <p className="brand-description text-gray-300">
                 Join the Future of AI-Powered Asset Investment

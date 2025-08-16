@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { AnimatedText } from '../../../components/gsap/GSAPAnimations.jsx';
 import { 
   WorkspacePremium, 
   TrendingUp, 
@@ -122,7 +123,7 @@ const ComparisonSection = () => {
           className="text-center mb-16"
         >
           <h2 className="brand-section-title mb-4 text-white">
-            Why CopymAI is Different
+            <AnimatedText text="Why CopymAI is Different" />
           </h2>
           <p className="brand-description text-gray-300">
             Advanced AI-Powered Platform vs Traditional Investment Systems

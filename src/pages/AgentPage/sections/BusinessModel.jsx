@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { AnimatedText } from '../../../components/gsap/GSAPAnimations.jsx';
 import { MonetizationOn } from '@mui/icons-material';
 
 const BusinessModel = () => {
@@ -37,7 +38,7 @@ const BusinessModel = () => {
         >
           <h2 className="brand-section-title mb-4 text-white flex items-center justify-center">
             <MonetizationOn className="mr-4 text-green-400" />
-            Business Model
+            <AnimatedText text="Business Model" />
           </h2>
           <p className="brand-description text-gray-300">
             Multiple AI-powered revenue streams with projected $18M/year by Year 3

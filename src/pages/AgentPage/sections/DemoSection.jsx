@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatedText } from '../../../components/gsap/GSAPAnimations.jsx';
 import {
   SmartToy,
   Token,
@@ -418,7 +419,7 @@ const DemoSection = () => {
           className="text-center mb-12 sm:mb-16"
         >
           <h2 className="brand-section-title mb-4 sm:mb-6 text-white flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
-            <span>CopymAgent AI Workspace</span>
+            <AnimatedText text="CopymAgent AI Workspace" />
             <div className="filter drop-shadow-lg">
               <SmartToy sx={{ fontSize: '1.5rem', color: '#10b981' }} />
             </div>

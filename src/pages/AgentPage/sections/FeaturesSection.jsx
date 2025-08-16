@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatedText } from '../../../components/gsap/GSAPAnimations.jsx';
 import {
   SmartToy,
   Verified,
@@ -305,7 +306,7 @@ const FeaturesSection = () => {
         >
           <h2 className="brand-section-title mb-6 text-white flex items-center justify-center">
             <SmartToy sx={{ mr: 2, fontSize: '2rem', color: '#4ade80' }} />
-            CopymAgent AI Capabilities
+            <AnimatedText text="CopymAgent AI Capabilities" />
           </h2>
           <p className="brand-description max-w-3xl mx-auto text-gray-300">
             Experience the power of advanced AI technology revolutionizing real-world asset investment

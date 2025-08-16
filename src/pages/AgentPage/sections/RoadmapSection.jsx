@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { AnimatedText } from '../../../components/gsap/GSAPAnimations.jsx';
 import { 
   Public, 
   CheckCircle, 
@@ -65,7 +66,7 @@ const RoadmapSection = () => {
         >
           <h2 className="brand-section-title mb-4 text-white flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
             <Public className="text-green-400 text-3xl sm:text-4xl md:text-5xl lg:text-6xl drop-shadow-lg" />
-            <span>Roadmap</span>
+            <AnimatedText text="Roadmap" />
           </h2>
           <p className="brand-description text-gray-300 max-w-2xl mx-auto px-4">
             Our strategic plan for CopymAI growth and AI advancement

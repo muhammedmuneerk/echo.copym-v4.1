@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { AnimatedText } from '../../../components/gsap/GSAPAnimations.jsx';
 import { 
   Star, 
   AccountBalance, 
@@ -58,7 +59,7 @@ const TestimonialsSection = () => {
         >
           <h2 className="brand-section-title mb-4 sm:mb-6 text-white flex items-center justify-center gap-2 sm:gap-4 text-center">
             <Verified className="text-green-400" sx={{ fontSize: 24 }} />
-            What Industry Leaders Say
+            <AnimatedText text="What Industry Leaders Say" />
           </h2>
           <p className="brand-description max-w-3xl mx-auto text-gray-300 px-4 sm:px-0 text-center">
             Real feedback from investment professionals and technology experts

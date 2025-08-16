@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { AnimatedText } from '../../../components/gsap/GSAPAnimations.jsx';
 import {
   AttachMoney,
   AcUnit,
@@ -51,7 +52,7 @@ const ProblemSection = () => {
         >
           <h2 className="brand-section-title mb-4 text-white">
             <Extension sx={{ mr: 1, verticalAlign: 'middle' }} /> 
-            The Problem We Solve
+            <AnimatedText text="The Problem We Solve" />
           </h2>
           <p className="brand-description max-w-3xl mx-auto text-gray-300">
             Traditional RWA (Real-World Asset) investment is broken:
