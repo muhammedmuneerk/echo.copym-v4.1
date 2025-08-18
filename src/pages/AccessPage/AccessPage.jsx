@@ -480,11 +480,11 @@ export default function AccessPage() {
 
              {/* Center Grid - Credential Card */}
              <div className="flex justify-center">
-               <div className="text-center">
-                 <h3 className="text-xl font-bold text-[#255f99] mb-2">
+               <div className="">
+                 <h3 className="text-xl font-bold text-center text-[#255f99] mb-2">
                    Your Access Credential
                  </h3>
-                 <p className="text-gray-600 m-auto text-sm mb-8 max-w-xs">
+                 <p className="text-gray-600 m-auto text-center text-sm mb-8 max-w-xs">
                    Your digital identity that unlocks exclusive access to the COPYM ecosystem.
                  </p>
                  <CredentialCard
