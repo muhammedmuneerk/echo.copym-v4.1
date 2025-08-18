@@ -38,6 +38,7 @@ import PolygonLogo from '/assets/blockchains/polygon-matic-logo.svg';
 import AvalancheLogo from '/assets/blockchains/avalanche-avax-logo.svg';
 import OptimismLogo from '/assets/blockchains/optimism-ethereum-op-logo.svg';
 import BitcoinLogo from '/assets/blockchains/bitcoin-btc-logo.svg';
+import { Box } from '@mui/material';
 
 export default function AccessPage() {
   const [selectedNetwork, setSelectedNetwork] = useState(null);
@@ -364,23 +365,11 @@ export default function AccessPage() {
 
       {/* Main Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-
         {/* Hero Section */}
         <div ref={heroRef} className="text-center mb-20">
-          {/* Badge */}
-          <motion.div
-            className="inline-flex items-center px-6 py-3 bg-white/80 backdrop-blur-sm border border-[#255f99]/20 rounded-full mb-8 shadow-lg"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <div className="w-2 h-2 bg-[#15a36e] rounded-full mr-3 animate-pulse"></div>
-            <span className="text-sm font-semibold text-[#255f99]">Real-World Asset Tokenization</span>
-          </motion.div>
-
           {/* Main Title */}
           <h1 className="brand-title mb-8 text-[#255f99] reveal-text">
-            Your Gateway to{' '}
+            Your Gateway to{" "}
             <span className="relative text-[#15a36e]">
               COPYM's Exclusive World
               <motion.div
@@ -394,7 +383,8 @@ export default function AccessPage() {
 
           {/* Description */}
           <p className="brand-description max-w-3xl mx-auto mb-12 reveal-text">
-            Unlock premium access to real-world assets, member-only rewards, and the next wave of Web3 innovation with your exclusive access pass.
+            Unlock premium access to real-world assets, member-only rewards, and
+            the next wave of Web3 innovation with your exclusive access pass.
           </p>
 
           {/* CTA Button */}
@@ -435,13 +425,20 @@ export default function AccessPage() {
             {benefits.map((benefit, index) => (
               <div
                 key={index}
-                className="benefit-card group relative bg-white/90 backdrop-blur-sm p-8 rounded-2xl border border-white/50 shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden"
+                className="benefit-card group relative bg-green-50 backdrop-blur-sm p-8 rounded-2xl border border-white/50 shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden"
               >
-                <div className={`absolute inset-0 bg-gradient-to-br ${benefit.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}></div>
+                
                 <div className="relative text-center">
-                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${benefit.color} flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:shadow-xl transition-all duration-300`}>
-                    <benefit.icon className="w-8 h-8 text-white" />
-                  </div>
+                  <Box
+                    className="w-12 h-12 rounded-2xl mb-4 flex items-center border border-blue-200 justify-center text-2xl card-icon mx-auto"
+                    sx={{
+                      background: "rgba(255, 255, 255, 0.9)",
+                      backdropFilter: "blur(5px)",
+                      boxShadow: "inset 0 0 0 1px rgba(255, 255, 255, 0.05)",
+                    }}
+                  >
+                    <benefit.icon className="h-6 w-6 text-blue-500" />
+                  </Box>
                   <h3 className="font-bold text-xl mb-4 text-gray-900 group-hover:text-[#255f99] transition-colors">
                     {benefit.title}
                   </h3>
@@ -467,12 +464,14 @@ export default function AccessPage() {
             {unlockFeatures.map((feature, index) => (
               <div
                 key={index}
-                className="unlock-feature group flex items-start gap-4 p-6 bg-white/80 backdrop-blur-sm rounded-xl border border-white/50 shadow-lg hover:shadow-xl transition-all duration-300"
+                className="unlock-feature group flex items-start gap-4 p-6 bg-green-50 backdrop-blur-sm rounded-xl border border-white/50 shadow-lg hover:shadow-xl transition-all duration-300"
               >
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#15a36e] to-[#255f99] flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-300 flex-shrink-0">
-                  <feature.icon className="w-6 h-6 text-white" />
+                <div className="w-12 h-12 rounded-2xl bg-white border border-blue-200 flex items-center justify-center shadow-sm  transition-all duration-300 flex-shrink-0">
+                  <feature.icon className="h-6 w-6 text-blue-500" />
                 </div>
-                <span className="text-gray-700 font-medium leading-relaxed">{feature.text}</span>
+                <span className="text-gray-700 font-medium leading-relaxed">
+                  {feature.text}
+                </span>
               </div>
             ))}
           </div>
@@ -491,16 +490,25 @@ export default function AccessPage() {
             {features.map((feature, index) => (
               <div
                 key={index}
-                className="feature-item group flex items-start gap-6 p-8 bg-white/90 backdrop-blur-sm rounded-2xl border border-white/50 shadow-xl hover:shadow-2xl transition-all duration-500"
+                className="feature-item group flex items-start gap-6 p-8 bg-green-50 backdrop-blur-sm rounded-2xl border border-white/50 shadow-xl hover:shadow-2xl transition-all duration-500"
               >
-                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${feature.color} flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 flex-shrink-0`}>
-                  <feature.icon className="w-8 h-8 text-white" />
-                </div>
+                <Box
+                  className="w-12 h-12 rounded-2xl mb-4 flex items-center border border-blue-200 justify-center text-2xl card-icon"
+                  sx={{
+                    background: "rgba(255, 255, 255, 0.9)",
+                    backdropFilter: "blur(5px)",
+                    boxShadow: "inset 0 0 0 1px rgba(255, 255, 255, 0.05)",
+                  }}
+                >
+                  <feature.icon className="h-6 w-6 text-blue-500" />
+                </Box>
                 <div>
                   <h3 className="font-bold text-xl mb-3 text-gray-900 group-hover:text-[#255f99] transition-colors">
                     {feature.title}
                   </h3>
-                  <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+                  <p className="text-gray-600 leading-relaxed">
+                    {feature.description}
+                  </p>
                 </div>
               </div>
             ))}
@@ -516,21 +524,53 @@ export default function AccessPage() {
             <div className="w-24 h-1 bg-gradient-to-r from-[#15a36e] to-[#255f99] mx-auto rounded-full"></div>
           </div>
 
-          <div className="comparison-table bg-white/90 backdrop-blur-sm rounded-3xl border border-white/50 overflow-hidden shadow-2xl">
+          <div className="comparison-table bg-green-50 backdrop-blur-sm rounded-3xl border border-white/50 overflow-hidden shadow-2xl">
             <div className="grid grid-cols-3 text-sm font-bold text-gray-600 border-b border-gray-200/50">
               <div className="p-6 bg-gray-50/80 backdrop-blur-sm">FEATURE</div>
-              <div className="p-6 bg-[#15a36e]/10 text-[#15a36e] backdrop-blur-sm">TOKENIZATION</div>
-              <div className="p-6 bg-gray-50/80 backdrop-blur-sm">TRADITIONAL</div>
+              <div className="p-6 bg-[#15a36e]/10 text-[#15a36e] backdrop-blur-sm">
+                TOKENIZATION
+              </div>
+              <div className="p-6 bg-gray-50/80 backdrop-blur-sm">
+                TRADITIONAL
+              </div>
             </div>
 
             {[
-              { feature: 'Minimum Investment', tokenization: '$50-$500', traditional: '$50K+', icon: DollarSign },
-              { feature: 'Liquidity', tokenization: '24/7 global', traditional: 'Months', icon: TrendingUp },
-              { feature: 'Transparency', tokenization: 'On-chain', traditional: 'Opaque', icon: Shield },
-              { feature: 'Fees', tokenization: '0.5-2%', traditional: '5-15%', icon: Percent },
-              { feature: 'Access', tokenization: 'Global', traditional: 'Local', icon: Globe }
+              {
+                feature: "Minimum Investment",
+                tokenization: "$50-$500",
+                traditional: "$50K+",
+                icon: DollarSign,
+              },
+              {
+                feature: "Liquidity",
+                tokenization: "24/7 global",
+                traditional: "Months",
+                icon: TrendingUp,
+              },
+              {
+                feature: "Transparency",
+                tokenization: "On-chain",
+                traditional: "Opaque",
+                icon: Shield,
+              },
+              {
+                feature: "Fees",
+                tokenization: "0.5-2%",
+                traditional: "5-15%",
+                icon: Percent,
+              },
+              {
+                feature: "Access",
+                tokenization: "Global",
+                traditional: "Local",
+                icon: Globe,
+              },
             ].map((row, index) => (
-              <div key={index} className="comparison-row grid grid-cols-3 text-sm border-b border-gray-100/50 last:border-b-0 hover:bg-gray-50/30 transition-colors">
+              <div
+                key={index}
+                className="comparison-row grid grid-cols-3 text-sm border-b border-gray-100/50 last:border-b-0 hover:bg-gray-50/30 transition-colors"
+              >
                 <div className="p-6 font-semibold text-gray-900 flex items-center gap-3">
                   <row.icon className="w-5 h-5 text-[#255f99]" />
                   {row.feature}
@@ -561,7 +601,11 @@ export default function AccessPage() {
                 className="network-card group relative text-center cursor-pointer"
                 whileHover={{ y: -4, scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => setSelectedNetwork(selectedNetwork === network.key ? null : network.key)}
+                onClick={() =>
+                  setSelectedNetwork(
+                    selectedNetwork === network.key ? null : network.key
+                  )
+                }
               >
                 <div className="relative">
                   <div className="flex items-center justify-center mx-auto mb-4 transition-all duration-300">
@@ -572,10 +616,14 @@ export default function AccessPage() {
                         className="w-16 h-16 object-contain group-hover:scale-110 transition-transform duration-300"
                       />
                     ) : (
-                      <span className="text-4xl group-hover:scale-110 transition-transform duration-300">{network.icon}</span>
+                      <span className="text-4xl group-hover:scale-110 transition-transform duration-300">
+                        {network.icon}
+                      </span>
                     )}
                   </div>
-                  <div className="font-bold text-lg text-gray-900 mb-1">{network.name}</div>
+                  <div className="font-bold text-lg text-gray-900 mb-1">
+                    {network.name}
+                  </div>
                   <div className="text-sm text-gray-500">{network.ticker}</div>
                   {selectedNetwork === network.key && (
                     <motion.div
@@ -602,8 +650,8 @@ export default function AccessPage() {
               </h2>
               <div className="w-24 h-1 bg-gradient-to-r from-[#15a36e] to-[#255f99] lg:mx-0 mx-auto rounded-full mb-6"></div>
               <p className="text-gray-600 text-lg leading-relaxed mb-8 reveal-text">
-                Your digital identity that unlocks exclusive access to the COPYM ecosystem.
-                Secure, verifiable, and always with you.
+                Your digital identity that unlocks exclusive access to the COPYM
+                ecosystem. Secure, verifiable, and always with you.
               </p>
               <div className="space-y-4">
                 <div className="flex items-center gap-3 text-gray-700 reveal-text">
@@ -622,20 +670,20 @@ export default function AccessPage() {
             </div>
 
             <div className="flex justify-center">
-                             <CredentialCard
-                 user={{
-                   name: 'Alex Morgan',
-                   employeeNumber: 'EMP-2048',
-                   passNumber: 'PASS-7F32',
-                   points: '1,250',
-                   qrImage: '/assets/svg/copym_qr.svg'
-                 }}
-                 variant="bottleGreen"
-                 stacked
-                 backVariant="darkBlue"
-                 logoSrc="/assets/copym/png/Copym-05-1.png"
-                 logoSize={28}
-               />
+              <CredentialCard
+                user={{
+                  name: "Alex Morgan",
+                  employeeNumber: "EMP-2048",
+                  passNumber: "PASS-7F32",
+                  points: "1,250",
+                  qrImage: "/assets/svg/copym_qr.svg",
+                }}
+                variant="bottleGreen"
+                stacked
+                backVariant="darkBlue"
+                logoSrc="/assets/copym/png/Copym-05-1.png"
+                logoSize={28}
+              />
             </div>
           </div>
         </div>
@@ -644,9 +692,12 @@ export default function AccessPage() {
         <div ref={ctaRef} className="text-center">
           <div className="bg-gradient-to-r from-[#255f99] to-[#15a36e] rounded-3xl p-12 text-white">
             <Crown className="w-16 h-16 mx-auto mb-6 text-white/80" />
-            <h3 className="text-3xl font-bold mb-4 reveal-text">Ready to Join the Elite?</h3>
+            <h3 className="text-3xl font-bold mb-4 reveal-text">
+              Ready to Join the Elite?
+            </h3>
             <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto reveal-text">
-              Don't miss out on exclusive access to the future of real-world asset tokenization.
+              Don't miss out on exclusive access to the future of real-world
+              asset tokenization.
             </p>
             <button className="magnetic-button group bg-white/20 backdrop-blur-sm px-8 py-4 rounded-full font-bold text-lg hover:bg-white/30 transition-all duration-300 flex items-center mx-auto">
               <Sparkles className="mr-3 w-5 h-5" />

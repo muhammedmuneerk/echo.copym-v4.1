@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Calendar, Download, Maximize, BarChart3, TrendingUp, TrendingDown } from 'lucide-react';
+import { Calendar, Download, Maximize, TrendingUp, TrendingDown } from 'lucide-react';
 
 const CoinGeckoChart = () => {
   const [activeRange, setActiveRange] = useState('24h');
   const [showUsdComparison, setShowUsdComparison] = useState(false);
   const [showExportDropdown, setShowExportDropdown] = useState(false);
-  const [chartType, setChartType] = useState('price');
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [hoveredPoint, setHoveredPoint] = useState(null);
   const [chartData, setChartData] = useState([]);
@@ -62,20 +61,11 @@ const CoinGeckoChart = () => {
     return data;
   };
 
-  // Generate market cap data (different pattern)
-  const generateMarketCapData = (hours) => {
-    const data = generatePriceData(hours);
-    return data.map(point => ({
-      ...point,
-      price: point.price * 10000 * (1 + Math.sin(point.index * 0.2) * 0.1) // Simulate market cap
-    }));
-  };
+
 
   useEffect(() => {
     const selectedRange = timeRanges.find(r => r.key === activeRange);
-    const newData = chartType === 'price' 
-      ? generatePriceData(selectedRange.hours)
-      : generateMarketCapData(selectedRange.hours);
+    const newData = generatePriceData(selectedRange.hours);
     
     setChartData(newData);
     
@@ -88,7 +78,7 @@ const CoinGeckoChart = () => {
       setPriceChange(((latest.price - previous.price) / previous.price) * 100);
       setVolume(latest.volume);
     }
-  }, [activeRange, chartType]);
+  }, [activeRange]);
 
   // Convert data to SVG path
   const generateChartPath = (data, width, height) => {
@@ -96,7 +86,7 @@ const CoinGeckoChart = () => {
     
     const minPrice = Math.min(...data.map(d => d.price));
     const maxPrice = Math.max(...data.map(d => d.price));
-    const priceRange = maxPrice - minPrice || 0.00001;
+    const priceRange = maxPrice - minPrice || 1.00001;
     
     const points = data.map((point, index) => {
       const x = (index / (data.length - 1)) * width;
@@ -174,11 +164,7 @@ const CoinGeckoChart = () => {
 
   // Format price for display
   const formatPrice = (price) => {
-    if (chartType === 'price') {
-      return `Ξ${price.toFixed(8)}`;
-    } else {
-      return `$${(price / 1000).toFixed(2)}K`;
-    }
+    return `Ξ${price.toFixed(8)}`;
   };
 
   // Format timestamp
@@ -219,7 +205,7 @@ const CoinGeckoChart = () => {
   
   // Calculate gradient colors based on trend
   const isPositive = priceChange >= 0;
-  const chartColor = isPositive ? '#00a83e' : '#ff3a33';
+  const chartColor = isPositive ? '#00a83e' : '#00a83e';
   const gradientId = isPositive ? 'positive-gradient' : 'negative-gradient';
 
   return (
@@ -239,10 +225,10 @@ const CoinGeckoChart = () => {
             <div className={`flex items-center gap-1 px-2 py-1 rounded text-sm font-semibold ${
               isPositive 
                 ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
-                : 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400'
+                : 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
             }`}>
-              {isPositive ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />}
-              {priceChange.toFixed(2)}%
+              {isPositive ? <TrendingUp className="w-4 h-4" /> : <TrendingUp className="w-4 h-4" />}
+              +{Math.abs(priceChange).toFixed(2)}%
             </div>
           </div>
         </div>
@@ -336,8 +322,8 @@ const CoinGeckoChart = () => {
                 <stop offset="100%" stopColor="#00a83e" stopOpacity="0"/>
               </linearGradient>
               <linearGradient id="negative-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor="#ff3a33" stopOpacity="0.4"/>
-                <stop offset="100%" stopColor="#ff3a33" stopOpacity="0"/>
+                <stop offset="0%" stopColor="#00a83e" stopOpacity="0.4"/>
+                <stop offset="100%" stopColor="#00a83e" stopOpacity="0"/>
               </linearGradient>
               
               <pattern id="grid" width="50" height="30" patternUnits="userSpaceOnUse">
@@ -493,31 +479,7 @@ const CoinGeckoChart = () => {
             </label>
           </div>
           
-          {/* Chart Type Selector */}
-          <div className="flex gap-2">
-            <button 
-              onClick={() => setChartType('price')}
-              className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                chartType === 'price'
-                  ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400'
-                  : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'
-              }`}
-            >
-              <BarChart3 className="w-4 h-4" />
-              Price Chart
-            </button>
-            <button 
-              onClick={() => setChartType('marketcap')}
-              className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                chartType === 'marketcap'
-                  ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400'
-                  : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'
-              }`}
-            >
-              <BarChart3 className="w-4 h-4" />
-              Market Cap
-            </button>
-          </div>
+
         </div>
         
       </div>
