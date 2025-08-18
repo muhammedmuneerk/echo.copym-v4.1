@@ -460,21 +460,67 @@ export default function AccessPage() {
             <div className="w-24 h-1 bg-gradient-to-r from-[#15a36e] to-[#255f99] mx-auto rounded-full"></div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {unlockFeatures.map((feature, index) => (
-              <div
-                key={index}
-                className="unlock-feature group flex items-start gap-4 p-6 bg-green-50 backdrop-blur-sm rounded-xl border border-white/50 shadow-lg hover:shadow-xl transition-all duration-300"
-              >
-                <div className="w-12 h-12 rounded-2xl bg-white border border-blue-200 flex items-center justify-center shadow-sm  transition-all duration-300 flex-shrink-0">
-                  <feature.icon className="h-6 w-6 text-blue-500" />
-                </div>
-                <span className="text-gray-700 font-medium leading-relaxed">
-                  {feature.text}
-                </span>
-              </div>
-            ))}
-          </div>
+              <div className="grid lg:grid-cols-3 gap-12 items-start">
+             {/* Left Grid - First 3 Unlock Features */}
+             <div className="grid grid-cols-1 gap-8 ">
+               {unlockFeatures.slice(0, 3).map((feature, index) => (
+                 <div
+                   key={index}
+                   className="unlock-feature group flex mx-10 items-start gap-4 p-8 backdrop-blur-sm rounded-xl  hover:shadow-xl transition-all duration-300"
+                 >
+                   <div className="w-12 h-12 rounded-2xl bg-white border border-blue-200 flex items-center justify-center shadow-sm  transition-all duration-300 flex-shrink-0">
+                     <feature.icon className="h-6 w-6 text-blue-500" />
+                   </div>
+                   <span className="text-gray-700 font-medium leading-relaxed">
+                     {feature.text}
+                   </span>
+                 </div>
+               ))}
+             </div>
+
+             {/* Center Grid - Credential Card */}
+             <div className="flex justify-center">
+               <div className="text-center">
+                 <h3 className="text-xl font-bold text-[#255f99] mb-2">
+                   Your Access Credential
+                 </h3>
+                 <p className="text-gray-600 m-auto text-sm mb-8 max-w-xs">
+                   Your digital identity that unlocks exclusive access to the COPYM ecosystem.
+                 </p>
+                 <CredentialCard
+                   user={{
+                     name: "Alex Morgan",
+                     employeeNumber: "EMP-2048",
+                     passNumber: "PASS-7F32",
+                     points: "1,250",
+                     qrImage: "/assets/svg/copym_qr.svg",
+                   }}
+                   variant="bottleGreen"
+                   stacked
+                   backVariant="darkBlue"
+                   logoSrc="/assets/copym/png/Copym-05-1.png"
+                   logoSize={28}
+                 />
+               </div>
+             </div>
+
+             {/* Right Grid - Last 3 Unlock Features */}
+             <div className="grid grid-cols-1 gap-8">
+               {unlockFeatures.slice(3, 6).map((feature, index) => (
+                 <div
+                   key={index + 3}
+                   className="unlock-feature group flex items-start mx-10 gap-4 p-8 backdrop-blur-sm rounded-xl hover:shadow-xl transition-all duration-300"
+                 >
+                   <div className="w-12 h-12 rounded-2xl bg-white border border-blue-200 flex items-center justify-center shadow-sm  transition-all duration-300 flex-shrink-0">
+                     <feature.icon className="h-6 w-6 text-blue-500" />
+                   </div>
+                   <span className="text-gray-700 font-medium leading-relaxed">
+                     {feature.text}
+                   </span>
+                 </div>
+               ))}
+             </div>
+           </div>
         </div>
 
         {/* Platform Features */}
@@ -641,52 +687,7 @@ export default function AccessPage() {
           </div>
         </div>
 
-        {/* Credential Preview */}
-        <div ref={credentialRef} className="mb-20">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="text-center lg:text-left">
-              <h2 className="brand-section-title text-[#255f99] mb-4 reveal-text">
-                Your Access Credential
-              </h2>
-              <div className="w-24 h-1 bg-gradient-to-r from-[#15a36e] to-[#255f99] lg:mx-0 mx-auto rounded-full mb-6"></div>
-              <p className="text-gray-600 text-lg leading-relaxed mb-8 reveal-text">
-                Your digital identity that unlocks exclusive access to the COPYM
-                ecosystem. Secure, verifiable, and always with you.
-              </p>
-              <div className="space-y-4">
-                <div className="flex items-center gap-3 text-gray-700 reveal-text">
-                  <CheckCircle className="w-5 h-5 text-[#15a36e]" />
-                  <span>Secure blockchain verification</span>
-                </div>
-                <div className="flex items-center gap-3 text-gray-700 reveal-text">
-                  <CheckCircle className="w-5 h-5 text-[#15a36e]" />
-                  <span>Instant access to all features</span>
-                </div>
-                <div className="flex items-center gap-3 text-gray-700 reveal-text">
-                  <CheckCircle className="w-5 h-5 text-[#15a36e]" />
-                  <span>Portable across devices</span>
-                </div>
-              </div>
-            </div>
 
-            <div className="flex justify-center">
-              <CredentialCard
-                user={{
-                  name: "Alex Morgan",
-                  employeeNumber: "EMP-2048",
-                  passNumber: "PASS-7F32",
-                  points: "1,250",
-                  qrImage: "/assets/svg/copym_qr.svg",
-                }}
-                variant="bottleGreen"
-                stacked
-                backVariant="darkBlue"
-                logoSrc="/assets/copym/png/Copym-05-1.png"
-                logoSize={28}
-              />
-            </div>
-          </div>
-        </div>
 
         {/* Final CTA */}
         <div ref={ctaRef} className="text-center">
