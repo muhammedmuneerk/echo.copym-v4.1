@@ -51,13 +51,13 @@ function CredentialCard({ user, variant = 'bottleGreen', logoSrc, logoSize = 24,
 
   // Adjusted gap between logo and wordmark to 6px
   const headerLeftStyle = { display: 'flex', alignItems: 'center', gap: 6 };
-  // Logo nudged down 1px for optical centering
+  // Logo aligned with text baseline
   const logoStyle = {
     width: logoSize,
     height: logoSize,
     display: 'block',
     objectFit: 'contain',
-    transform: 'translateY(1px)'
+    transform: 'translateY(0px)'
   };
   const resolvedLogoSrc = logoSrc || (import.meta?.env?.BASE_URL || '') + 'copym-logo.png';
 

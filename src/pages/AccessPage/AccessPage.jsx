@@ -4,32 +4,40 @@ import { useGSAP } from '../../hooks/useGSAPAnimations';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
-    Diamond,
-    Shield,
-    Wallet,
-    Globe,
-    Rocket,
-    Gift,
-    Users,
-    Ticket,
-    FileText,
-    Percent,
-    Image,
-    Calendar,
-    Zap,
-    Vote,
-    ArrowRight,
-    CheckCircle,
-    Star,
-    TrendingUp,
-    Lock,
-    Award,
-    Crown,
-    Sparkles,
-    DollarSign
+  Diamond,
+  Shield,
+  Wallet,
+  Globe,
+  Rocket,
+  Gift,
+  Users,
+  Ticket,
+  FileText,
+  Percent,
+  Image,
+  Calendar,
+  Zap,
+  Vote,
+  ArrowRight,
+  CheckCircle,
+  Star,
+  TrendingUp,
+  Lock,
+  Award,
+  Crown,
+  Sparkles,
+  DollarSign
 } from 'lucide-react';
 import CredentialCard from '../../components/CredentialCard';
 import CoinGeckoChart from '../../components/CoinGeckoChart';
+
+// Import blockchain logos
+import EthereumLogo from '/assets/blockchains/ethereum-eth-logo.svg';
+import SolanaLogo from '/assets/blockchains/solana-sol-logo.svg';
+import PolygonLogo from '/assets/blockchains/polygon-matic-logo.svg';
+import AvalancheLogo from '/assets/blockchains/avalanche-avax-logo.svg';
+import OptimismLogo from '/assets/blockchains/optimism-ethereum-op-logo.svg';
+import BitcoinLogo from '/assets/blockchains/bitcoin-btc-logo.svg';
 
 export default function AccessPage() {
   const [selectedNetwork, setSelectedNetwork] = useState(null);
@@ -43,14 +51,14 @@ export default function AccessPage() {
   const ctaRef = useRef(null);
 
   const networks = [
-    { key: 'ethereum', name: 'Ethereum', ticker: 'ETH', gradient: 'from-[#627EEA] to-[#3C5FAD]', icon: '🔷' },
-    { key: 'solana', name: 'Solana', ticker: 'SOL', gradient: 'from-[#14F195] to-[#9945FF]', icon: '☀️' },
-    { key: 'polygon', name: 'Polygon', ticker: 'POL', gradient: 'from-[#8247E5] to-[#6C3BB4]', icon: '🔺' },
-    { key: 'avalanche', name: 'Avalanche', ticker: 'AVAX', gradient: 'from-[#E84142] to-[#B03334]', icon: '❄️' },
-    { key: 'optimism', name: 'Optimism', ticker: 'OP', gradient: 'from-[#FF0420] to-[#B30216]', icon: '⚡' },
-    { key: 'ripple', name: 'Ripple', ticker: 'XRP', gradient: 'from-[#0A74FF] to-[#003366]', icon: '💎' },
-    { key: 'bitcoin', name: 'Bitcoin', ticker: 'BTC', gradient: 'from-[#F7931A] to-[#C06A00]', icon: '₿' },
-    { key: 'sepolia', name: 'Sepolia', ticker: 'SEP', gradient: 'from-[#8E8E8E] to-[#5A5A5A]', icon: '🔗' }
+    { key: 'ethereum', name: 'Ethereum', ticker: 'ETH', gradient: 'from-[#627EEA] to-[#3C5FAD]', logo: EthereumLogo },
+    { key: 'solana', name: 'Solana', ticker: 'SOL', gradient: 'from-[#14F195] to-[#9945FF]', logo: SolanaLogo },
+    { key: 'polygon', name: 'Polygon', ticker: 'POL', gradient: 'from-[#8247E5] to-[#6C3BB4]', logo: PolygonLogo },
+    { key: 'avalanche', name: 'Avalanche', ticker: 'AVAX', gradient: 'from-[#E84142] to-[#B03334]', logo: AvalancheLogo },
+    { key: 'optimism', name: 'Optimism', ticker: 'OP', gradient: 'from-[#FF0420] to-[#B30216]', logo: OptimismLogo },
+    { key: 'ripple', name: 'Ripple', ticker: 'XRP', gradient: 'from-[#0A74FF] to-[#003366]', icon: '💎' }, // Keep emoji for Ripple as no logo available
+    { key: 'bitcoin', name: 'Bitcoin', ticker: 'BTC', gradient: 'from-[#F7931A] to-[#C06A00]', logo: BitcoinLogo },
+    { key: 'sepolia', name: 'Sepolia', ticker: 'SEP', gradient: 'from-[#8E8E8E] to-[#5A5A5A]', icon: '🔗' } // Keep emoji for Sepolia as no logo available
   ];
 
   const benefits = [
@@ -82,7 +90,7 @@ export default function AccessPage() {
     if (!gsap.plugins.ScrollTrigger) {
       gsap.registerPlugin(ScrollTrigger);
     }
-    
+
     // Parallax background elements
     gsap.to('.floating-bg-1', {
       yPercent: -50,
@@ -107,11 +115,11 @@ export default function AccessPage() {
     });
 
     // Hero section animations
-    gsap.fromTo(heroRef.current, 
+    gsap.fromTo(heroRef.current,
       { opacity: 0, y: 100 },
-      { 
-        opacity: 1, 
-        y: 0, 
+      {
+        opacity: 1,
+        y: 0,
         duration: 1.2,
         ease: 'power3.out',
         scrollTrigger: {
@@ -141,7 +149,7 @@ export default function AccessPage() {
             const progress = self.progress;
             const scale = 0.8 + (progress * 0.4); // Scale from 0.8 to 1.2
             const opacity = 0.7 + (progress * 0.3); // Opacity from 0.7 to 1
-            
+
             gsap.set(chartRef.current, {
               scale: scale,
               opacity: opacity,
@@ -316,7 +324,7 @@ export default function AccessPage() {
         const rect = button.getBoundingClientRect();
         const x = e.clientX - rect.left - rect.width / 2;
         const y = e.clientY - rect.top - rect.height / 2;
-        
+
         gsap.to(button, {
           x: x * 0.3,
           y: y * 0.3,
@@ -356,7 +364,7 @@ export default function AccessPage() {
 
       {/* Main Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        
+
         {/* Hero Section */}
         <div ref={heroRef} className="text-center mb-20">
           {/* Badge */}
@@ -409,7 +417,7 @@ export default function AccessPage() {
 
         {/* Chart Section with GSAP Zoom Effect */}
         <div id="chart-section" ref={chartRef} className="mb-20">
-          <div className="bg-white/80 backdrop-blur-sm rounded-3xl border border-white/50 shadow-2xl overflow-hidden">
+          <div className="rounded-3xl overflow-hidden">
             <CoinGeckoChart />
           </div>
         </div>
@@ -422,7 +430,7 @@ export default function AccessPage() {
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-[#15a36e] to-[#255f99] mx-auto rounded-full"></div>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {benefits.map((benefit, index) => (
               <div
@@ -454,7 +462,7 @@ export default function AccessPage() {
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-[#15a36e] to-[#255f99] mx-auto rounded-full"></div>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {unlockFeatures.map((feature, index) => (
               <div
@@ -478,7 +486,7 @@ export default function AccessPage() {
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-[#15a36e] to-[#255f99] mx-auto rounded-full"></div>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {features.map((feature, index) => (
               <div
@@ -507,14 +515,14 @@ export default function AccessPage() {
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-[#15a36e] to-[#255f99] mx-auto rounded-full"></div>
           </div>
-          
+
           <div className="comparison-table bg-white/90 backdrop-blur-sm rounded-3xl border border-white/50 overflow-hidden shadow-2xl">
             <div className="grid grid-cols-3 text-sm font-bold text-gray-600 border-b border-gray-200/50">
               <div className="p-6 bg-gray-50/80 backdrop-blur-sm">FEATURE</div>
               <div className="p-6 bg-[#15a36e]/10 text-[#15a36e] backdrop-blur-sm">TOKENIZATION</div>
               <div className="p-6 bg-gray-50/80 backdrop-blur-sm">TRADITIONAL</div>
             </div>
-            
+
             {[
               { feature: 'Minimum Investment', tokenization: '$50-$500', traditional: '$50K+', icon: DollarSign },
               { feature: 'Liquidity', tokenization: '24/7 global', traditional: 'Months', icon: TrendingUp },
@@ -545,30 +553,33 @@ export default function AccessPage() {
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-[#15a36e] to-[#255f99] mx-auto rounded-full"></div>
           </div>
-          
+
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
             {networks.map((network) => (
               <motion.div
                 key={network.key}
-                className="network-card group relative bg-white/90 backdrop-blur-sm p-6 rounded-2xl border-2 transition-all duration-300 overflow-hidden cursor-pointer border-white/50 shadow-xl hover:shadow-2xl"
-                whileHover={{ y: -4, scale: 1.05, rotateY: 5 }}
+                className="network-card group relative text-center cursor-pointer"
+                whileHover={{ y: -4, scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => setSelectedNetwork(selectedNetwork === network.key ? null : network.key)}
-                style={{
-                  transformStyle: 'preserve-3d',
-                  perspective: '1000px'
-                }}
               >
-                <div className={`absolute inset-0 bg-gradient-to-br ${network.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-300`}></div>
-                <div className="relative text-center">
-                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${network.gradient} flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:shadow-xl transition-all duration-300`}>
-                    <span className="text-2xl">{network.icon}</span>
+                <div className="relative">
+                  <div className="flex items-center justify-center mx-auto mb-4 transition-all duration-300">
+                    {network.logo ? (
+                      <img
+                        src={network.logo}
+                        alt={`${network.name} logo`}
+                        className="w-16 h-16 object-contain group-hover:scale-110 transition-transform duration-300"
+                      />
+                    ) : (
+                      <span className="text-4xl group-hover:scale-110 transition-transform duration-300">{network.icon}</span>
+                    )}
                   </div>
                   <div className="font-bold text-lg text-gray-900 mb-1">{network.name}</div>
                   <div className="text-sm text-gray-500">{network.ticker}</div>
                   {selectedNetwork === network.key && (
                     <motion.div
-                      className="absolute top-2 right-2 w-6 h-6 bg-[#15a36e] rounded-full flex items-center justify-center"
+                      className="absolute -top-2 -right-2 w-6 h-6 bg-[#15a36e] rounded-full flex items-center justify-center"
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
                       transition={{ duration: 0.2 }}
@@ -591,7 +602,7 @@ export default function AccessPage() {
               </h2>
               <div className="w-24 h-1 bg-gradient-to-r from-[#15a36e] to-[#255f99] lg:mx-0 mx-auto rounded-full mb-6"></div>
               <p className="text-gray-600 text-lg leading-relaxed mb-8 reveal-text">
-                Your digital identity that unlocks exclusive access to the COPYM ecosystem. 
+                Your digital identity that unlocks exclusive access to the COPYM ecosystem.
                 Secure, verifiable, and always with you.
               </p>
               <div className="space-y-4">
@@ -609,22 +620,22 @@ export default function AccessPage() {
                 </div>
               </div>
             </div>
-            
+
             <div className="flex justify-center">
-              <div className="bg-white/90 backdrop-blur-sm rounded-3xl border border-white/50 shadow-2xl p-8">
-                <CredentialCard
-                  user={{
-                    name: 'Alex Morgan',
-                    employeeNumber: 'EMP-2048',
-                    passNumber: 'PASS-7F32',
-                    points: '1,250',
-                    qrImage: ''
-                  }}
-                  variant="bottleGreen"
-                  stacked
-                  backVariant="darkBlue"
-                />
-              </div>
+                             <CredentialCard
+                 user={{
+                   name: 'Alex Morgan',
+                   employeeNumber: 'EMP-2048',
+                   passNumber: 'PASS-7F32',
+                   points: '1,250',
+                   qrImage: '/assets/svg/copym_qr.svg'
+                 }}
+                 variant="bottleGreen"
+                 stacked
+                 backVariant="darkBlue"
+                 logoSrc="/assets/copym/png/Copym-05-1.png"
+                 logoSize={28}
+               />
             </div>
           </div>
         </div>
