@@ -176,7 +176,7 @@ const TechnologyStackSection = () => {
           <div className="relative flex items-center mb-20 md:mb-0 -mt-12 md:-mt-28 justify-center h-[320px] sm:h-[380px] lg:h-[500px]">
             
             {/* Outer Progress Ring */}
-            <div className="absolute w-[260px] h-[260px] sm:w-[340px] sm:h-[340px] lg:w-[380px] lg:h-[380px] rounded-full z-1">
+            <div className="absolute w-[260px] h-[260px] sm:w-[340px] sm:h-[340px] lg:w-[380px] lg:h-[380px] rounded-full z-0">
               <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
                 {/* Background circle */}
                 <circle

@@ -7,6 +7,7 @@ import TokenizationHub from './pages/TokenizationHub/TokenizationHub';
 import Marketplace from './pages/Marketplace/Marketplace';
 import HomePage from './pages/HomePage/HomePage';
 import AgentPage from './pages/AgentPage/AgentPage';
+import CopymAI from './pages/CopymAI/CopymAI';
 import Contact from './pages/Contact/Contact';
 import AboutUs from './pages/aboutus/aboutus';
 import ScrollToTop from "./components/ScrollToTop";
@@ -24,6 +25,9 @@ function App() {
   const location = useLocation();
    const [showSplash, setShowSplash] = useState(true);
   const appRef = useRef(null);
+  
+  // Check if we're on the copym-ai page
+  const isCopymAIPage = location.pathname === "/copym-ai";
 
   // Handle splash screen timing
   useEffect(() => {
@@ -70,7 +74,7 @@ function App() {
       ) : (
         <Box
         ref={appRef} 
-         className="min-h-screen relative bg-blue-100 text-text-primary overflow-x-hidden">
+         className={`min-h-screen relative text-text-primary overflow-x-hidden ${isCopymAIPage ? '' : 'bg-blue-100'}`}>
           <ScrollToTop />
           <Header />
           <main className="relative z-20 overflow-x-hidden">
@@ -82,6 +86,7 @@ function App() {
               <Route path="/tokenization" element={<TokenizationHub />} />
               <Route path="/launchkit" element={<Launchkit />} />
               <Route path="/agent" element={<AgentPage />} />
+              <Route path="/copym-ai" element={<CopymAI />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/access" element={<AccessPage />} />
             </Routes>

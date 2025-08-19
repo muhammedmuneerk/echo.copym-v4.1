@@ -11,6 +11,8 @@ export default function Header() {
   
   // Check if we're on the agent page
   const isAgentPage = location.pathname === "/agent";
+  // Check if we're on the copym-ai page
+  const isCopymAIPage = location.pathname === "/copym-ai";
 
   // Helper function to toggle mobile dropdowns
   const toggleMobileDropdown = (navItem) => {
@@ -183,29 +185,58 @@ export default function Header() {
           </div>
         )
       },
+      // {
+      //   title: "LaunchKit",
+      //   description: "Comprehensive tools for tokenizing and managing assets with smart contract deployment",
+      //   path: "/launchkit",
+      //   visual: (
+      //     <div className="w-full h-52 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg p-4 relative overflow-hidden">
+      //       <div className="absolute top-3 left-3 text-sm text-blue-600 font-semibold">Asset Management</div>
+      //       <div className="mt-8 space-y-2">
+      //         <div className="flex items-center space-x-3">
+      //           <div className="w-7 h-7 bg-blue-400 rounded-full flex items-center justify-center text-white text-sm">1</div>
+      //           <div className="h-2 bg-blue-300 rounded flex-1"></div>
+      //         </div>
+      //         <div className="flex items-center space-x-3">
+      //           <div className="w-7 h-7 bg-blue-400 rounded-full flex items-center justify-center text-white text-sm">2</div>
+      //           <div className="h-2 bg-blue-300 rounded flex-1"></div>
+      //         </div>
+      //         <div className="flex items-center space-x-3">
+      //           <div className="w-7 h-7 bg-blue-300 rounded-full flex items-center justify-center text-white text-sm">3</div>
+      //           <div className="h-2 bg-blue-200 rounded flex-1"></div>
+      //         </div>
+      //         <div className="mt-3 bg-blue-300 rounded p-3">
+      //           <div className="text-sm font-bold text-blue-800">Smart Contracts</div>
+      //           <div className="text-sm text-blue-600">Deployed & Ready</div>
+      //         </div>
+      //       </div>
+      //     </div>
+      //   )
+      // },
       {
-        title: "LaunchKit",
-        description: "Comprehensive tools for tokenizing and managing assets with smart contract deployment",
-        path: "/launchkit",
+        title: "Copym AI",
+        description: "Smart analytics and platform intelligence powered by advanced AI for optimal decision making",
+        path: "/copym-ai",
         visual: (
-          <div className="w-full h-52 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg p-4 relative overflow-hidden">
-            <div className="absolute top-3 left-3 text-sm text-blue-600 font-semibold">Asset Management</div>
+          <div className="w-full h-52 bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg p-4 relative overflow-hidden border border-gray-200">
+            <div className="absolute top-3 left-3 text-sm text-gray-600 font-semibold">AI Analytics</div>
             <div className="mt-8 space-y-2">
-              <div className="flex items-center space-x-3">
-                <div className="w-7 h-7 bg-blue-400 rounded-full flex items-center justify-center text-white text-sm">1</div>
-                <div className="h-2 bg-blue-300 rounded flex-1"></div>
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-gray-700">Market Analysis</span>
+                <div className="px-2 py-1 bg-green-400 text-white text-sm rounded">94%</div>
               </div>
-              <div className="flex items-center space-x-3">
-                <div className="w-7 h-7 bg-blue-400 rounded-full flex items-center justify-center text-white text-sm">2</div>
-                <div className="h-2 bg-blue-300 rounded flex-1"></div>
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-gray-700">Risk Assessment</span>
+                <div className="px-2 py-1 bg-green-400 text-white text-sm rounded">87%</div>
               </div>
-              <div className="flex items-center space-x-3">
-                <div className="w-7 h-7 bg-blue-300 rounded-full flex items-center justify-center text-white text-sm">3</div>
-                <div className="h-2 bg-blue-200 rounded flex-1"></div>
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-gray-700">Predictions</span>
+                <div className="px-2 py-1 bg-green-400 text-white text-sm rounded">91%</div>
               </div>
-              <div className="mt-3 bg-blue-300 rounded p-3">
-                <div className="text-sm font-bold text-blue-800">Smart Contracts</div>
-                <div className="text-sm text-blue-600">Deployed & Ready</div>
+              <div className="mt-3 flex items-center justify-center space-x-3">
+                <div className="w-5 h-5 bg-gray-300 rounded-full"></div>
+                <div className="w-5 h-5 bg-gray-400 rounded-full"></div>
+                <div className="w-5 h-5 bg-gray-500 rounded-full"></div>
               </div>
             </div>
           </div>
@@ -346,7 +377,7 @@ export default function Header() {
   return (
     <>
       {/* Modern Clean Header */}
-      <header className={`absolute top-2 inset-x-0 z-50 flex justify-center pointer-events-none ${isAgentPage ? 'bg-black/95 backdrop-blur-md rounded-2xl mx-4' : ''}`}>
+      <header className={`${isCopymAIPage ? 'absolute top-3 inset-x-0 z-50 flex justify-center pointer-events-none border-b border-n-6 lg:bg-n-8/90 lg:bg-blur-sm' : 'absolute top-2 inset-x-0 z-50 flex justify-center pointer-events-none'} ${isAgentPage ? 'bg-black/95 backdrop-blur-md rounded-2xl mx-4' : ''} ${isCopymAIPage && isMenuOpen ? 'bg-n-8' : ''}`}>
         {/* Main header container */}
         <div className="w-[98%] max-w-7xl pointer-events-auto px-4 sm:px-6 md:px-8 py-3 md:py-4">
           
@@ -355,7 +386,7 @@ export default function Header() {
             {/* Logo Only */}
             <Link to="/" className="flex items-center">
               <img
-                src={isAgentPage ? "/assets/copym/png/Copym-02-1.png" : "/assets/copym/png/Copym-01-1.png"}
+                src={isCopymAIPage ? "/assets/copym/png/Copym-01-1.png" : isAgentPage ? "/assets/copym/png/Copym-02-1.png" : "/assets/copym/png/Copym-01-1.png"}
                 alt="COPYM"
                 className="h-12 w-auto object-contain sm:h-14 md:h-16"
               />
@@ -412,7 +443,7 @@ export default function Header() {
       <AnimatePresence>
         {activeDropdown && (
           <motion.div
-            className="absolute top-24 z-40 px-4"
+            className="absolute top-24 z-50 px-4"
             style={{
               right: activeDropdown === 'Products' ? '28%' : 
                      activeDropdown === 'Services' ? '17%' : 
@@ -499,7 +530,7 @@ export default function Header() {
       {/* Mobile Dropdown Menu */}
       {isMenuOpen && (
         <motion.div 
-          className="fixed inset-0 z-40 md:hidden"
+          className="fixed inset-0 z-50 md:hidden"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
