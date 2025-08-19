@@ -436,7 +436,7 @@ const AiOverview = () => {
 
         {/* Enhanced CTA Button */}
         <motion.div
-          className="text-center mt-12 sm:mt-16 md:-mt-20"
+          className="text-center mt-12 sm:mt-16 md:-mt-28"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
