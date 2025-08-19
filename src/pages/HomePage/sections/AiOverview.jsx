@@ -445,7 +445,7 @@ const AiOverview = () => {
             to="/agent"
             className="text-white  px-auto py-auto font-semibold btn-gradient text-sm sm:text-base rounded-full transition-all duration-300 hover:scale-105 hover:shadow-2xl transform"
           >
-            Explore Our AI Agent
+            Explore
           </Link>
         </motion.div>
       </div>
