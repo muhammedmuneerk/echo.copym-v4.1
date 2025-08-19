@@ -43,7 +43,6 @@ import { Box } from '@mui/material';
 export default function AccessPage() {
 
   const pageRef = useRef(null);
-  const chartRef = useRef(null);
   const heroRef = useRef(null);
   const benefitsRef = useRef(null);
   const featuresRef = useRef(null);
@@ -133,25 +132,25 @@ export default function AccessPage() {
     );
 
     // Chart zoom effect
-    gsap.fromTo(chartRef.current,
-      { scale: 0.8, opacity: 0.7 },
+    gsap.fromTo('.chart-overflow',
+      { scale: 0.7, opacity: 0.7 },
       {
-        scale: 1.2,
+        scale: 1,
         opacity: 1,
         duration: 1.5,
         ease: 'power2.out',
         scrollTrigger: {
-          trigger: chartRef.current,
+          trigger: benefitsRef.current,
           start: 'top 70%',
           end: 'center 30%',
           scrub: 1,
           onUpdate: (self) => {
-            // Dynamic zoom based on scroll progress
+            // Dynamic zoom based on scroll progress - uniform scaling (no distortion)
             const progress = self.progress;
-            const scale = 0.8 + (progress * 0.4); // Scale from 0.8 to 1.2
+            const scale = 0.7 + (progress * 0.4); // Uniform scale from 0.7 to 1.1
             const opacity = 0.7 + (progress * 0.3); // Opacity from 0.7 to 1
-
-            gsap.set(chartRef.current, {
+            
+            gsap.set('.chart-overflow', {
               scale: scale,
               opacity: opacity,
               transformOrigin: 'center center'
@@ -366,7 +365,7 @@ export default function AccessPage() {
       {/* Main Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Hero Section */}
-        <div ref={heroRef} className="text-center mb-20">
+        <div ref={heroRef} className="text-center mb-20 p-12 ">
           {/* Main Title */}
           <h1 className="brand-title mb-8 text-[#255f99] reveal-text">
             Your Gateway to{" "}
@@ -395,7 +394,7 @@ export default function AccessPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
-            data-scroll-to="#chart-section"
+            data-scroll-to="#benefits-section"
           >
             <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             <span className="relative flex items-center">
@@ -405,49 +404,80 @@ export default function AccessPage() {
           </motion.button>
         </div>
 
-        {/* Chart Section with GSAP Zoom Effect */}
-        <div id="chart-section" ref={chartRef} className="mb-20">
-          <div className="rounded-3xl overflow-hidden">
-            <CoinGeckoChart />
-          </div>
-        </div>
 
-        {/* Benefits Grid */}
-        <div ref={benefitsRef} className="mb-20">
-          <div className="text-center mb-12 pt-12">
-            <h2 className="brand-section-title text-[#255f99] mb-4 reveal-text">
-              Why Get the COPYM Access Pass?
-            </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-[#15a36e] to-[#255f99] mx-auto rounded-full"></div>
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {benefits.map((benefit, index) => (
-              <div
-                key={index}
-                className="benefit-card group relative bg-green-50 backdrop-blur-sm p-8 rounded-2xl border border-white/50 shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden"
-              >
-                
-                <div className="relative text-center">
-                  <Box
-                    className="w-12 h-12 rounded-2xl mb-4 flex items-center border border-blue-200 justify-center text-2xl card-icon mx-auto"
-                    sx={{
-                      background: "rgba(255, 255, 255, 0.9)",
-                      backdropFilter: "blur(5px)",
-                      boxShadow: "inset 0 0 0 1px rgba(255, 255, 255, 0.05)",
-                    }}
+        {/* Benefits Grid with Chart Overflow */}
+        <div id="benefits-section" ref={benefitsRef} className="mb-20 relative">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+            {/* Left Grid - Content */}
+            <div className="space-y-8">
+              {/* Section Title */}
+              <div className="text-left">
+                <h2 className="brand-section-title text-[#255f99] mb-4 reveal-text">
+                  Why Get the COPYM Access Pass?
+                </h2>
+                <div className="w-24 h-1 bg-gradient-to-r from-[#15a36e] to-[#255f99] rounded-full"></div>
+                <p className="text-gray-600 mt-6 text-lg leading-relaxed">
+                  Unlock exclusive benefits and early access to the most promising real-world asset opportunities in the Web3 ecosystem.
+                </p>
+              </div>
+
+              {/* Benefits Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {benefits.map((benefit, index) => (
+                  <div
+                    key={index}
+                    className="benefit-card group relative  backdrop-blur-sm p-6 rounded-2xl hover:shadow-2xl transition-all duration-500 overflow-hidden"
                   >
-                    <benefit.icon className="h-6 w-6 text-blue-500" />
-                  </Box>
-                  <h3 className="font-bold text-xl mb-4 text-gray-900 group-hover:text-[#255f99] transition-colors">
-                    {benefit.title}
-                  </h3>
-                  <p className="text-gray-600 leading-relaxed">
-                    {benefit.description}
-                  </p>
+                    <div className="relative">
+                      <Box
+                        className="w-12 h-12 rounded-2xl mb-4 flex items-center border border-blue-200 justify-center text-2xl card-icon"
+                        sx={{
+                          background: "rgba(255, 255, 255, 0.9)",
+                          backdropFilter: "blur(5px)",
+                          boxShadow: "inset 0 0 0 1px rgba(255, 255, 255, 0.05)",
+                        }}
+                      >
+                        <benefit.icon className="h-6 w-6 text-blue-500" />
+                      </Box>
+                      <h3 className="font-bold text-lg mb-3 text-gray-900 group-hover:text-[#255f99] transition-colors">
+                        {benefit.title}
+                      </h3>
+                      <p className="text-gray-600 leading-relaxed text-sm">
+                        {benefit.description}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Additional Features */}
+              {/* <div className="bg-gradient-to-r from-[#255f99]/5 to-[#15a36e]/5 rounded-2xl p-6 border border-white/50">
+                <h3 className="font-bold text-lg text-[#255f99] mb-4">Premium Perks</h3>
+                <div className="space-y-3">
+                  {[
+                    "Priority customer support",
+                    "Exclusive market insights",
+                    "Early access to new features",
+                    "Special event invitations"
+                  ].map((perk, index) => (
+                    <div key={index} className="flex items-center gap-3">
+                      <CheckCircle className="w-5 h-5 text-[#15a36e] flex-shrink-0" />
+                      <span className="text-gray-700 text-sm">{perk}</span>
+                    </div>
+                  ))}
+                </div>
+              </div> */}
+            </div>
+
+            {/* Right Grid - Chart with Overflow */}
+            <div className="relative">
+              <div className="chart-overflow absolute -right-1/2 top-0 w-min-6xl h-auto">
+                <div className="rounded-3xl overflow-hidden shadow-2xl">
+                  <CoinGeckoChart />
                 </div>
               </div>
-            ))}
+            </div>
           </div>
         </div>
 
