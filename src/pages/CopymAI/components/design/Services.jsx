@@ -64,7 +64,7 @@ export const VideoChatMessage = ({ isPlaying }) => {
           src={copymWhiteIcon}
           width={46}
           height={46}
-          alt="Brainwave"
+          alt="Copym"
         />
       </div>
       <div className="tagline absolute right-2.5 bottom-1 text-[0.625rem] text-n-3 uppercase">

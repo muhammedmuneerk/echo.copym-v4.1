@@ -34,7 +34,7 @@ const Services = () => {
               </span>
             </>
           }
-          text="Brainwave unlocks the potential of AI-powered applications."
+          text="COPYM unlocks the potential of AI-powered tokenizatio."
         />
 
         <div className="relative">
@@ -53,7 +53,7 @@ const Services = () => {
             <div className="relative z-1 max-w-[17rem] ml-auto">
               <h4 className="h4 mb-4">Smartest AI</h4>
               <p className="body-2 mb-[3rem] text-n-3">
-                Brainwave unlocks the potential of AI-powered applications.
+                COPYM unlocks the potential of AI-powered tokenization.
               </p>
               <ul className="body-2">
                 {brainwaveServices.map((item, i) => (
