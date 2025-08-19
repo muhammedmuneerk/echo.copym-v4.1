@@ -607,8 +607,8 @@ export default function RWARoadmap() {
                   {/* Content Card */}
                   <motion.div 
                     className={`relative max-w-md ${item.side === 'left' ? 'mr-20' : 'ml-20'}`}
-                    variants={cardVariants}
-                    animate={activeSection === index ? "active" : "inactive"}
+                    // variants={cardVariants}
+                    // animate={activeSection === index ? "active" : "inactive"}
                   >
                     
                     {/* Connector Line */}
