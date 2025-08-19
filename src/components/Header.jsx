@@ -242,35 +242,35 @@ export default function Header() {
           </div>
         )
       },
-      {
-        title: "Copym Agent (CmAI)",
-        description: "Smart analytics and platform intelligence powered by advanced AI for optimal decision making",
-        path: "/agent",
-        visual: (
-          <div className="w-full h-52 bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg p-4 relative overflow-hidden border border-gray-200">
-            <div className="absolute top-3 left-3 text-sm text-gray-600 font-semibold">AI Analytics</div>
-            <div className="mt-8 space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-700">Market Analysis</span>
-                <div className="px-2 py-1 bg-green-400 text-white text-sm rounded">94%</div>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-700">Risk Assessment</span>
-                <div className="px-2 py-1 bg-green-400 text-white text-sm rounded">87%</div>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-700">Predictions</span>
-                <div className="px-2 py-1 bg-green-400 text-white text-sm rounded">91%</div>
-              </div>
-              <div className="mt-3 flex items-center justify-center space-x-3">
-                <div className="w-5 h-5 bg-gray-300 rounded-full"></div>
-                <div className="w-5 h-5 bg-gray-400 rounded-full"></div>
-                <div className="w-5 h-5 bg-gray-500 rounded-full"></div>
-              </div>
-            </div>
-          </div>
-        )
-      }
+      // {
+      //   title: "Copym Agent (CmAI)",
+      //   description: "Smart analytics and platform intelligence powered by advanced AI for optimal decision making",
+      //   path: "/agent",
+      //   visual: (
+      //     <div className="w-full h-52 bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg p-4 relative overflow-hidden border border-gray-200">
+      //       <div className="absolute top-3 left-3 text-sm text-gray-600 font-semibold">AI Analytics</div>
+      //       <div className="mt-8 space-y-2">
+      //         <div className="flex items-center justify-between">
+      //           <span className="text-sm text-gray-700">Market Analysis</span>
+      //           <div className="px-2 py-1 bg-green-400 text-white text-sm rounded">94%</div>
+      //         </div>
+      //         <div className="flex items-center justify-between">
+      //           <span className="text-sm text-gray-700">Risk Assessment</span>
+      //           <div className="px-2 py-1 bg-green-400 text-white text-sm rounded">87%</div>
+      //         </div>
+      //         <div className="flex items-center justify-between">
+      //           <span className="text-sm text-gray-700">Predictions</span>
+      //           <div className="px-2 py-1 bg-green-400 text-white text-sm rounded">91%</div>
+      //         </div>
+      //         <div className="mt-3 flex items-center justify-center space-x-3">
+      //           <div className="w-5 h-5 bg-gray-300 rounded-full"></div>
+      //           <div className="w-5 h-5 bg-gray-400 rounded-full"></div>
+      //           <div className="w-5 h-5 bg-gray-500 rounded-full"></div>
+      //         </div>
+      //       </div>
+      //     </div>
+      //   )
+      // }
     ],
     Company: [
       {

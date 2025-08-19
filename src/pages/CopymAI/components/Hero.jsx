@@ -30,7 +30,6 @@ const Hero = () => {
             <Typewriter
               options={{
                 strings: [
-                  "AI Chatting",
                   "Market Analysis",
                   "Risk Assessment",
                   "Predictions",
