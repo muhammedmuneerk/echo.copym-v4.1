@@ -58,7 +58,7 @@ const SplashScreen = () => {
           playsInline
           preload="auto"
         >
-          <source src="/assets/videos/copym-logo-vdo.mp4" type="video/mp4" />
+          <source src="/assets/videos/only-logo.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       </div>
