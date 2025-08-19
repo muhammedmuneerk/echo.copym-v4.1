@@ -16,7 +16,7 @@ const CopymAI = () => {
         <Benefits />
         <Collaboration />
         <Services />
-        <Pricing />
+        {/* <Pricing /> */}
         <Roadmap />
         <Footer />
       </div>
