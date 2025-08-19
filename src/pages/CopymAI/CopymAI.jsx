@@ -18,7 +18,7 @@ const CopymAI = () => {
         <Services />
         {/* <Pricing /> */}
         <Roadmap />
-        <Footer />
+        {/* <Footer /> */}
       </div>
       <ButtonGradient />
     </>
