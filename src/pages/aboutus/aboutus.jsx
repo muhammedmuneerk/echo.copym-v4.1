@@ -144,7 +144,7 @@ const AboutUs = () => {
 
                     {/* Leadership Team */}
                     <div className="mt-16">
-                        <h3 className="brand-card-title text-gray-900 mb-8">Meet Our Leadership</h3>
+                        <h3 className="brand-card-title text-gray-900 mb-8">Steering Copym Forward</h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
                             <div className="bg-green-50 rounded-xl p-2  text-center">
                                 <div className="h-24 w-24 rounded-full bg-white border border-blue-200 mb-4 flex items-center justify-center mx-auto">

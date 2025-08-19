@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   TrendingUp, Shield, Zap, RefreshCw, Building, Coins, PieChart, Gem, BarChart3, 
   DollarSign, ArrowUpRight, Repeat, Globe, Home, Briefcase, Palette, Plus, 
@@ -19,10 +20,12 @@ gsap.registerPlugin(ScrollTrigger);
 const RealEstateInvestmentSection = () => {
   const [activeSection, setActiveSection] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const [animationTriggered, setAnimationTriggered] = useState(false);
   const containerRef = useRef(null);
   const visualRef = useRef(null);
   const contentRef = useRef(null);
   const sectionsRef = useRef([]);
+  const donutChartRef = useRef(null);
 
   // Check if screen is mobile
   useEffect(() => {
@@ -34,6 +37,39 @@ const RealEstateInvestmentSection = () => {
     window.addEventListener('resize', checkMobile);
     
     return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Intersection Observer to trigger animation when donut chart enters viewport
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          // Add a small delay to ensure smooth animation
+          const timer = setTimeout(() => {
+            setAnimationTriggered(true);
+          }, 200);
+          
+          return () => clearTimeout(timer);
+        } else {
+          // Reset animation when component leaves viewport
+          setAnimationTriggered(false);
+        }
+      },
+      {
+        threshold: 0.3, // Trigger when 30% of the component is visible
+        rootMargin: '0px 0px -100px 0px' // Trigger slightly before fully in view
+      }
+    );
+
+    if (donutChartRef.current) {
+      observer.observe(donutChartRef.current);
+    }
+
+    return () => {
+      if (donutChartRef.current) {
+        observer.unobserve(donutChartRef.current);
+      }
+    };
   }, []);
 
   const sections = [
@@ -164,12 +200,21 @@ const RealEstateInvestmentSection = () => {
     return () => clearTimeout(timer);
   }, [isMobile]);
 
-  const renderAssetFractionalization = (isAnimating = false) => (
+  const renderAssetFractionalization = (isAnimating = false) => {
+    // Segments in clockwise order starting from top
+    const segments = [
+      { id: 'art', d: "M 0,-260 A 260,260 0 0,1 248.79,-75.39 L 159.22,-48.25 A 166,166 0 0,0 0,-166 Z", fill: "#1e3a5f", label: "Art objects", percentage: "21.3%", position: { x: 670, y: 155 } }, // Top-right
+      { id: 'commodities', d: "M 248.79,-75.39 A 260,260 0 0,1 183.85,183.85 L 117.38,117.38 A 166,166 0 0,0 159.22,-48.25 Z", fill: "#1a4d3a", label: "Commodities", percentage: "29.5%", position: { x: 630, y: 535 } }, // Bottom-right  
+      { id: 'realestate', d: "M 183.85,183.85 A 260,260 0 0,1 -127.02,226.85 L -81.11,144.88 A 166,166 0 0,0 117.38,117.38 Z", fill: "#1e3a5f", label: "Real Estate", percentage: "28.5%", position: { x: 170, y: 645 } }, // Bottom-left
+      { id: 'carbon', d: "M -127.02,226.85 A 260,260 0 0,1 0,-260 L 0,-166 A 166,166 0 0,0 -81.11,144.88 Z", fill: "#1a4d3a", label: "Carbon Credits", percentage: "20.7%", position: { x: 130, y: 275 } } // Top-left
+    ];
+
+    return (
     <div className="w-full h-full flex items-center justify-center">
       <svg 
         viewBox="0 0 800 800" 
         xmlns="http://www.w3.org/2000/svg"
-        className={`${isMobile ? 'w-96' : 'w-[600px]'} h-auto object-contain visual-element ${isAnimating ? 'stagger-in' : ''}`}
+          className={`${isMobile ? 'w-96' : 'w-[600px]'} h-auto object-contain visual-element`}
         style={{
           filter: 'contrast(1.1) brightness(1.05) saturate(1.1)',
           maxWidth: '100%',
@@ -245,57 +290,6 @@ const RealEstateInvestmentSection = () => {
         {/* Apply pattern */}
         <rect width="800" height="800" fill="url(#radialLines)"/>
         
-        {/* Radiating lines */}
-        <g transform="translate(400,400)" opacity="0.1">
-          <path d="M 0,0 L 0,-380" stroke="#1a3840" strokeWidth="1" transform="rotate(0)"/>
-          <path d="M 0,0 L 0,-380" stroke="#1a3840" strokeWidth="1" transform="rotate(15)"/>
-          <path d="M 0,0 L 0,-380" stroke="#1a3840" strokeWidth="1" transform="rotate(30)"/>
-          <path d="M 0,0 L 0,-380" stroke="#1a3840" strokeWidth="1" transform="rotate(45)"/>
-          <path d="M 0,0 L 0,-380" stroke="#1a3840" strokeWidth="1" transform="rotate(60)"/>
-          <path d="M 0,0 L 0,-380" stroke="#1a3840" strokeWidth="1" transform="rotate(75)"/>
-          <path d="M 0,0 L 0,-380" stroke="#1a3840" strokeWidth="1" transform="rotate(90)"/>
-          <path d="M 0,0 L 0,-380" stroke="#1a3840" strokeWidth="1" transform="rotate(105)"/>
-          <path d="M 0,0 L 0,-380" stroke="#1a3840" strokeWidth="1" transform="rotate(120)"/>
-          <path d="M 0,0 L 0,-380" stroke="#1a3840" strokeWidth="1" transform="rotate(135)"/>
-          <path d="M 0,0 L 0,-380" stroke="#1a3840" strokeWidth="1" transform="rotate(150)"/>
-          <path d="M 0,0 L 0,-380" stroke="#1a3840" strokeWidth="1" transform="rotate(165)"/>
-          <path d="M 0,0 L 0,-380" stroke="#1a3840" strokeWidth="1" transform="rotate(180)"/>
-          <path d="M 0,0 L 0,-380" stroke="#1a3840" strokeWidth="1" transform="rotate(195)"/>
-          <path d="M 0,0 L 0,-380" stroke="#1a3840" strokeWidth="1" transform="rotate(210)"/>
-          <path d="M 0,0 L 0,-380" stroke="#1a3840" strokeWidth="1" transform="rotate(225)"/>
-          <path d="M 0,0 L 0,-380" stroke="#1a3840" strokeWidth="1" transform="rotate(240)"/>
-          <path d="M 0,0 L 0,-380" stroke="#1a3840" strokeWidth="1" transform="rotate(255)"/>
-          <path d="M 0,0 L 0,-380" stroke="#1a3840" strokeWidth="1" transform="rotate(270)"/>
-          <path d="M 0,0 L 0,-380" stroke="#1a3840" strokeWidth="1" transform="rotate(285)"/>
-          <path d="M 0,0 L 0,-380" stroke="#1a3840" strokeWidth="1" transform="rotate(300)"/>
-          <path d="M 0,0 L 0,-380" stroke="#1a3840" strokeWidth="1" transform="rotate(315)"/>
-          <path d="M 0,0 L 0,-380" stroke="#1a3840" strokeWidth="1" transform="rotate(330)"/>
-          <path d="M 0,0 L 0,-380" stroke="#1a3840" strokeWidth="1" transform="rotate(345)"/>
-        </g>
-        
-        {/* Main ring segments */}
-        <g transform="translate(400,400)">
-          {/* Segment 1: Art objects (21.3%) - Dark Blue */}
-          <path d="M 0,-260 A 260,260 0 0,1 248.79,-75.39 L 159.22,-48.25 A 166,166 0 0,0 0,-166 Z" 
-                fill="#1e3a5f" stroke="white" strokeWidth="8"
-                className="segment" data-segment="art"/>
-          
-          {/* Segment 2: Carbon Credits (20.7%) - Dark Bottle Green */}
-          <path d="M 248.79,-75.39 A 260,260 0 0,1 183.85,183.85 L 117.38,117.38 A 166,166 0 0,0 159.22,-48.25 Z" 
-                fill="#1a4d3a" stroke="white" strokeWidth="8"
-                className="segment" data-segment="carbon"/>
-          
-          {/* Segment 3: Real Estate (28.5%) - Dark Blue */}
-          <path d="M 183.85,183.85 A 260,260 0 0,1 -127.02,226.85 L -81.11,144.88 A 166,166 0 0,0 117.38,117.38 Z" 
-                fill="#1e3a5f" stroke="white" strokeWidth="8"
-                className="segment" data-segment="realestate"/>
-          
-          {/* Segment 4: Commodities (29.5%) - Dark Bottle Green */}
-          <path d="M -127.02,226.85 A 260,260 0 0,1 0,-260 L 0,-166 A 166,166 0 0,0 -81.11,144.88 Z" 
-                fill="#1a4d3a" stroke="white" strokeWidth="8"
-                className="segment" data-segment="commodities"/>
-        </g>
-        
         {/* Inner decorative ring */}
         <g transform="translate(400,400)">
           <circle cx="0" cy="0" r="150" fill="none" stroke="#2a5f5f" strokeWidth="1" opacity="0.5"/>
@@ -316,45 +310,127 @@ const RealEstateInvestmentSection = () => {
                 fill="#2a5f5f" textAnchor="middle">COPYM</text>
         </g>
         
-        {/* Labels */}
-        {/* Art objects label */}
-        <g className="label-group" id="label-art">
-          <circle cx="520" cy="220" r="4" fill="#2a5f5f"/>
-          <line x1="520" y1="220" x2="580" y2="160" stroke="#2a5f5f" strokeWidth="1" opacity="0.5"/>
-          <rect x="580" y="130" width="180" height="60" rx="8" fill="#1a2332" fillOpacity="0.9" stroke="#2a5f5f" strokeWidth="1" className="label-box"/>
-          <text x="670" y="155" fontFamily="Arial, sans-serif" fontSize="18" fill="#e0e8f0" textAnchor="middle">Art objects</text>
-          <text x="670" y="175" fontFamily="Arial, sans-serif" fontSize="16" fill="#2a5f5f" textAnchor="middle">(21.3%)</text>
-        </g>
-        
-        {/* Carbon Credits label */}
-        <g className="label-group" id="label-carbon">
-          <circle cx="280" cy="320" r="4" fill="#2a5f5f"/>
-          <line x1="280" y1="320" x2="180" y2="280" stroke="#2a5f5f" strokeWidth="1" opacity="0.5"/>
-          <rect x="40" y="250" width="180" height="60" rx="8" fill="#1a2332" fillOpacity="0.9" stroke="#2a5f5f" strokeWidth="1" className="label-box"/>
-          <text x="130" y="275" fontFamily="Arial, sans-serif" fontSize="18" fill="#e0e8f0" textAnchor="middle">Carbon Credits</text>
-          <text x="130" y="295" fontFamily="Arial, sans-serif" fontSize="16" fill="#2a5f5f" textAnchor="middle">(20.7%)</text>
-        </g>
-        
-        {/* Real Estate label */}
-        <g className="label-group" id="label-realestate">
-          <circle cx="340" cy="580" r="4" fill="#2a5f5f"/>
-          <line x1="340" y1="580" x2="240" y2="640" stroke="#2a5f5f" strokeWidth="1" opacity="0.5"/>
-          <rect x="80" y="620" width="180" height="60" rx="8" fill="#1a2332" fillOpacity="0.9" stroke="#2a5f5f" strokeWidth="1" className="label-box"/>
-          <text x="170" y="645" fontFamily="Arial, sans-serif" fontSize="18" fill="#e0e8f0" textAnchor="middle">Real Estate</text>
-          <text x="170" y="665" fontFamily="Arial, sans-serif" fontSize="16" fill="#2a5f5f" textAnchor="middle">(28.5%)</text>
-        </g>
-        
-        {/* Commodities label */}
-        <g className="label-group" id="label-commodities">
-          <circle cx="550" cy="480" r="4" fill="#2a5f5f"/>
-          <line x1="550" y1="480" x2="620" y2="520" stroke="#2a5f5f" strokeWidth="1" opacity="0.5"/>
-          <rect x="540" y="510" width="180" height="60" rx="8" fill="#1a2332" fillOpacity="0.9" stroke="#2a5f5f" strokeWidth="1" className="label-box"/>
-          <text x="630" y="535" fontFamily="Arial, sans-serif" fontSize="18" fill="#e0e8f0" textAnchor="middle">Commodities</text>
-          <text x="630" y="555" fontFamily="Arial, sans-serif" fontSize="16" fill="#2a5f5f" textAnchor="middle">(29.5%)</text>
-        </g>
+          {/* Main ring segments with React animations - Clockwise order */}
+          <g transform="translate(400,400)">
+            {segments.map((segment, index) => (
+              <motion.path
+                key={segment.id}
+                d={segment.d}
+                fill={segment.fill}
+                className="segment"
+                data-segment={segment.id}
+                initial={{ opacity: 0, scale: 0 }}
+                animate={animationTriggered ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
+                transition={{
+                  duration: 0.6,
+                  delay: index * 0.2, // Clockwise sequence: 0s, 0.2s, 0.4s, 0.6s
+                  type: "spring",
+                  stiffness: 200,
+                  damping: 20
+                }}
+              />
+            ))}
+          </g>
+          
+          {/* Labels with React animations - Same clockwise order */}
+          {segments.map((segment, index) => (
+            <motion.g key={`label-${segment.id}`} className="label-group" id={`label-${segment.id}`}>
+              {/* Label dot */}
+              <motion.circle
+                cx={segment.id === 'art' ? 520 : segment.id === 'commodities' ? 550 : segment.id === 'realestate' ? 340 : 280}
+                cy={segment.id === 'art' ? 220 : segment.id === 'commodities' ? 480 : segment.id === 'realestate' ? 580 : 320}
+                r="4"
+                fill="#2a5f5f"
+                initial={{ opacity: 0, r: 0 }}
+                animate={animationTriggered ? { opacity: 1, r: 4 } : { opacity: 0, r: 0 }}
+                transition={{
+                  duration: 0.4,
+                  delay: 0.8 + index * 0.2, // Clockwise sequence: 0.8s, 1.0s, 1.2s, 1.4s
+                  type: "spring",
+                  stiffness: 300
+                }}
+              />
+              
+              {/* Connecting line */}
+              <motion.line
+                x1={segment.id === 'art' ? 520 : segment.id === 'commodities' ? 550 : segment.id === 'realestate' ? 340 : 280}
+                y1={segment.id === 'art' ? 220 : segment.id === 'commodities' ? 480 : segment.id === 'realestate' ? 580 : 320}
+                x2={segment.id === 'art' ? 580 : segment.id === 'commodities' ? 620 : segment.id === 'realestate' ? 240 : 180}
+                y2={segment.id === 'art' ? 160 : segment.id === 'commodities' ? 520 : segment.id === 'realestate' ? 640 : 280}
+                stroke="#2a5f5f"
+                strokeWidth="1"
+                opacity="0.5"
+                initial={{ opacity: 0 }}
+                animate={animationTriggered ? { opacity: 0.5 } : { opacity: 0 }}
+                transition={{
+                  duration: 0.3,
+                  delay: 1.0 + index * 0.2 // Clockwise sequence: 1.0s, 1.2s, 1.4s, 1.6s
+                }}
+              />
+              
+              {/* Label box */}
+              <motion.rect
+                x={segment.id === 'art' ? 580 : segment.id === 'commodities' ? 540 : segment.id === 'realestate' ? 80 : 40}
+                y={segment.id === 'art' ? 130 : segment.id === 'commodities' ? 510 : segment.id === 'realestate' ? 620 : 250}
+                width="180"
+                height="60"
+                rx="8"
+                fill="#1a2332"
+                fillOpacity="0.9"
+                stroke="#2a5f5f"
+                strokeWidth="1"
+                className="label-box"
+                initial={{ opacity: 0, scale: 0 }}
+                animate={animationTriggered ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
+                transition={{
+                  duration: 0.5,
+                  delay: 1.2 + index * 0.2, // Clockwise sequence: 1.2s, 1.4s, 1.6s, 1.8s
+                  type: "spring",
+                  stiffness: 200
+                }}
+              />
+              
+              {/* Label text */}
+              <motion.text
+                x={segment.position.x}
+                y={segment.position.y}
+                fontFamily="Arial, sans-serif"
+                fontSize="18"
+                fill="#e0e8f0"
+                textAnchor="middle"
+                initial={{ opacity: 0 }}
+                animate={animationTriggered ? { opacity: 1 } : { opacity: 0 }}
+                transition={{
+                  duration: 0.3,
+                  delay: 1.5 + index * 0.2 // Clockwise sequence: 1.5s, 1.7s, 1.9s, 2.1s
+                }}
+              >
+                {segment.label}
+              </motion.text>
+              
+              {/* Percentage text */}
+              <motion.text
+                x={segment.position.x}
+                y={segment.position.y + 20}
+                fontFamily="Arial, sans-serif"
+                fontSize="16"
+                fill="#2a5f5f"
+                textAnchor="middle"
+                initial={{ opacity: 0 }}
+                animate={animationTriggered ? { opacity: 1 } : { opacity: 0 }}
+                transition={{
+                  duration: 0.3,
+                  delay: 1.7 + index * 0.2 // Clockwise sequence: 1.7s, 1.9s, 2.1s, 2.3s
+                }}
+              >
+                ({segment.percentage})
+              </motion.text>
+            </motion.g>
+          ))}
       </svg>
     </div>
   );
+  };
 
   const renderPassiveEarning = (isAnimating = false) => (
     <div className="w-full h-full flex items-center justify-center">
@@ -1452,7 +1528,11 @@ const RealEstateInvestmentSection = () => {
                   </div>
 
                   {/* Main visual content */}
-                  <div className="relative z-10" style={{ overflow: 'visible' }}>
+                  <div 
+                    ref={index === 0 ? donutChartRef : null} 
+                    className="relative z-10" 
+                    style={{ overflow: 'visible' }}
+                  >
                     {renderVisualContent(index)}
                   </div>
 
@@ -1572,7 +1652,11 @@ const RealEstateInvestmentSection = () => {
             </div>
 
             {/* Main visual content */}
-            <div className="relative z-10" style={{ overflow: 'visible' }}>
+            <div 
+              ref={activeSection === 0 ? donutChartRef : null}
+              className="relative z-10" 
+              style={{ overflow: 'visible' }}
+            >
               {renderVisualContent(activeSection)}
             </div>
 
