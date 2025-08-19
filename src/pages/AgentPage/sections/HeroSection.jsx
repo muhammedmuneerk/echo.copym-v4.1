@@ -1,43 +1,29 @@
 // c:\Users\muham\Desktop\echo.copym-v4.1\src\pages\AgentPage\sections\HeroSection.jsx
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { AnimatedText, FloatingElement } from '../../../components/gsap/GSAPAnimations.jsx';
 import useGSAP from '../../../hooks/useGSAPAnimations';
 
-// icons (kept from original file)
+// Modern AI-focused icons
 import {
-  AttachMoney,
-  AcUnit,
-  Psychology,
   SmartToy,
-  CheckCircle,
-  Percent,
-  Assessment,
-  Security,
-  TrendingUp,
-  AccountBalance,
-  Diamond,
+  Psychology,
   AutoAwesome,
-  Group,
-  Launch,
-  MyLocation,
-  PhoneAndroid,
-  Language,
-  Public,
-  Handshake,
-  BarChart,
-  Token,
-  Storefront
+  RocketLaunch,
+  TrendingUp,
+  Security,
+  Speed,
+  Analytics,
+  CheckCircle,
+  PlayArrow,
+  ArrowForward
 } from '@mui/icons-material';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const HeroSection = () => {
-  /* --------------------------------------------------------------------- */
-  /*                          Scroll progress bar                          */
-  /* --------------------------------------------------------------------- */
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -45,12 +31,19 @@ const HeroSection = () => {
     restDelta: 0.001
   });
 
-  /* --------------------------------------------------------------------- */
-  /*                       Floating background elements                    */
-  /* --------------------------------------------------------------------- */
-  const bgRef = React.useRef();
-  useGSAP(bgRef, () => {
-    gsap.utils.toArray('.floating-bg').forEach((el, i) => {
+  const heroRef = useRef();
+  const videoRef = useRef();
+
+  useGSAP(heroRef, () => {
+    // Animate progress bar
+    gsap.to('#progress-bar', {
+      scaleX: scaleX,
+      duration: 0.1,
+      ease: 'none'
+    });
+
+    // Floating elements animation
+    gsap.utils.toArray('.floating-element').forEach((el, i) => {
       gsap.to(el, {
         y: 30,
         x: i % 2 === 0 ? 20 : -20,
@@ -60,166 +53,197 @@ const HeroSection = () => {
         ease: 'sine.inOut'
       });
     });
+
+    // Hero text animation
+    gsap.from('.hero-title', {
+      y: 100,
+      opacity: 0,
+      duration: 1.2,
+      ease: 'power3.out'
+    });
+
+    gsap.from('.hero-subtitle', {
+      y: 50,
+      opacity: 0,
+      duration: 1.2,
+      delay: 0.3,
+      ease: 'power3.out'
+    });
+
+    gsap.from('.hero-cta', {
+      y: 30,
+      opacity: 0,
+      duration: 1,
+      delay: 0.6,
+      ease: 'power3.out'
+    });
   });
 
-  /* --------------------------------------------------------------------- */
-  /*                          Redirect handlers                            */
-  /* --------------------------------------------------------------------- */
-  const handleInvestRedirect = () => window.open('https://copymai.ai/invest', '_blank');
-  const handleContactRedirect = () => window.open('https://copymai.ai/contact', '_blank');
+  const handleDemoClick = () => {
+    // Scroll to demo section
+    document.getElementById('demo-section')?.scrollIntoView({ behavior: 'smooth' });
+  };
 
-  /* --------------------------------------------------------------------- */
-  /*                               Data                                    */
-  /* --------------------------------------------------------------------- */
-  const problems = [
+  const handleLearnMore = () => {
+    // Scroll to features section
+    document.getElementById('features-section')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const aiFeatures = [
     {
-      icon: <AttachMoney sx={{ fontSize: 40, color: '#ef4444' }} />,
-      title: 'Too Expensive',
-      description: "Most people can't afford the high minimum investment (e.g., $10,000+)"
+      icon: <SmartToy className="text-purple-400" />,
+      title: 'Intelligent Automation',
+      description: 'AI-powered workflows that adapt and learn'
     },
     {
-      icon: <AcUnit sx={{ fontSize: 40, color: '#3b82f6' }} />,
-      title: 'Illiquid',
-      description: "You can't buy or sell easily; it takes weeks/months"
+      icon: <Psychology className="text-blue-400" />,
+      title: 'Cognitive Processing',
+      description: 'Advanced reasoning and decision-making capabilities'
     },
     {
-      icon: <Psychology sx={{ fontSize: 40, color: '#8b5cf6' }} />,
-      title: 'Complex',
-      description: 'Requires deep knowledge and manual analysis'
+      icon: <Security className="text-green-400" />,
+      title: 'Secure & Reliable',
+      description: 'Enterprise-grade security with 99.9% uptime'
     }
   ];
 
-  const solutions = [
-    {
-      icon: <Token sx={{ fontSize: 40, color: '#10b981' }} />,
-      title: 'AI Tokenization Engine',
-      description: 'Converts real-world assets into secure, blockchain-based tokens using advanced AI'
-    },
-    {
-      icon: <Storefront sx={{ fontSize: 40, color: '#f59e0b' }} />,
-      title: 'Integrated Marketplace',
-      description: 'Buy/sell/trade fractional ownership instantly with AI-powered matching'
-    },
-    {
-      icon: <Psychology sx={{ fontSize: 40, color: '#3b82f6' }} />,
-      title: 'CopymAgent Advisor',
-      description: 'Our AI agent recommends the best assets for you using smart analytics'
-    }
-  ];
-
-  const features = [
-    {
-      icon: <CheckCircle sx={{ fontSize: 40, color: '#10b981' }} />,
-      title: 'Smart Asset Verification',
-      description: "CopymAI + human experts verify every asset's value and authenticity"
-    },
-    {
-      icon: <Percent sx={{ fontSize: 40, color: '#f59e0b' }} />,
-      title: 'Fractional Ownership',
-      description: 'Start investing with as little as $100 through AI-powered tokenization'
-    },
-    {
-      icon: <Assessment sx={{ fontSize: 40, color: '#3b82f6' }} />,
-      title: 'Predictive AI Analytics',
-      description: 'Our AI predicts which assets will grow in value with 23% better accuracy'
-    },
-    {
-      icon: <Security sx={{ fontSize: 40, color: '#ef4444' }} />,
-      title: 'Secure AI Wallet',
-      description: 'Bank-level security for storing your tokens with AI-powered fraud detection'
-    }
-  ];
-
-  const marketStats = [
-    { number: '$16T', label: 'Total RWA Value by 2025' },
-    { number: '43%', label: 'CAGR Growth Rate' },
-    { number: '$1.5B', label: 'Year 1 Target Market' },
-    { number: '23%', label: 'Better AI Accuracy' }
-  ];
-
-  /* --------------------------------------------------------------------- */
-  /*                               Render                                  */
-  /* --------------------------------------------------------------------- */
   return (
-    <>
-      {/* Scroll progress bar */}
-      <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-green-400 via-green-600 to-blue-600 origin-left z-50 shadow-lg shadow-green-400/50"
-        style={{ scaleX }}
-      />
+    <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
+             {/* Animated Background */}
+       <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-purple-900/20 to-slate-900">
+         <div className="absolute inset-0 opacity-30" style={{
+           backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
+         }} />
+       </div>
 
-      {/* Hero Section */}
-      <section
-        id="hero"
-        ref={bgRef}
-        className="min-h-screen flex items-center justify-center text-center px-8 mx-4 my-4 mt-8 md:mt-2  py-16 rounded-2xl relative overflow-hidden"
-        style={{ background: 'black' }}
-      >
-        {/* Floating background particles */}
-        <FloatingElement className="floating-bg" size={14} color="#4ade8015" style={{ top: '20%', left: '15%' }} />
-        <FloatingElement className="floating-bg" size={18} color="#3b82f615" style={{ top: '70%', left: '70%' }} />
-        <FloatingElement className="floating-bg" size={12} color="#f59e0b20" style={{ top: '40%', left: '80%' }} />
+      {/* Floating Elements */}
+      <div className="floating-element absolute top-20 left-10 w-20 h-20 bg-purple-500/10 rounded-full blur-xl" />
+      <div className="floating-element absolute top-40 right-20 w-32 h-32 bg-blue-500/10 rounded-full blur-xl" />
+      <div className="floating-element absolute bottom-20 left-1/4 w-24 h-24 bg-pink-500/10 rounded-full blur-xl" />
 
-        {/* Background gradient overlay */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background:
-              'radial-gradient(circle at 30% 20%, rgba(74, 222, 128, 0.03) 0%, transparent 50%), radial-gradient(circle at 70% 80%, rgba(59, 130, 246, 0.03) 0%, transparent 50%)'
-          }}
-        />
-
+      {/* Main Content */}
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        {/* Badge */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="max-w-6xl mx-auto relative z-10"
+          transition={{ duration: 0.6 }}
+          className="inline-flex items-center gap-2 px-4 py-2 bg-purple-500/10 border border-purple-500/20 rounded-full text-purple-300 text-sm font-medium mb-8"
         >
-          <AnimatedText
-            text="Introducing CopymAI"
-            className="brand-title mb-6 leading-tight tracking-tight"
-          />
+          <AutoAwesome className="w-4 h-4" />
+          <span>Next-Generation AI Agents</span>
+        </motion.div>
 
-          <h2 className="brand-section-title mb-10 text-green-400 leading-tight tracking-tight">
-            Revolutionizing Real-World Asset Investment
-          </h2>
+        {/* Main Title */}
+        <motion.h1
+          className="hero-title text-4xl sm:text-5xl lg:text-7xl font-bold text-white mb-6 leading-tight"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
+            AI Agents
+          </span>
+          <br />
+          <span className="text-white">That Think Like You</span>
+        </motion.h1>
 
-          <p className="brand-description mb-16 text-gray-300 max-w-4xl mx-auto leading-relaxed tracking-wide">
-            We're building a next-gen AI-powered investment platform that uses artificial intelligence and blockchain to make investing in high-value real-world assets
-            (like real estate, art, or rare collectibles) easy, accessible, and profitable — even for everyday investors.
-          </p>
+        {/* Subtitle */}
+        <motion.p
+          className="hero-subtitle text-xl sm:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          Experience the future of artificial intelligence with our advanced AI agents that understand context, 
+          learn from interactions, and deliver intelligent solutions across any domain.
+        </motion.p>
 
-          <div className="flex gap-6 justify-center mb-20 flex-wrap group">
+        {/* CTA Buttons */}
+        <motion.div
+          className="hero-cta flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+        >
             <button
-              onClick={handleInvestRedirect}
-              className="btn-gradient min-w-[200px] relative overflow-hidden transition-all duration-400 ease-out hover:-translate-y-1 hover:shadow-xl hover:shadow-green-400/40 active:scale-95"
-            >
-              <span className="relative z-10">Invest in Assets</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full transition-transform duration-500 ease-out group-hover:translate-x-full" />
+            onClick={handleDemoClick}
+            className="group relative px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-purple-500/25"
+          >
+            <span className="flex items-center gap-2">
+              <PlayArrow className="w-5 h-5" />
+              Watch Demo
+            </span>
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl blur opacity-0 group-hover:opacity-75 transition-opacity duration-300" />
             </button>
 
             <button
-              className="btn-gradient-secondary min-w-[200px] relative overflow-hidden transition-all duration-400 ease-out hover:-translate-y-1 hover:shadow-xl hover:shadow-white/10 active:scale-95"
-              onClick={handleContactRedirect}
+            onClick={handleLearnMore}
+            className="group px-8 py-4 border-2 border-purple-500/30 text-purple-300 font-semibold rounded-xl hover:border-purple-500 hover:text-purple-200 transition-all duration-300 flex items-center gap-2"
+          >
+            Learn More
+            <ArrowForward className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </button>
+        </motion.div>
+
+        {/* AI Features Grid */}
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+        >
+          {aiFeatures.map((feature, index) => (
+            <motion.div
+              key={index}
+              className="group p-6 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl hover:bg-white/10 transition-all duration-300 hover:border-purple-500/30"
+              whileHover={{ y: -5 }}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.8 + index * 0.1 }}
             >
-              <span className="relative z-10">Partner With CopymAI</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full transition-transform duration-500 ease-out group-hover:translate-x-full" />
-            </button>
+              <div className="flex items-center justify-center w-12 h-12 bg-purple-500/20 rounded-xl mb-4 group-hover:bg-purple-500/30 transition-colors">
+                {React.cloneElement(feature.icon, { className: 'w-6 h-6' })}
+              </div>
+              <h3 className="text-lg font-semibold text-white mb-2">{feature.title}</h3>
+              <p className="text-gray-400 text-sm leading-relaxed">{feature.description}</p>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* Stats */}
+        <motion.div
+          className="flex flex-wrap justify-center gap-8 mt-16 text-center"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1 }}
+        >
+          <div className="text-center">
+            <div className="text-3xl font-bold text-white mb-1">99.9%</div>
+            <div className="text-gray-400 text-sm">Uptime</div>
+          </div>
+          <div className="text-center">
+            <div className="text-3xl font-bold text-white mb-1">10x</div>
+            <div className="text-gray-400 text-sm">Faster Processing</div>
+          </div>
+          <div className="text-center">
+            <div className="text-3xl font-bold text-white mb-1">24/7</div>
+            <div className="text-gray-400 text-sm">AI Support</div>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Scroll Indicator */}
+      <motion.div
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+        animate={{ y: [0, 10, 0] }}
+        transition={{ duration: 2, repeat: Infinity }}
+      >
+        <div className="w-6 h-10 border-2 border-purple-500/30 rounded-full flex justify-center">
+          <div className="w-1 h-3 bg-purple-500 rounded-full mt-2 animate-bounce" />
           </div>
         </motion.div>
       </section>
-
-      <style jsx>{`
-        @keyframes heroTitleGlow {
-          0% {
-            filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
-          }
-          100% {
-            filter: drop-shadow(0 0 40px rgba(74, 222, 128, 0.5));
-          }
-        }
-      `}</style>
-    </>
   );
 };
 

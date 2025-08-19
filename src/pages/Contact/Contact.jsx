@@ -346,7 +346,7 @@ const Contact = () => {
         </motion.div>
 
         {/* Quick Contact Cards - Smart 3-Column Layout */}
-        <motion.div className="grid gap-3 sm:gap-4 lg:gap-6 grid-cols-3 sm:grid-cols-2 lg:grid-cols-3 mb-8 sm:mb-12" variants={itemVariants}>
+        {/* <motion.div className="grid gap-3 sm:gap-4 lg:gap-6 grid-cols-3 sm:grid-cols-2 lg:grid-cols-3 mb-8 sm:mb-12" variants={itemVariants}>
           {contactTypes.map((type) => (
             <motion.div
               key={type.value}
@@ -364,7 +364,7 @@ const Contact = () => {
               </div>
             </motion.div>
           ))}
-        </motion.div>
+        </motion.div> */}
 
         {/* Main Content Grid - Fixed Responsive Layout */}
         <div className="grid lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-12">
