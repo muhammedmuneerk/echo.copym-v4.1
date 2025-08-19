@@ -41,7 +41,7 @@ import BitcoinLogo from '/assets/blockchains/bitcoin-btc-logo.svg';
 import { Box } from '@mui/material';
 
 export default function AccessPage() {
-  const [selectedNetwork, setSelectedNetwork] = useState(null);
+
   const pageRef = useRef(null);
   const chartRef = useRef(null);
   const heroRef = useRef(null);
@@ -570,13 +570,13 @@ export default function AccessPage() {
             <div className="w-24 h-1 bg-gradient-to-r from-[#15a36e] to-[#255f99] mx-auto rounded-full"></div>
           </div>
 
-          <div className="comparison-table bg-green-50 backdrop-blur-sm rounded-3xl border border-white/50 overflow-hidden shadow-2xl">
-            <div className="grid grid-cols-3 text-sm font-bold text-gray-600 border-b border-gray-200/50">
-              <div className="p-6 bg-gray-50/80 backdrop-blur-sm">FEATURE</div>
-              <div className="p-6 bg-[#15a36e]/10 text-[#15a36e] backdrop-blur-sm">
+          <div className="comparison-table bg-transparent backdrop-blur-sm rounded-3xl border border-white/20 overflow-hidden shadow-2xl">
+            <div className="grid grid-cols-3 text-sm font-bold text-gray-600 border-b border-gray-200/30">
+              <div className="p-6 bg-transparent backdrop-blur-sm">FEATURE</div>
+              <div className="p-6 bg-transparent text-[#15a36e] backdrop-blur-sm">
                 TOKENIZATION
               </div>
-              <div className="p-6 bg-gray-50/80 backdrop-blur-sm">
+              <div className="p-6 bg-transparent backdrop-blur-sm">
                 TRADITIONAL
               </div>
             </div>
@@ -615,7 +615,7 @@ export default function AccessPage() {
             ].map((row, index) => (
               <div
                 key={index}
-                className="comparison-row grid grid-cols-3 text-sm border-b border-gray-100/50 last:border-b-0 hover:bg-gray-50/30 transition-colors"
+                className="comparison-row grid grid-cols-3 text-sm border-b border-gray-100/20 last:border-b-0 hover:bg-white/10 transition-colors"
               >
                 <div className="p-6 font-semibold text-gray-900 flex items-center gap-3">
                   <row.icon className="w-5 h-5 text-[#255f99]" />
@@ -642,17 +642,12 @@ export default function AccessPage() {
 
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
             {networks.map((network) => (
-              <motion.div
-                key={network.key}
-                className="network-card group relative text-center cursor-pointer"
-                whileHover={{ y: -4, scale: 1.05 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() =>
-                  setSelectedNetwork(
-                    selectedNetwork === network.key ? null : network.key
-                  )
-                }
-              >
+                             <motion.div
+                 key={network.key}
+                 className="network-card group relative text-center"
+                 whileHover={{ y: -4, scale: 1.05 }}
+                 whileTap={{ scale: 0.98 }}
+               >
                 <div className="relative">
                   <div className="flex items-center justify-center mx-auto mb-4 transition-all duration-300">
                     {network.logo ? (
@@ -670,17 +665,7 @@ export default function AccessPage() {
                   <div className="font-bold text-lg text-gray-900 mb-1">
                     {network.name}
                   </div>
-                  <div className="text-sm text-gray-500">{network.ticker}</div>
-                  {selectedNetwork === network.key && (
-                    <motion.div
-                      className="absolute -top-2 -right-2 w-6 h-6 bg-[#15a36e] rounded-full flex items-center justify-center"
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <CheckCircle className="w-4 h-4 text-white" />
-                    </motion.div>
-                  )}
+                                     <div className="text-sm text-gray-500">{network.ticker}</div>
                 </div>
               </motion.div>
             ))}
