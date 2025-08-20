@@ -311,15 +311,15 @@ const TokenizationDashboard = () => {
           {/* Portfolio Overview with GSAP Rotation + Zoom */}
           <div className={`lg:col-span-4 bg-gradient-to-r from-[#d3f8e3] to-[#C7DBF0] rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 transform transition-all duration-1000 delay-200 ${isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'} hover:shadow-xl`}>
             <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-4 sm:mb-6">Portfolio Distribution</h3>
-            <div ref={portfolioRef} className="h-48 sm:h-56 md:h-64">
+            <div ref={portfolioRef} className="h-64 sm:h-72 md:h-80">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
                     data={portfolioData}
                     cx="50%"
                     cy="50%"
-                    innerRadius={40}
-                    outerRadius={80}
+                    innerRadius={60}
+                    outerRadius={120}
                     dataKey="value"
                     animationBegin={1000}
                     animationDuration={2000}

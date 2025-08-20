@@ -6,7 +6,7 @@ import Footer from './components/Footer';
 import TokenizationHub from './pages/TokenizationHub/TokenizationHub';
 import Marketplace from './pages/Marketplace/Marketplace';
 import HomePage from './pages/HomePage/HomePage';
-import AgentPage from './pages/AgentPage/AgentPage';
+
 import CopymAI from './pages/CopymAI/CopymAI';
 import Contact from './pages/Contact/Contact';
 import AboutUs from './pages/aboutus/aboutus';
@@ -85,13 +85,13 @@ function App() {
               <Route path="/marketplace" element={<Marketplace />} />
               <Route path="/tokenization" element={<TokenizationHub />} />
               <Route path="/launchkit" element={<Launchkit />} />
-              <Route path="/agent" element={<AgentPage />} />
+
               <Route path="/copym-ai" element={<CopymAI />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/access" element={<AccessPage />} />
             </Routes>
           </main>
-          {location.pathname !== "/agent" && <Footer />}
+          <Footer />
         </Box>
       )}
     </AnimatePresence>
