@@ -21,9 +21,9 @@ const Services = () => {
         <Heading
           title={
             <>
-              Generative AI made for{" "}
+              RWA Tokenization AI for{" "}
               <span className="inline-block relative font-semibold">
-                Investors
+                Asset Managers
                 <img
                   src={curve}
                   className="absolute top-full left-0 w-full xl:-mt-2 pointer-events-none select-none"
@@ -34,7 +34,7 @@ const Services = () => {
               </span>
             </>
           }
-          text="COPYM unlocks the potential of AI-powered tokenizatio."
+          text="COPYM-AI unlocks the potential of AI-powered Real World Asset tokenization across all major platforms."
         />
 
         <div className="relative">
@@ -51,26 +51,41 @@ const Services = () => {
             </div>
 
             <div className="relative z-1 max-w-[17rem] ml-auto">
-              <h4 className="h4 mb-4">Smartest AI</h4>
-              <p className="body-2 mb-[3rem] text-n-3">
-                COPYM unlocks the potential of AI-powered tokenization.
-              </p>
+              <h4 className="h4 mb-4">RWA Tokenization AI</h4>
+                             <p className="body-2 mb-[3rem] text-n-3">
+                 COPYM-AI is the first unified platform that integrates the world's leading RWA platforms with advanced AI capabilities, creating a seamless tokenization experience.
+               </p>
               <ul className="body-2">
-                {brainwaveServices.map((item, i) => (
-                  <li
-                    key={i}
-                    className="flex items-start py-4 border-t border-n-6"
-                  >
-                    <img
-                      width={24}
-                      height={24}
-                      src={check}
-                      alt="check"
-                      className="pointer-events-none select-none"
-                    />
-                    <p className="ml-4">{item}</p>
-                  </li>
-                ))}
+                <li className="flex items-start py-4 border-t border-n-6">
+                  <img
+                    width={24}
+                    height={24}
+                    src={check}
+                    alt="check"
+                    className="pointer-events-none select-none"
+                  />
+                  <p className="ml-4">Securitize Compliance AI</p>
+                </li>
+                <li className="flex items-start py-4 border-t border-n-6">
+                  <img
+                    width={24}
+                    height={24}
+                    src={check}
+                    alt="check"
+                    className="pointer-events-none select-none"
+                  />
+                  <p className="ml-4">Polymath Security Intelligence</p>
+                </li>
+                <li className="flex items-start py-4 border-t border-n-6">
+                  <img
+                    width={24}
+                    height={24}
+                    src={check}
+                    alt="check"
+                    className="pointer-events-none select-none"
+                  />
+                  <p className="ml-4">Centrifuge DeFi Integration</p>
+                </li>
               </ul>
             </div>
 
@@ -91,11 +106,10 @@ const Services = () => {
               </div>
 
               <div className="absolute inset-0 flex flex-col justify-end p-8 bg-gradient-to-b from-n-8/0 to-n-8/90 lg:p-15">
-                <h4 className="h4 mb-4">Dashboard editing</h4>
-                <p className="body-2 mb-[3rem] text-n-3">
-                  Automatically enhance your Dashboard using our AI app&apos;s
-                  data editing feature. Try it now!
-                </p>
+                                 <h4 className="h4 mb-4">COPYM-AI Real Estate</h4>
+                 <p className="body-2 mb-[3rem] text-n-3">
+                   COPYM-AI's proprietary AI models for real estate valuation and rental income prediction, enhanced by RealT's proven tokenization infrastructure.
+                 </p>
               </div>
 
               <PhotoChatMessage />
@@ -103,11 +117,10 @@ const Services = () => {
 
             <div className="p-4 bg-n-7 rounded-3xl overflow-hidden lg:min-h-[46rem]">
               <div className="py-12 px-4 xl:px-8">
-                <h4 className="h4 mb-4">Chart generation</h4>
-                <p className="body-2 mb-[2rem] text-n-3">
-                  The world&apos;s most powerful AI Chart and Dashboard 
-                  generation engine. What will you create?
-                </p>
+                                 <h4 className="h4 mb-4">COPYM-AI Smart Contracts</h4>
+                 <p className="body-2 mb-[2rem] text-n-3">
+                   COPYM-AI's intelligent smart contract generation and atomic transfer optimization, powered by Algorand's advanced blockchain technology.
+                 </p>
 
                 <ul className="flex items-center justify-between">
                   {brainwaveServicesIcons.map((icon, i) => (

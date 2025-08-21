@@ -30,10 +30,10 @@ const Hero = () => {
             <Typewriter
               options={{
                 strings: [
-                  "Market Analysis",
-                  "Risk Assessment",
-                  "Predictions",
-                  "ID Generation",
+                  "RWA Tokenization",
+                  "AI Compliance",
+                  "DeFi Integration",
+                  "Cross-Chain Intelligence",
                 ],
                 autoStart: true,
                 loop: true,
@@ -42,8 +42,8 @@ const Hero = () => {
           </h1>
 
           <p className="body-1 max-w-3xl mx-auto mb-6 text-n-2 lg:mb-8">
-            Unleast the power of AI within COPYM. Upgrade your productivity
-            with{" "}
+            Unleash the power of AI-powered Real World Asset tokenization within COPYM. 
+            Experience the future of finance with{" "}
             <span className="inline-block relative font-semibold">
               COPYM-AI
               <img
@@ -54,7 +54,7 @@ const Hero = () => {
                 alt="Curve"
               />
             </span>
-            , the open AI chat app.
+            , the unified RWA tokenization AI platform.
           </p>
 
           <Button href="#pricing" white>
@@ -74,6 +74,10 @@ const Hero = () => {
                   width={1024}
                   height={490}
                   alt="AI"
+                  style={{
+                    filter: 'hue-rotate(180deg) saturate(1.5) brightness(0.8) contrast(1.2)',
+                    WebkitFilter: 'hue-rotate(180deg) saturate(1.5) brightness(0.8) contrast(1.2)'
+                  }}
                 />
 
                 <Generating className="absolute left-4 right-4 bottom-5 md:left-1/2 md:right-auto md:bottom-8 md:w-[31rem] md:-translate-x-1/2" />

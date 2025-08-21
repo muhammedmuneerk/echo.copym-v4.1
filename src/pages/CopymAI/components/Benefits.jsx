@@ -14,7 +14,7 @@ const Benefits = () => {
           className="md:max-w-md lg:max-w-2xl"
           title={
             <>
-              Chat Smarter, Not Harder with{" "}
+              RWA Tokenization Powered by{" "}
               <span className="inline-block relative font-semibold">
                 COPYM-AI
                 <img
