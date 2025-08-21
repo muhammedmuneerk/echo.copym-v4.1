@@ -13,7 +13,8 @@ export default function PhoneMockup({ screenshot, alt, isVideo = false, videoRef
             muted
             loop
             playsInline
-            preload="metadata"
+            autoplay
+            preload="auto"
           />
         ) : (
           <img

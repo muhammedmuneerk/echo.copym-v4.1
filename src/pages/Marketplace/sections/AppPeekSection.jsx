@@ -73,6 +73,25 @@ export default function AppPeekSection() {
     };
   }, [isAutoPlaying, total]);
 
+  // Auto-start videos when switching to video mode
+  useEffect(() => {
+    if (mediaType === 'video') {
+      // Wait for video elements to be ready
+      const timer = setTimeout(() => {
+        Object.keys(videoRefs.current).forEach(id => {
+          const videoElement = videoRefs.current[id];
+          if (videoElement && videoElement.readyState >= 2) {
+            videoElement.play().catch(() => {
+              // Autoplay prevented by browser
+            });
+          }
+        });
+      }, 1000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [mediaType]);
+
   // Videos play automatically - no manual controls needed
 
   // Handle media type toggle
@@ -81,10 +100,31 @@ export default function AppPeekSection() {
     
     // If switching to video mode, automatically start all videos
     if (mediaType === 'screenshot') {
+      // Wait for video elements to be ready and then start playing
       setTimeout(() => {
         Object.keys(videoRefs.current).forEach(id => {
-          if (videoRefs.current[id]) {
-            videoRefs.current[id].play();
+          const videoElement = videoRefs.current[id];
+          if (videoElement) {
+            // Ensure video is loaded and ready
+            if (videoElement.readyState >= 2) { // HAVE_CURRENT_DATA
+              videoElement.play().catch(error => {
+                console.log('Video autoplay failed:', error);
+                // Fallback: try to play when user interacts
+                const playPromise = videoElement.play();
+                if (playPromise !== undefined) {
+                  playPromise.catch(() => {
+                    // Autoplay prevented, will need user interaction
+                  });
+                }
+              });
+            } else {
+              // Wait for video to load
+              videoElement.addEventListener('canplay', () => {
+                videoElement.play().catch(() => {
+                  // Autoplay prevented
+                });
+              }, { once: true });
+            }
           }
         });
         setVideoPlayingStates({
@@ -92,7 +132,7 @@ export default function AppPeekSection() {
           marketplace: true,
           dashboard: true
         });
-      }, 100); // Small delay to ensure video elements are ready
+      }, 500); // Increased delay to ensure video elements are properly loaded
     }
   };
 
