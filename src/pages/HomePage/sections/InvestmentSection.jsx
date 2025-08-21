@@ -203,10 +203,10 @@ const RealEstateInvestmentSection = () => {
   const renderAssetFractionalization = (isAnimating = false) => {
     // Segments in clockwise order starting from top
     const segments = [
-      { id: 'art', d: "M 0,-260 A 260,260 0 0,1 248.79,-75.39 L 159.22,-48.25 A 166,166 0 0,0 0,-166 Z", fill: "#1e3a5f", label: "Art objects", percentage: "21.3%", position: { x: 670, y: 155 } }, // Top-right
-      { id: 'commodities', d: "M 248.79,-75.39 A 260,260 0 0,1 183.85,183.85 L 117.38,117.38 A 166,166 0 0,0 159.22,-48.25 Z", fill: "#1a4d3a", label: "Commodities", percentage: "29.5%", position: { x: 630, y: 535 } }, // Bottom-right  
-      { id: 'realestate', d: "M 183.85,183.85 A 260,260 0 0,1 -127.02,226.85 L -81.11,144.88 A 166,166 0 0,0 117.38,117.38 Z", fill: "#1e3a5f", label: "Real Estate", percentage: "28.5%", position: { x: 170, y: 645 } }, // Bottom-left
-      { id: 'carbon', d: "M -127.02,226.85 A 260,260 0 0,1 0,-260 L 0,-166 A 166,166 0 0,0 -81.11,144.88 Z", fill: "#1a4d3a", label: "Carbon Credits", percentage: "20.7%", position: { x: 130, y: 275 } } // Top-left
+      { id: 'art', d: "M 0,-260 A 260,260 0 0,1 248.79,-75.39 L 159.22,-48.25 A 166,166 0 0,0 0,-166 Z", fill: "#4682B4", label: "Art objects", percentage: "21.3%", position: { x: 670, y: 155 } }, // Top-right - Medium Dark Blue
+      { id: 'commodities', d: "M 248.79,-75.39 A 260,260 0 0,1 183.85,183.85 L 117.38,117.38 A 166,166 0 0,0 159.22,-48.25 Z", fill: "#8FBC8F", label: "Commodities", percentage: "29.5%", position: { x: 630, y: 535 } }, // Bottom-right - Light Bottle Green
+      { id: 'realestate', d: "M 183.85,183.85 A 260,260 0 0,1 -127.02,226.85 L -81.11,144.88 A 166,166 0 0,0 117.38,117.38 Z", fill: "#4682B4", label: "Real Estate", percentage: "28.5%", position: { x: 170, y: 645 } }, // Bottom-left - Medium Dark Blue
+      { id: 'carbon', d: "M -127.02,226.85 A 260,260 0 0,1 0,-260 L 0,-166 A 166,166 0 0,0 -81.11,144.88 Z", fill: "#8FBC8F", label: "Carbon Credits", percentage: "20.7%", position: { x: 130, y: 275 } } // Top-left - Light Bottle Green
     ];
 
     return (

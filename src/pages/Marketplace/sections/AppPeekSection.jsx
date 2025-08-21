@@ -8,7 +8,7 @@ const mediaItems = [
   {
     id: "wallet",
     screenshot: "/assets/Images/Walletpreview.jpg",
-    video: "/assets/videos/WalletPreview.mp4",
+    video: "/assets/videos/latest-fonview-1.mp4",
     label: "Deposit / Withdraw",
     icon: <Wallet className="w-5 h-5" />,
     description: "Seamlessly manage your digital assets with secure deposit and withdrawal functionality"
@@ -16,7 +16,7 @@ const mediaItems = [
   {
     id: "marketplace",
     screenshot: "/assets/Images/MarketPreview.jpg",
-    video: "/assets/videos/MarketPlacePreview.mp4",
+    video: "/assets/videos/latest-fonview-2.mp4",
     label: "Explore Assets",
     icon: <LayoutGrid className="w-5 h-5" />,
     description: "Discover and invest in a diverse range of tokenized real-world assets"
@@ -24,7 +24,7 @@ const mediaItems = [
   {
     id: "dashboard",
     screenshot: "/assets/Images/MarketplaceDashboard.jpg",
-    video: "/assets/videos/marketplace-mobile-app-preview.mp4",
+    video: "/assets/videos/latest-fonview-3.mp4",
     label: "Track Portfolio",
     icon: <LineChart className="w-5 h-5" />,
     description: "Monitor your investments with real-time analytics and performance tracking"
@@ -35,7 +35,7 @@ export default function AppPeekSection() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [videoPlayingStates, setVideoPlayingStates] = useState({});
   const [mediaType, setMediaType] = useState('screenshot'); // 'screenshot' or 'video'
   const videoRefs = useRef({});
   const intervalRef = useRef(null);
@@ -73,30 +73,37 @@ export default function AppPeekSection() {
     };
   }, [isAutoPlaying, total]);
 
-  // Handle video play/pause
-  const handleVideoToggle = (itemId) => {
-    const videoElement = videoRefs.current[itemId];
-    if (videoElement) {
-      if (isVideoPlaying) {
-        videoElement.pause();
-        setIsVideoPlaying(false);
-      } else {
-        videoElement.play();
-        setIsVideoPlaying(true);
-      }
-    }
-  };
+  // Videos play automatically - no manual controls needed
 
   // Handle media type toggle
   const toggleMediaType = () => {
     setMediaType(prev => prev === 'screenshot' ? 'video' : 'screenshot');
-    setIsVideoPlaying(false);
+    
+    // If switching to video mode, automatically start all videos
+    if (mediaType === 'screenshot') {
+      setTimeout(() => {
+        Object.keys(videoRefs.current).forEach(id => {
+          if (videoRefs.current[id]) {
+            videoRefs.current[id].play();
+          }
+        });
+        setVideoPlayingStates({
+          wallet: true,
+          marketplace: true,
+          dashboard: true
+        });
+      }, 100); // Small delay to ensure video elements are ready
+    }
   };
 
   // Handle item click
   const handleItemClick = (index) => {
     setActiveIndex(index);
     setIsAutoPlaying(false);
+    
+    // Keep videos playing when switching items
+    // Don't pause videos or reset video states
+    
     // Reset auto-play after 10 seconds of inactivity
     setTimeout(() => setIsAutoPlaying(true), 10000);
   };
@@ -239,25 +246,7 @@ export default function AppPeekSection() {
                     }}
                   />
                   
-                  {/* Video Play/Pause Overlay */}
-                  {mediaType === 'video' && i === activeIndex && (
-                    <motion.button
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleVideoToggle(item.id);
-                      }}
-                      className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-3 transition-all duration-300 backdrop-blur-sm"
-                    >
-                      {isVideoPlaying ? (
-                        <Pause className="w-6 h-6" />
-                      ) : (
-                        <Play className="w-6 h-6 ml-1" />
-                      )}
-                    </motion.button>
-                  )}
+                  {/* No video controls - videos play automatically */}
                 </div>
               </motion.div>
             ))}
