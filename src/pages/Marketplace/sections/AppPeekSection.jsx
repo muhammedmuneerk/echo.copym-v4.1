@@ -92,47 +92,73 @@ export default function AppPeekSection() {
     }
   }, [mediaType]);
 
-  // Videos play automatically - no manual controls needed
+  // Preload videos during screenshot mode for smooth transitions
+  useEffect(() => {
+    if (mediaType === 'screenshot') {
+      // Preload videos in background
+      Object.keys(videoRefs.current).forEach(id => {
+        const video = videoRefs.current[id];
+        if (video) {
+          video.load();
+          video.currentTime = 0;
+        }
+      });
+    }
+  }, [mediaType]);
+
+  // Keep videos perfectly synchronized
+  useEffect(() => {
+    if (mediaType === 'video') {
+      const syncVideos = () => {
+        const videos = Object.values(videoRefs.current);
+        const firstVideo = videos[0];
+        if (firstVideo && firstVideo.readyState >= 2) {
+          videos.forEach(video => {
+            if (video && video !== firstVideo && video.readyState >= 2) {
+              // Keep videos in sync with small tolerance
+              if (Math.abs(video.currentTime - firstVideo.currentTime) > 0.1) {
+                video.currentTime = firstVideo.currentTime;
+              }
+            }
+          });
+        }
+      };
+      
+      const syncInterval = setInterval(syncVideos, 500); // Sync every 500ms
+      return () => clearInterval(syncInterval);
+    }
+  }, [mediaType]);
+
+  // Enhanced video start function for perfect synchronization
+  const startAllVideos = () => {
+    const videos = Object.values(videoRefs.current);
+    const playPromises = videos.map(video => {
+      if (video && video.readyState >= 2) {
+        video.currentTime = 0; // Reset to start
+        return video.play();
+      }
+      return Promise.resolve();
+    });
+    
+    Promise.all(playPromises).then(() => {
+      setVideoPlayingStates({
+        wallet: true,
+        marketplace: true,
+        dashboard: true
+      });
+    });
+  };
 
   // Handle media type toggle
   const toggleMediaType = () => {
-    setMediaType(prev => prev === 'screenshot' ? 'video' : 'screenshot');
+    const newMediaType = mediaType === 'screenshot' ? 'video' : 'screenshot';
+    setMediaType(newMediaType);
     
-    // If switching to video mode, automatically start all videos
-    if (mediaType === 'screenshot') {
-      // Wait for video elements to be ready and then start playing
-      setTimeout(() => {
-        Object.keys(videoRefs.current).forEach(id => {
-          const videoElement = videoRefs.current[id];
-          if (videoElement) {
-            // Ensure video is loaded and ready
-            if (videoElement.readyState >= 2) { // HAVE_CURRENT_DATA
-              videoElement.play().catch(error => {
-                console.log('Video autoplay failed:', error);
-                // Fallback: try to play when user interacts
-                const playPromise = videoElement.play();
-                if (playPromise !== undefined) {
-                  playPromise.catch(() => {
-                    // Autoplay prevented, will need user interaction
-                  });
-                }
-              });
-            } else {
-              // Wait for video to load
-              videoElement.addEventListener('canplay', () => {
-                videoElement.play().catch(() => {
-                  // Autoplay prevented
-                });
-              }, { once: true });
-            }
-          }
-        });
-        setVideoPlayingStates({
-          wallet: true,
-          marketplace: true,
-          dashboard: true
-        });
-      }, 500); // Increased delay to ensure video elements are properly loaded
+    if (newMediaType === 'video') {
+      // Start videos on next animation frame for perfect timing
+      requestAnimationFrame(() => {
+        setTimeout(startAllVideos, 300);
+      });
     }
   };
 
@@ -148,20 +174,25 @@ export default function AppPeekSection() {
     setTimeout(() => setIsAutoPlaying(true), 10000);
   };
 
-  // Animation calculations
+  // Enhanced animation calculations for perfect timing
   const getAnimationProps = (i) => {
     const ORBIT_RADIUS_X = 280;
     const ORBIT_RADIUS_Y = 80;
     const FRONT_Z_INDEX = 100;
     const BASE_SCALE = 0.7;
     
+    // Smoother angle calculation
     const angle = (i - activeIndex) * (2 * Math.PI / total) + (Math.PI / 2);
     const x = ORBIT_RADIUS_X * Math.cos(angle);
     const y = ORBIT_RADIUS_Y * Math.sin(angle);
+    
+    // Enhanced depth calculation
     const normalizedDepth = (y + ORBIT_RADIUS_Y) / (2 * ORBIT_RADIUS_Y);
     const scale = BASE_SCALE + (1 - BASE_SCALE) * normalizedDepth;
     const zIndex = Math.round(FRONT_Z_INDEX * normalizedDepth);
-    const rotate = isMobile ? 0 : x / 20;
+    
+    // Smoother rotation for better visual flow
+    const rotate = isMobile ? 0 : x / 25;
     
     return { 
       x, 
@@ -170,7 +201,7 @@ export default function AppPeekSection() {
       zIndex, 
       rotate, 
       opacity: scale,
-      filter: i === activeIndex ? 'brightness(1)' : 'brightness(0.7)'
+      filter: i === activeIndex ? 'brightness(1)' : 'brightness(0.75)' // Better contrast
     };
   };
 
@@ -267,15 +298,20 @@ export default function AppPeekSection() {
         <div className="flex flex-col items-center">
           <div className="relative w-full h-[750px] flex items-center justify-center">
             {mediaItems.map((item, i) => (
-              <motion.div
-                key={item.id}
-                className="absolute cursor-pointer"
-                animate={getAnimationProps(i)}
-                transition={{ type: "spring", stiffness: 100, damping: 20 }}
-                onClick={() => handleItemClick(i)}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
+                             <motion.div
+                 key={item.id}
+                 className="absolute cursor-pointer"
+                 animate={getAnimationProps(i)}
+                 transition={{ 
+                   type: "spring", 
+                   stiffness: 120, // Increased for snappier movement
+                   damping: 25,    // Reduced for less bounce
+                   mass: 0.8       // Added mass for more natural movement
+                 }}
+                 onClick={() => handleItemClick(i)}
+                 whileHover={{ scale: 1.05 }}
+                 whileTap={{ scale: 0.95 }}
+               >
                 <div className="relative">
                   <PhoneMockup 
                     screenshot={mediaType === 'video' ? item.video : item.screenshot} 

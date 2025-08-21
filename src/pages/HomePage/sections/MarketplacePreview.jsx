@@ -24,12 +24,12 @@ export default function MarketplacePreview() {
             <div className="relative w-[265px] h-[560px] bg-black rounded-[40px] p-2 shadow-2xl">
               <div className="w-full h-full bg-white rounded-[32px] overflow-hidden">
                 <video
-                  src="/assets/videos/marketplace-mobile-app-preview-2.mp4"
+                  src="/assets/videos/only_marketplace.mp4?v=2"
                   autoPlay
                   loop
                   muted
                   playsInline
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain bg-black"
                 />
               </div>
             </div>

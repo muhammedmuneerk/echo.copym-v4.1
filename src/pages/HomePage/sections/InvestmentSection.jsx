@@ -142,14 +142,14 @@ const RealEstateInvestmentSection = () => {
         });
 
         // Create ScrollTrigger for each content section to change visual
-        sectionsRef.current.forEach((section, index) => {
-          if (section) {
+      sectionsRef.current.forEach((section, index) => {
+        if (section) {
             ScrollTrigger.create({
               trigger: section,
               start: "top center",
               end: "bottom center",
               onEnter: () => {
-                setActiveSection(index);
+            setActiveSection(index);
                 // Add smooth visual transition
                 const visualContent = visualRef.current?.querySelector('.visual-content');
                 if (visualContent) {
@@ -311,14 +311,14 @@ const RealEstateInvestmentSection = () => {
         </g>
         
           {/* Main ring segments with React animations - Clockwise order */}
-          <g transform="translate(400,400)">
-            {segments.map((segment, index) => (
+        <g transform="translate(400,400)">
+          {segments.map((segment, index) => (
               <motion.path
-                key={segment.id}
-                d={segment.d}
-                fill={segment.fill}
-                className="segment"
-                data-segment={segment.id}
+              key={segment.id}
+              d={segment.d}
+              fill={segment.fill}
+              className="segment"
+              data-segment={segment.id}
                 initial={{ opacity: 0, scale: 0 }}
                 animate={animationTriggered ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
                 transition={{
@@ -328,19 +328,19 @@ const RealEstateInvestmentSection = () => {
                   stiffness: 200,
                   damping: 20
                 }}
-              />
-            ))}
-          </g>
+            />
+          ))}
+        </g>
           
           {/* Labels with React animations - Same clockwise order */}
-          {segments.map((segment, index) => (
+        {segments.map((segment, index) => (
             <motion.g key={`label-${segment.id}`} className="label-group" id={`label-${segment.id}`}>
-              {/* Label dot */}
+            {/* Label dot */}
               <motion.circle
-                cx={segment.id === 'art' ? 520 : segment.id === 'commodities' ? 550 : segment.id === 'realestate' ? 340 : 280}
-                cy={segment.id === 'art' ? 220 : segment.id === 'commodities' ? 480 : segment.id === 'realestate' ? 580 : 320}
-                r="4"
-                fill="#2a5f5f"
+              cx={segment.id === 'art' ? 520 : segment.id === 'commodities' ? 550 : segment.id === 'realestate' ? 340 : 280}
+              cy={segment.id === 'art' ? 220 : segment.id === 'commodities' ? 480 : segment.id === 'realestate' ? 580 : 320}
+              r="4"
+              fill="#2a5f5f"
                 initial={{ opacity: 0, r: 0 }}
                 animate={animationTriggered ? { opacity: 1, r: 4 } : { opacity: 0, r: 0 }}
                 transition={{
@@ -349,37 +349,37 @@ const RealEstateInvestmentSection = () => {
                   type: "spring",
                   stiffness: 300
                 }}
-              />
-              
-              {/* Connecting line */}
+            />
+            
+            {/* Connecting line */}
               <motion.line
-                x1={segment.id === 'art' ? 520 : segment.id === 'commodities' ? 550 : segment.id === 'realestate' ? 340 : 280}
-                y1={segment.id === 'art' ? 220 : segment.id === 'commodities' ? 480 : segment.id === 'realestate' ? 580 : 320}
-                x2={segment.id === 'art' ? 580 : segment.id === 'commodities' ? 620 : segment.id === 'realestate' ? 240 : 180}
-                y2={segment.id === 'art' ? 160 : segment.id === 'commodities' ? 520 : segment.id === 'realestate' ? 640 : 280}
-                stroke="#2a5f5f"
-                strokeWidth="1"
-                opacity="0.5"
+              x1={segment.id === 'art' ? 520 : segment.id === 'commodities' ? 550 : segment.id === 'realestate' ? 340 : 280}
+              y1={segment.id === 'art' ? 220 : segment.id === 'commodities' ? 480 : segment.id === 'realestate' ? 580 : 320}
+              x2={segment.id === 'art' ? 580 : segment.id === 'commodities' ? 620 : segment.id === 'realestate' ? 240 : 180}
+              y2={segment.id === 'art' ? 160 : segment.id === 'commodities' ? 520 : segment.id === 'realestate' ? 640 : 280}
+              stroke="#2a5f5f"
+              strokeWidth="1"
+              opacity="0.5"
                 initial={{ opacity: 0 }}
                 animate={animationTriggered ? { opacity: 0.5 } : { opacity: 0 }}
                 transition={{
                   duration: 0.3,
                   delay: 0.5 + index * 0.1 // Clockwise sequence: 0.5s, 0.6s, 0.7s, 0.8s
                 }}
-              />
-              
-              {/* Label box */}
+            />
+            
+            {/* Label box */}
               <motion.rect
-                x={segment.id === 'art' ? 580 : segment.id === 'commodities' ? 540 : segment.id === 'realestate' ? 80 : 40}
-                y={segment.id === 'art' ? 130 : segment.id === 'commodities' ? 510 : segment.id === 'realestate' ? 620 : 250}
-                width="180"
-                height="60"
-                rx="8"
-                fill="#1a2332"
-                fillOpacity="0.9"
-                stroke="#2a5f5f"
-                strokeWidth="1"
-                className="label-box"
+              x={segment.id === 'art' ? 580 : segment.id === 'commodities' ? 540 : segment.id === 'realestate' ? 80 : 40}
+              y={segment.id === 'art' ? 130 : segment.id === 'commodities' ? 510 : segment.id === 'realestate' ? 620 : 250}
+              width="180"
+              height="60"
+              rx="8"
+              fill="#1a2332"
+              fillOpacity="0.9"
+              stroke="#2a5f5f"
+              strokeWidth="1"
+              className="label-box"
                 initial={{ opacity: 0, scale: 0 }}
                 animate={animationTriggered ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
                 transition={{
@@ -388,45 +388,45 @@ const RealEstateInvestmentSection = () => {
                   type: "spring",
                   stiffness: 200
                 }}
-              />
-              
-              {/* Label text */}
+            />
+            
+            {/* Label text */}
               <motion.text
-                x={segment.position.x}
-                y={segment.position.y}
-                fontFamily="Arial, sans-serif"
-                fontSize="18"
-                fill="#e0e8f0"
-                textAnchor="middle"
+              x={segment.position.x}
+              y={segment.position.y}
+              fontFamily="Arial, sans-serif"
+              fontSize="18"
+              fill="#e0e8f0"
+              textAnchor="middle"
                 initial={{ opacity: 0 }}
                 animate={animationTriggered ? { opacity: 1 } : { opacity: 0 }}
                 transition={{
                   duration: 0.3,
                   delay: 0.7 + index * 0.1 // Clockwise sequence: 0.7s, 0.8s, 0.9s, 1.0s
                 }}
-              >
-                {segment.label}
+            >
+              {segment.label}
               </motion.text>
-              
-              {/* Percentage text */}
+            
+            {/* Percentage text */}
               <motion.text
-                x={segment.position.x}
-                y={segment.position.y + 20}
-                fontFamily="Arial, sans-serif"
-                fontSize="16"
-                fill="#2a5f5f"
-                textAnchor="middle"
+              x={segment.position.x}
+              y={segment.position.y + 20}
+              fontFamily="Arial, sans-serif"
+              fontSize="16"
+              fill="#2a5f5f"
+              textAnchor="middle"
                 initial={{ opacity: 0 }}
                 animate={animationTriggered ? { opacity: 1 } : { opacity: 0 }}
                 transition={{
                   duration: 0.3,
                   delay: 0.8 + index * 0.1 // Clockwise sequence: 0.8s, 0.9s, 1.0s, 1.1s
                 }}
-              >
-                ({segment.percentage})
+            >
+              ({segment.percentage})
               </motion.text>
             </motion.g>
-          ))}
+        ))}
       </svg>
     </div>
   );
@@ -435,7 +435,7 @@ const RealEstateInvestmentSection = () => {
   const renderPassiveEarning = (isAnimating = false) => (
     <div className="w-full h-full flex items-center justify-center">
       <div className="relative">
-        {/* 3D Dollar Coin SVG with Enhanced Depth and Perspective */}
+        {/* 3D Wallet SVG with Enhanced Depth and Perspective */}
         <svg width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" 
              className={`${isMobile ? 'w-56 h-56' : 'w-72 h-72'} visual-element drop-shadow-2xl ${isAnimating ? 'stagger-in' : ''}`}
           style={{
@@ -444,145 +444,174 @@ const RealEstateInvestmentSection = () => {
                height: 'auto'
              }}>
           <defs>
-            {/* Enhanced 3D gradients for realistic depth */}
-            <radialGradient id="coinBaseGradient" cx="0.3" cy="0.2" r="0.8">
-              <stop offset="0%" style={{stopColor:"#fffbf0",stopOpacity:1}} />
-              <stop offset="15%" style={{stopColor:"#fff8dc",stopOpacity:1}} />
-              <stop offset="35%" style={{stopColor:"#ffd700",stopOpacity:1}} />
-              <stop offset="60%" style={{stopColor:"#daa520",stopOpacity:1}} />
-              <stop offset="80%" style={{stopColor:"#b8860b",stopOpacity:1}} />
-              <stop offset="100%" style={{stopColor:"#8b6914",stopOpacity:1}} />
-            </radialGradient>
+            {/* Professional wallet gradients */}
+            <linearGradient id="walletBodyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style={{stopColor:"#1e293b",stopOpacity:1}} />
+              <stop offset="30%" style={{stopColor:"#334155",stopOpacity:1}} />
+              <stop offset="70%" style={{stopColor:"#475569",stopOpacity:1}} />
+              <stop offset="100%" style={{stopColor:"#0f172a",stopOpacity:1}} />
+            </linearGradient>
             
-            {/* 3D rim gradient with depth */}
-            <radialGradient id="rimGradient" cx="0.25" cy="0.15" r="0.9">
-              <stop offset="0%" style={{stopColor:"#fffbf0",stopOpacity:1}} />
-              <stop offset="25%" style={{stopColor:"#ffd700",stopOpacity:1}} />
-              <stop offset="55%" style={{stopColor:"#daa520",stopOpacity:1}} />
-              <stop offset="80%" style={{stopColor:"#b8860b",stopOpacity:1}} />
-              <stop offset="100%" style={{stopColor:"#8b6914",stopOpacity:1}} />
-            </radialGradient>
+            {/* Wallet flap gradient with depth */}
+            <linearGradient id="walletFlapGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style={{stopColor:"#475569",stopOpacity:1}} />
+              <stop offset="40%" style={{stopColor:"#334155",stopOpacity:1}} />
+              <stop offset="80%" style={{stopColor:"#1e293b",stopOpacity:1}} />
+              <stop offset="100%" style={{stopColor:"#0f172a",stopOpacity:1}} />
+            </linearGradient>
             
-            {/* 3D dollar sign gradient with depth */}
+            {/* Money/cards gradient - more realistic */}
+            <linearGradient id="moneyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style={{stopColor:"#059669",stopOpacity:1}} />
+              <stop offset="30%" style={{stopColor:"#10b981",stopOpacity:1}} />
+              <stop offset="70%" style={{stopColor:"#047857",stopOpacity:1}} />
+              <stop offset="100%" style={{stopColor:"#065f46",stopOpacity:1}} />
+            </linearGradient>
+            
+            {/* Enhanced dollar sign gradient */}
             <linearGradient id="dollarSignGradient" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" style={{stopColor:"#ffffff",stopOpacity:1}} />
-              <stop offset="20%" style={{stopColor:"#f8f8f8",stopOpacity:1}} />
-              <stop offset="45%" style={{stopColor:"#e8e8e8",stopOpacity:1}} />
-              <stop offset="70%" style={{stopColor:"#d0d0d0",stopOpacity:1}} />
-              <stop offset="100%" style={{stopColor:"#b8b8b8",stopOpacity:1}} />
+              <stop offset="30%" style={{stopColor:"#f8fafc",stopOpacity:1}} />
+              <stop offset="70%" style={{stopColor:"#e2e8f0",stopOpacity:1}} />
+              <stop offset="100%" style={{stopColor:"#cbd5e1",stopOpacity:1}} />
             </linearGradient>
             
-            {/* 3D edge gradient */}
-            <linearGradient id="edgeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" style={{stopColor:"#daa520",stopOpacity:1}} />
-              <stop offset="50%" style={{stopColor:"#b8860b",stopOpacity:1}} />
-              <stop offset="100%" style={{stopColor:"#8b6914",stopOpacity:1}} />
+            {/* Professional stitching gradient */}
+            <linearGradient id="stitchingGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style={{stopColor:"#64748b",stopOpacity:1}} />
+              <stop offset="50%" style={{stopColor:"#475569",stopOpacity:1}} />
+              <stop offset="100%" style={{stopColor:"#334155",stopOpacity:1}} />
             </linearGradient>
             
-            {/* Enhanced 3D highlight gradients */}
-            <radialGradient id="highlightGradient" cx="0.2" cy="0.1" r="0.7">
+            {/* 3D highlight gradients */}
+            <radialGradient id="highlightGradient" cx="0.3" cy="0.2" r="0.8">
               <stop offset="0%" style={{stopColor:"#ffffff",stopOpacity:0.6}} />
-              <stop offset="30%" style={{stopColor:"#ffffff",stopOpacity:0.3}} />
+              <stop offset="40%" style={{stopColor:"#ffffff",stopOpacity:0.3}} />
+              <stop offset="70%" style={{stopColor:"#ffffff",stopOpacity:0.1}} />
+              <stop offset="100%" style={{stopColor:"#ffffff",stopOpacity:0}} />
+            </radialGradient>
+            
+            {/* Secondary highlight for depth */}
+            <radialGradient id="secondaryHighlight" cx="0.7" cy="0.3" r="0.6">
+              <stop offset="0%" style={{stopColor:"#ffffff",stopOpacity:0.4}} />
               <stop offset="60%" style={{stopColor:"#ffffff",stopOpacity:0.1}} />
               <stop offset="100%" style={{stopColor:"#ffffff",stopOpacity:0}} />
             </radialGradient>
             
-            {/* Secondary 3D highlight */}
-            <radialGradient id="secondaryHighlight" cx="0.8" cy="0.3" r="0.5">
-              <stop offset="0%" style={{stopColor:"#ffffff",stopOpacity:0.4}} />
-              <stop offset="50%" style={{stopColor:"#ffffff",stopOpacity:0.2}} />
-              <stop offset="100%" style={{stopColor:"#ffffff",stopOpacity:0}} />
-            </radialGradient>
+            {/* Professional shadow filter */}
+            <filter id="walletShadow" x="-50%" y="-50%" width="200%" height="200%">
+              <feDropShadow dx="6" dy="10" stdDeviation="6" floodColor="#000000" floodOpacity="0.4"/>
+            </filter>
             
-            {/* 3D shadow filter */}
-            {/* <filter id="coinShadow" x="-50%" y="-50%" width="200%" height="200%">
-              <feDropShadow dx="12" dy="16" stdDeviation="12" floodColor="#000000" floodOpacity="0.4"/>
-            </filter> */}
-            
-            {/* Enhanced 3D emboss filter */}
+            {/* Enhanced emboss filter */}
             <filter id="embossFilter" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
-              <feSpecularLighting result="specOut" in="blur" specularConstant="3" specularExponent="25" lightingColor="white">
-                <fePointLight x="-100" y="-100" z="300"/>
+              <feGaussianBlur in="SourceAlpha" stdDeviation="1.5"/>
+              <feSpecularLighting result="specOut" in="blur" specularConstant="2.5" specularExponent="25" lightingColor="white">
+                <fePointLight x="-60" y="-60" z="250"/>
               </feSpecularLighting>
               <feComposite in="specOut" in2="SourceAlpha" operator="in" result="specOut2"/>
               <feComposite in="SourceGraphic" in2="specOut2" operator="arithmetic" k1="0" k2="1" k3="1" k4="0"/>
             </filter>
             
-            {/* 3D depth filter */}
+            {/* Depth filter for 3D effect */}
             <filter id="depthFilter" x="-50%" y="-50%" width="200%" height="200%">
               <feGaussianBlur in="SourceAlpha" stdDeviation="1"/>
               <feSpecularLighting result="depthOut" in="blur" specularConstant="1.5" specularExponent="15" lightingColor="white">
-                <fePointLight x="50" y="50" z="150"/>
+                <fePointLight x="40" y="40" z="150"/>
               </feSpecularLighting>
               <feComposite in="depthOut" in2="SourceAlpha" operator="in" result="depthOut2"/>
-              <feComposite in="SourceGraphic" in2="depthOut2" operator="arithmetic" k1="0" k2="0.5" k3="0.5" k4="0"/>
+              <feComposite in="SourceGraphic" in2="depthOut2" operator="arithmetic" k1="0" k2="0.6" k3="0.6" k4="0"/>
+            </filter>
+            
+            {/* Glow filter for money elements */}
+            <filter id="moneyGlow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+              <feMerge>
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
             </filter>
           </defs>
           
-          {/* 3D Coin Base with Enhanced Depth */}
-          <circle cx="200" cy="200" r="190" fill="url(#coinBaseGradient)" filter="url(#coinShadow)"/>
-          
-          {/* 3D Outer Rim with Depth */}
-          <circle cx="200" cy="200" r="190" fill="none" stroke="url(#rimGradient)" strokeWidth="10"/>
-          
-          {/* 3D Inner Rim for Depth */}
-          <circle cx="200" cy="200" r="180" fill="none" stroke="url(#rimGradient)" strokeWidth="3" opacity="0.6"/>
-          
-          {/* 3D Reeded Edge with Enhanced Pattern */}
-          <g transform="translate(200,200)">
-            <g id="ridge3D">
-              <rect x="188" y="-3" width="6" height="6" fill="url(#edgeGradient)" rx="1"/>
-            </g>
-            {/* 72 ridges with 3D effect */}
-            {Array.from({length: 72}, (_, i) => (
-              <use key={i} href="#ridge3D" transform={`rotate(${i * 5})`}/>
-            ))}
-          </g>
-          
-          {/* 3D Dollar Sign with Enhanced Depth */}
-          <g id="dollarSign3D" transform="translate(200,200)">
-            {/* 3D Top bar with depth */}
-            <rect x="-3" y="-75" width="6" height="18" rx="3" fill="url(#dollarSignGradient)" filter="url(#depthFilter)"/>
+          {/* Professional 3D Wallet Structure */}
+          <g transform="translate(150,140)" filter="url(#walletShadow)">
+            {/* Main wallet body with enhanced 3D */}
+            <rect x="0" y="0" width="200" height="120" rx="18" fill="url(#walletBodyGradient)" 
+                  stroke="#0f172a" strokeWidth="2.5" filter="url(#depthFilter)"/>
             
-            {/* 3D Bottom bar with depth */}
-            <rect x="-3" y="60" width="6" height="18" rx="3" fill="url(#dollarSignGradient)" filter="url(#depthFilter)"/>
+            {/* 3D bevel effect - top edge */}
+            <rect x="2" y="2" width="196" height="8" rx="16" fill="rgba(255,255,255,0.15)" opacity="0.8"/>
             
-            {/* 3D Main Dollar Sign with enhanced emboss */}
-            <text
-              x="0"
-              y="-2"
-              fontFamily="Arial Black, sans-serif"
-              fontSize="110"
-              fontWeight="bold"
-              textAnchor="middle"
-              dominantBaseline="central"
-              fill="url(#dollarSignGradient)"
-              filter="url(#embossFilter)"
-            >
-              $
-            </text>
+            {/* Money/cards peeking out with glow */}
+            <rect x="8" y="-18" width="184" height="22" rx="10" fill="url(#moneyGradient)" 
+                  stroke="#065f46" strokeWidth="1.5" filter="url(#moneyGlow)"/>
+            <rect x="12" y="-15" width="176" height="16" rx="8" fill="url(#moneyGradient)" 
+                  stroke="#065f46" strokeWidth="1" filter="url(#moneyGlow)"/>
+            
+            {/* Dollar sign on money with enhanced emboss */}
+            <text x="100" y="-4" fontFamily="Arial Black, sans-serif" fontSize="14" fontWeight="bold" 
+                  textAnchor="middle" fill="url(#dollarSignGradient)" filter="url(#embossFilter)">$</text>
+            
+            {/* Professional stitching around wallet */}
+            <rect x="6" y="6" width="188" height="108" rx="15" fill="none" stroke="url(#stitchingGradient)" 
+                  strokeWidth="1.2" strokeDasharray="4,3" opacity="0.7"/>
+            
+            {/* Wallet flap/closure with 3D effect */}
+            <rect x="155" y="8" width="45" height="104" rx="10" fill="url(#walletFlapGradient)" 
+                  stroke="#0f172a" strokeWidth="2" filter="url(#depthFilter)"/>
+            
+            {/* Flap 3D bevel */}
+            <rect x="157" y="10" width="41" height="6" rx="8" fill="rgba(255,255,255,0.1)" opacity="0.6"/>
+            
+            {/* Professional flap stitching */}
+            <line x1="162" y1="22" x2="195" y2="22" stroke="url(#stitchingGradient)" strokeWidth="1.2" strokeDasharray="3,2" opacity="0.8"/>
+            <line x1="162" y1="37" x2="195" y2="37" stroke="url(#stitchingGradient)" strokeWidth="1.2" strokeDasharray="3,2" opacity="0.8"/>
+            <line x1="162" y1="52" x2="195" y2="52" stroke="url(#stitchingGradient)" strokeWidth="1.2" strokeDasharray="3,2" opacity="0.8"/>
+            <line x1="162" y1="67" x2="195" y2="67" stroke="url(#stitchingGradient)" strokeWidth="1.2" strokeDasharray="3,2" opacity="0.8"/>
+            <line x1="162" y1="82" x2="195" y2="82" stroke="url(#stitchingGradient)" strokeWidth="1.2" strokeDasharray="3,2" opacity="0.8"/>
+            <line x1="162" y1="97" x2="195" y2="97" stroke="url(#stitchingGradient)" strokeWidth="1.2" strokeDasharray="3,2" opacity="0.8"/>
+            
+            {/* Enhanced coin with 3D effect - repositioned to avoid overlap */}
+            <circle cx="35" cy="85" r="22" fill="url(#moneyGradient)" stroke="#065f46" strokeWidth="2" filter="url(#moneyGlow)"/>
+            <circle cx="35" cy="85" r="20" fill="url(#moneyGradient)" stroke="#047857" strokeWidth="1.5"/>
+            <text x="35" y="91" fontFamily="Arial Black, sans-serif" fontSize="16" fontWeight="bold" 
+                  textAnchor="middle" fill="url(#dollarSignGradient)" filter="url(#embossFilter)">$</text>
+            
+            {/* Enhanced 3D Lighting Effects */}
+            <ellipse cx="85" cy="35" rx="45" ry="35" fill="url(#highlightGradient)" opacity="0.4" transform="rotate(-25 85 35)"/>
+            <ellipse cx="120" cy="25" rx="25" ry="20" fill="url(#secondaryHighlight)" opacity="0.3" transform="rotate(-15 120 25)"/>
+            
+            {/* Professional wallet brand/logo area - enhanced contrast */}
+            <rect x="15" y="20" width="70" height="28" rx="7" fill="rgba(255,255,255,0.18)" 
+                  stroke="rgba(255,255,255,0.35)" strokeWidth="1.5" filter="url(#embossFilter)"/>
+            <text x="50" y="38" fontFamily="Arial, sans-serif" fontSize="10" fontWeight="bold" 
+                  textAnchor="middle" fill="rgba(255,255,255,0.95)" filter="url(#embossFilter)">WALLET</text>
+            
+            {/* Professional vertical COPYM text - moved inside wallet flap */}
+            <text x="177" y="75" fontFamily="Arial, sans-serif" fontSize="11" fontWeight="bold" 
+                  textAnchor="middle" fill="rgba(255,255,255,0.95)" transform="rotate(90, 177, 75)" filter="url(#embossFilter)">COPYM</text>
+            
+            {/* Enhanced card slots with better visual hierarchy */}
+            <rect x="10" y="55" width="140" height="12" rx="4" fill="rgba(0,0,0,0.5)" 
+                  stroke="rgba(255,255,255,0.2)" strokeWidth="1" filter="url(#depthFilter)"/>
+            <rect x="10" y="72" width="140" height="12" rx="4" fill="rgba(0,0,0,0.5)" 
+                  stroke="rgba(255,255,255,0.2)" strokeWidth="1" filter="url(#depthFilter)"/>
+            <rect x="10" y="89" width="140" height="12" rx="4" fill="rgba(0,0,0,0.5)" 
+                  stroke="rgba(255,255,255,0.2)" strokeWidth="1" filter="url(#depthFilter)"/>
+            
+            {/* Refined coin accent - smaller and more subtle */}
+            <circle cx="30" cy="105" r="18" fill="url(#moneyGradient)" stroke="#065f46" strokeWidth="1.5" opacity="0.8"/>
+            <circle cx="30" cy="105" r="16" fill="url(#moneyGradient)" stroke="#047857" strokeWidth="1"/>
+            <text x="30" y="110" fontFamily="Arial Black, sans-serif" fontSize="14" fontWeight="bold" 
+                  textAnchor="middle" fill="url(#dollarSignGradient)" filter="url(#embossFilter)">$</text>
+            
+            {/* Professional edge highlights */}
+            <rect x="6" y="6" width="188" height="108" rx="15" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="1.5"/>
+            <rect x="8" y="8" width="184" height="104" rx="13" fill="none" stroke="rgba(0,0,0,0.2)" strokeWidth="0.8"/>
+            
+            {/* Subtle inner shadow for depth */}
+            <rect x="10" y="10" width="180" height="100" rx="12" fill="rgba(0,0,0,0.1)" opacity="0.3"/>
           </g>
-          
-          {/* 3D Lighting Effects */}
-          {/* Primary 3D highlight */}
-          <ellipse cx="150" cy="120" rx="60" ry="80" fill="url(#highlightGradient)" opacity="0.6" transform="rotate(-30 150 120)"/>
-          
-          {/* Secondary 3D highlight */}
-          <ellipse cx="170" cy="110" rx="30" ry="40" fill="url(#secondaryHighlight)" opacity="0.5" transform="rotate(-25 170 110)"/>
-          
-          {/* 3D Edge bevel highlight */}
-          <circle cx="200" cy="200" r="190" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="3" opacity="0.9"/>
-          
-          {/* 3D Inner bevel for depth */}
-          <circle cx="200" cy="200" r="175" fill="none" stroke="rgba(0,0,0,0.15)" strokeWidth="2" opacity="0.7"/>
-          
-          {/* 3D Center depth ring */}
-          <circle cx="200" cy="200" r="160" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="1" opacity="0.5"/>
-          
-          {/* 3D Specular highlights for metallic effect */}
-          <ellipse cx="140" cy="90" rx="20" ry="25" fill="rgba(255,255,255,0.8)" opacity="0.4" transform="rotate(-20 140 90)"/>
-          <ellipse cx="180" cy="80" rx="15" ry="20" fill="rgba(255,255,255,0.6)" opacity="0.3" transform="rotate(-15 180 80)"/>
         </svg>
 
         {/* Subtle glow effect behind coin */}
