@@ -323,7 +323,7 @@ const RealEstateInvestmentSection = () => {
                 animate={animationTriggered ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
                 transition={{
                   duration: 0.6,
-                  delay: index * 0.2, // Clockwise sequence: 0s, 0.2s, 0.4s, 0.6s
+                  delay: index * 0.1, // Clockwise sequence: 0s, 0.1s, 0.2s, 0.3s
                   type: "spring",
                   stiffness: 200,
                   damping: 20
@@ -345,7 +345,7 @@ const RealEstateInvestmentSection = () => {
                 animate={animationTriggered ? { opacity: 1, r: 4 } : { opacity: 0, r: 0 }}
                 transition={{
                   duration: 0.4,
-                  delay: 0.8 + index * 0.2, // Clockwise sequence: 0.8s, 1.0s, 1.2s, 1.4s
+                  delay: 0.4 + index * 0.1, // Clockwise sequence: 0.4s, 0.5s, 0.6s, 0.7s
                   type: "spring",
                   stiffness: 300
                 }}
@@ -364,7 +364,7 @@ const RealEstateInvestmentSection = () => {
                 animate={animationTriggered ? { opacity: 0.5 } : { opacity: 0 }}
                 transition={{
                   duration: 0.3,
-                  delay: 1.0 + index * 0.2 // Clockwise sequence: 1.0s, 1.2s, 1.4s, 1.6s
+                  delay: 0.5 + index * 0.1 // Clockwise sequence: 0.5s, 0.6s, 0.7s, 0.8s
                 }}
               />
               
@@ -384,7 +384,7 @@ const RealEstateInvestmentSection = () => {
                 animate={animationTriggered ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
                 transition={{
                   duration: 0.5,
-                  delay: 1.2 + index * 0.2, // Clockwise sequence: 1.2s, 1.4s, 1.6s, 1.8s
+                  delay: 0.6 + index * 0.1, // Clockwise sequence: 0.6s, 0.7s, 0.8s, 0.9s
                   type: "spring",
                   stiffness: 200
                 }}
@@ -402,7 +402,7 @@ const RealEstateInvestmentSection = () => {
                 animate={animationTriggered ? { opacity: 1 } : { opacity: 0 }}
                 transition={{
                   duration: 0.3,
-                  delay: 1.5 + index * 0.2 // Clockwise sequence: 1.5s, 1.7s, 1.9s, 2.1s
+                  delay: 0.7 + index * 0.1 // Clockwise sequence: 0.7s, 0.8s, 0.9s, 1.0s
                 }}
               >
                 {segment.label}
@@ -420,7 +420,7 @@ const RealEstateInvestmentSection = () => {
                 animate={animationTriggered ? { opacity: 1 } : { opacity: 0 }}
                 transition={{
                   duration: 0.3,
-                  delay: 1.7 + index * 0.2 // Clockwise sequence: 1.7s, 1.9s, 2.1s, 2.3s
+                  delay: 0.8 + index * 0.1 // Clockwise sequence: 0.8s, 0.9s, 1.0s, 1.1s
                 }}
               >
                 ({segment.percentage})
